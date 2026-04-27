@@ -1,0 +1,80 @@
+/* Design System Variables */
+
+:root {
+  /* ─── Primary ─── */
+  --color-primary:       #E50914;
+  --color-primary-hover: #F40612;
+  --color-primary-focus: #B20710;
+
+  /* ─── Background (dark navy, not pure black) ─── */
+  --color-bg-primary:   #0f1624;
+  --color-bg-secondary: #141d2e;
+  --color-bg-tertiary:  #1a2440;
+  --color-bg-elevated:  #1e2a45;
+  --color-bg-glass:     rgba(255, 255, 255, 0.10);
+
+  /* ─── Text ─── */
+  --color-text-primary:   #FFFFFF;
+  --color-text-secondary: #B8C4D8;
+  --color-text-tertiary:  #6B7FA3;
+
+  /* ─── Semantic ─── */
+  --color-success: #46D369;
+  --color-warning: #FFB800;
+  --color-error:   #E50914;
+  --color-info:    #4EA8FF;
+
+  /* ─── Glass ─── */
+  --glass-bg:     rgba(255, 255, 255, 0.11);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-blur:   blur(12px);
+  --glass-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+
+  /* ─── Typography ─── */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', sans-serif;
+
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  32px;
+  --text-3xl:  48px;
+  --text-4xl:  64px;
+
+  --font-normal:   400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --font-bold:     700;
+
+  /* ─── Spacing (8px grid) ─── */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 16px;
+  --space-4: 24px;  --space-5: 32px;  --space-6: 48px;
+  --space-7: 64px;  --space-8: 96px;  --space-9: 128px;
+
+  /* ─── Radius ─── */
+  --radius-sm: 4px;  --radius-md: 8px;  --radius-lg: 14px;
+  --radius-xl: 20px; --radius-full: 9999px;
+
+  /* ─── Focus (TV critical — every interactive element) ─── */
+  --focus-ring:      0 0 0 3px #E50914, 0 0 0 6px rgba(229, 9, 20, 0.28);
+  --focus-scale:     1.08;
+  --focus-transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+                      box-shadow 0.18s ease;
+
+  /* ─── Animations ─── */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.22s ease;
+  --transition-slow: 0.32s ease;
+
+  /* ─── Breakpoints ─── */
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1440px;
+  --breakpoint-xl: 1920px;
+  --breakpoint-2xl: 3840px;
+}

@@ -1,0 +1,87 @@
+/* SPlay TV — Global Styles */
+@import './design-system.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--color-fg-primary);
+  background-color: var(--color-bg-background);
+  min-height: 100vh;
+  overflow: hidden; /* page-level scroll is handled by .home-content */
+  /* TV: disable pointer and selection */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection in inputs */
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+  cursor: text;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Hide scrollbars globally */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Norigin uses .focused, not :focus — never rely on :focus for TV styles */
+:focus {
+  outline: none;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-16px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}

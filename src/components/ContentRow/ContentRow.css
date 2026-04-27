@@ -1,0 +1,37 @@
+/* src/components/ContentRow/ContentRow.css */
+/* Typography uses only design-system.css custom properties */
+
+.content-row-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Content starts at 200px to clear the expanded sidebar */
+  padding: 16px 60px 8px 200px;
+  position: relative;
+}
+
+/* Row title — heading-5-semibold: 24px / 30px SF Pro Display */
+.content-row__title {
+  font: var(--heading-5-semibold);
+  font-weight: 600;
+  color: var(--color-fg-primary);
+  letter-spacing: -0.2px;
+}
+
+/* Horizontal scrollable card track */
+.content-row__scroll {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: visible; /* allow scale transform to extend upward */
+  padding: 10px 4px 16px;
+  scroll-snap-type: x mandatory;
+  /* When scrollIntoView fires, leave 80px above so the row title is visible */
+  scroll-margin-top: 80px;
+  scroll-margin-bottom: 20px;
+}
+
+.content-row__scroll > * {
+  scroll-snap-align: start;
+}

@@ -1,0 +1,362 @@
+/* ============================================= */
+/* SPlay TV - Design System CSS                  */
+/* ============================================= */
+
+/* 1. Font Family (SF Pro Display) */
+@font-face {
+    font-family: 'SF Pro Display';
+    src: local('SF Pro Display'),
+        local('-apple-system'),
+        local('BlinkMacSystemFont');
+    font-display: swap;
+}
+
+:root {
+    /* ====================== */
+    /* BASE COLORS            */
+    /* ====================== */
+    --base-black: #040404;
+    --base-white: #F8F8F8;
+    --base-primary: #FF5708;
+    /* Accent Orange */
+    --base-neutral: #1B1C1C;
+    --base-success: #23BE49;
+    --base-error: #BB191A;
+    --base-warning: #E08700;
+
+    /* ====================== */
+    /* NEUTRAL PALETTE        */
+    /* ====================== */
+    --color-neutral-900: #191F2C;
+    --color-neutral-800: #222C3D;
+    --color-neutral-700: #303B53;
+    --color-neutral-600: #38455F;
+    --color-neutral-500: #445160;
+    --color-neutral-400: #5F6884;
+    --color-neutral-300: #727D94;
+    --color-neutral-200: #8F9BAE;
+    --color-neutral-100: #B2BACC;
+
+    /* ====================== */
+    /* ACCENT / PRIMARY PALETTE */
+    /* ====================== */
+    --color-primary-900: #00297A;
+    --color-primary-800: #0036A3;
+    --color-primary-700: #0044CC;
+    --color-primary-600: #004BDF;
+    --color-primary-500: #0052F5;
+    --color-primary-400: #2970FF;
+    --color-primary-300: #4785FF;
+    --color-primary-200: #70A0FF;
+    --color-primary-100: #DEEEFF;
+
+    /* ====================== */
+    /* SEMANTIC ALIAS TOKENS  */
+    /* ====================== */
+
+    /* Foreground (Text & Icons) */
+    --color-fg-primary: #F8F8F8;
+    --color-fg-secondary: #B2BACC;
+    --color-fg-hint: #727D94;
+    --color-fg-primary-variant: #FFFFFF;
+
+    /* Background */
+    --color-bg-background: #040404;
+    --color-bg-surface: #1B1C1C;
+    --color-bg-on-surface: #222C3D;
+    --color-bg-disabled: #38455F;
+
+    /* Border */
+    --color-border-primary: #5F6884;
+    --color-border-primary-variant: #727D94;
+    --color-border-secondary: #FF5708;
+    --color-border-ai: #A855F7;
+    /* Purple for AI elements if needed */
+
+    /* Accent */
+    --color-accent-primary: #FF5708;
+    --color-accent-hover: #FF7A3D;
+    --color-accent-disabled: #A13C00;
+
+    /* Neutral (for UI elements) */
+    --color-neutral-primary: #1B1C1C;
+    --color-neutral-hover: #303B53;
+    --color-neutral-disabled: #445160;
+
+    /* Success */
+    --color-success-primary: #23BE49;
+    --color-success-hover: #4AD96B;
+    --color-success-disabled: #1A7A32;
+
+    /* Error */
+    --color-error-primary: #BB191A;
+    --color-error-hover: #E03D3E;
+    --color-error-disabled: #7A1A1B;
+
+    /* Warning */
+    --color-warning-primary: #E08700;
+    --color-warning-hover: #FFAC33;
+    --color-warning-disabled: #A35F00;
+
+    /* ====================== */
+    /* TYPOGRAPHY SCALE       */
+    /* SF Pro Display         */
+    /* ====================== */
+
+    /* Title 1 */
+    --title-1-regular: 72px / 88px 'SF Pro Display', system-ui, sans-serif;
+    --title-1-medium: 72px / 88px 'SF Pro Display', system-ui, sans-serif;
+    --title-1-bold: 72px / 88px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Title 2 */
+    --title-2-regular: 64px / 76px 'SF Pro Display', system-ui, sans-serif;
+    --title-2-medium: 64px / 76px 'SF Pro Display', system-ui, sans-serif;
+    --title-2-bold: 64px / 76px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Title 3 */
+    --title-3-regular: 56px / 68px 'SF Pro Display', system-ui, sans-serif;
+    --title-3-medium: 56px / 68px 'SF Pro Display', system-ui, sans-serif;
+    --title-3-bold: 56px / 68px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Heading 1 */
+    --heading-1-medium: 56px / 68px 'SF Pro Display', system-ui, sans-serif;
+    --heading-1-semibold: 56px / 68px 'SF Pro Display', system-ui, sans-serif;
+    --heading-1-bold: 56px / 68px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Heading 2 */
+    --heading-2-medium: 48px / 58px 'SF Pro Display', system-ui, sans-serif;
+    --heading-2-semibold: 48px / 58px 'SF Pro Display', system-ui, sans-serif;
+    --heading-2-bold: 48px / 58px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Heading 3 */
+    --heading-3-medium: 40px / 48px 'SF Pro Display', system-ui, sans-serif;
+    --heading-3-semibold: 40px / 48px 'SF Pro Display', system-ui, sans-serif;
+    --heading-3-bold: 40px / 48px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Heading 4 */
+    --heading-4-medium: 32px / 38px 'SF Pro Display', system-ui, sans-serif;
+    --heading-4-semibold: 32px / 38px 'SF Pro Display', system-ui, sans-serif;
+    --heading-4-bold: 32px / 38px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Heading 5 */
+    --heading-5-medium: 24px / 30px 'SF Pro Display', system-ui, sans-serif;
+    --heading-5-semibold: 24px / 30px 'SF Pro Display', system-ui, sans-serif;
+    --heading-5-bold: 24px / 30px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Heading 6 */
+    --heading-6-medium: 20px / 24px 'SF Pro Display', system-ui, sans-serif;
+    --heading-6-semibold: 20px / 24px 'SF Pro Display', system-ui, sans-serif;
+    --heading-6-bold: 20px / 24px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Label 1 */
+    --label-1-regular: 16px / 24px 'SF Pro Display', system-ui, sans-serif;
+    --label-1-medium: 16px / 24px 'SF Pro Display', system-ui, sans-serif;
+    --label-1-semibold: 16px / 24px 'SF Pro Display', system-ui, sans-serif;
+    --label-1-bold: 16px / 24px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Label 2 */
+    --label-2-regular: 14px / 20px 'SF Pro Display', system-ui, sans-serif;
+    --label-2-medium: 14px / 20px 'SF Pro Display', system-ui, sans-serif;
+    --label-2-semibold: 14px / 20px 'SF Pro Display', system-ui, sans-serif;
+    --label-2-bold: 14px / 20px 'SF Pro Display', system-ui, sans-serif;
+
+    /* Label 3 */
+    --label-3-regular: 12px / 16px 'SF Pro Display', system-ui, sans-serif;
+    --label-3-medium: 12px / 16px 'SF Pro Display', system-ui, sans-serif;
+    --label-3-semibold: 12px / 16px 'SF Pro Display', system-ui, sans-serif;
+    --label-3-bold: 12px / 16px 'SF Pro Display', system-ui, sans-serif;
+}
+
+/* ====================== */
+/* GLOBAL RESET & BODY    */
+/* ====================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--color-bg-background);
+    color: var(--color-fg-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ====================== */
+/* TYPOGRAPHY CLASSES     */
+/* ====================== */
+
+/* Titles */
+.title-1 {
+    font: var(--title-1-bold);
+}
+
+.title-1-medium {
+    font: var(--title-1-medium);
+}
+
+.title-1-regular {
+    font: var(--title-1-regular);
+}
+
+.title-2 {
+    font: var(--title-2-bold);
+}
+
+.title-2-medium {
+    font: var(--title-2-medium);
+}
+
+.title-3 {
+    font: var(--title-3-bold);
+}
+
+/* Headings */
+.heading-1 {
+    font: var(--heading-1-semibold);
+}
+
+.heading-2 {
+    font: var(--heading-2-semibold);
+}
+
+.heading-3 {
+    font: var(--heading-3-semibold);
+}
+
+.heading-4 {
+    font: var(--heading-4-semibold);
+}
+
+.heading-5 {
+    font: var(--heading-5-semibold);
+}
+
+.heading-6 {
+    font: var(--heading-6-semibold);
+}
+
+/* Labels */
+.label-1 {
+    font: var(--label-1-medium);
+}
+
+.label-1-bold {
+    font: var(--label-1-bold);
+}
+
+.label-2 {
+    font: var(--label-2-medium);
+}
+
+.label-3 {
+    font: var(--label-3-medium);
+}
+
+/* ====================== */
+/* COLOR UTILITIES        */
+/* ====================== */
+
+.bg-background {
+    background-color: var(--color-bg-background);
+}
+
+.bg-surface {
+    background-color: var(--color-bg-surface);
+}
+
+.bg-on-surface {
+    background-color: var(--color-bg-on-surface);
+}
+
+.text-fg-primary {
+    color: var(--color-fg-primary);
+}
+
+.text-fg-secondary {
+    color: var(--color-fg-secondary);
+}
+
+.text-fg-hint {
+    color: var(--color-fg-hint);
+}
+
+.text-accent {
+    color: var(--color-accent-primary);
+}
+
+.text-success {
+    color: var(--color-success-primary);
+}
+
+.text-error {
+    color: var(--color-error-primary);
+}
+
+.text-warning {
+    color: var(--color-warning-primary);
+}
+
+.border-primary {
+    border-color: var(--color-border-primary);
+}
+
+.border-accent {
+    border-color: var(--color-accent-primary);
+}
+
+/* Focus state for TV (very important) */
+.focusable:focus,
+.focusable:focus-visible,
+.card:focus,
+.nav-item:focus {
+    outline: none;
+    box-shadow: 0 0 0 6px rgba(255, 87, 8, 0.6);
+    transform: scale(1.04);
+    z-index: 10;
+    transition: all 0.15s ease;
+}
+
+/* Card hover/focus for content posters */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:focus,
+.card:hover {
+    transform: scale(1.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: var(--color-accent-primary);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font: var(--label-1-bold);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--color-accent-hover);
+}
+
+/* Sidebar active state */
+.nav-item.active,
+.nav-item:focus {
+    color: var(--color-accent-primary);
+    background-color: rgba(255, 87, 8, 0.15);
+}
+
+/* Modal example */
+.modal {
+    background-color: var(--color-bg-surface);
+    border: 2px solid var(--color-border-primary);
+    border-radius: 12px;
+}

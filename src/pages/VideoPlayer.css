@@ -1,0 +1,493 @@
+/* VideoPlayer.css — full-screen TV video player */
+
+/* ── Root ──────────────────────────────────────────────────── */
+.vp {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  overflow: hidden;
+  z-index: 100;
+  font-family: var(--font-family);
+}
+
+.vp__video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  cursor: none; /* TV — no cursor */
+}
+
+/* ── Gradient scrims ──────────────────────────────────────── */
+.vp__scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+.vp__scrim.is-visible { opacity: 1; }
+
+.vp__scrim--top {
+  top: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.80) 0%, transparent 100%);
+}
+
+.vp__scrim--bottom {
+  bottom: 0;
+  height: 320px;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%);
+}
+
+/* ── Top bar ─────────────────────────────────────────────── */
+.vp__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 32px 52px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+.vp__top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.vp__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background var(--transition-fast),
+    box-shadow  var(--transition-fast),
+    transform   var(--transition-fast);
+}
+.vp__back.is-focused {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 2.5px #fff, 0 0 0 6px rgba(255, 255, 255, 0.20);
+  transform: scale(1.06);
+}
+
+.vp__title {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 600px;
+}
+
+/* ── Controls wrapper ────────────────────────────────────── */
+.vp__controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 52px 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+.vp__controls.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ── Scrubber / progress bar ─────────────────────────────── */
+.vp__progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: padding 0.2s ease;
+  outline: none;
+}
+
+/* Focus ring around the entire scrubber row */
+.vp__progress.is-focused {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 12px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.vp__time {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  font-variant-numeric: tabular-nums;
+  min-width: 38px;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+.vp__time--right { text-align: right; }
+
+.vp__progress.is-focused .vp__time { color: rgba(255, 255, 255, 0.90); }
+
+.vp__track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.20);
+  border-radius: 2px;
+  position: relative;
+  transition: height 0.2s ease, background 0.2s ease;
+}
+
+/* Track grows taller when focused */
+.vp__progress.is-focused .vp__track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.vp__fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transition: width 0.3s linear;
+}
+
+.vp__progress.is-focused .vp__fill {
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.55);
+}
+
+.vp__thumb {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.50);
+  transform: translate(-50%, -50%);
+  transition:
+    left   0.3s linear,
+    width  0.2s ease,
+    height 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Thumb becomes red and larger when focused */
+.vp__progress.is-focused .vp__thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--color-primary);
+  box-shadow:
+    0 0 0 3px rgba(229, 9, 20, 0.28),
+    0 2px 8px rgba(0,0,0,0.50);
+}
+
+/* "← → seek 5s" hint that fades in when scrubber is focused */
+.vp__scrub-hint {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: vp-hint-in 0.22s ease both;
+}
+
+@keyframes vp-hint-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Bottom bar (centred pill) ───────────────────────────── */
+.vp__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 30px;
+  border-radius: 60px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.40);
+  align-self: center;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.vp__btn {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background 0.18s ease,
+    box-shadow  0.18s ease,
+    transform   0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.18s ease;
+}
+
+.vp__btn svg {
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+.vp__btn--big {
+  width: 70px;
+  height: 70px;
+}
+.vp__btn--big svg { width: 32px; height: 32px; }
+
+.vp__btn--small {
+  width: 44px;
+  height: 44px;
+}
+.vp__btn--small svg { width: 18px; height: 18px; }
+
+/* Focus ring — white ring on dark player background */
+.vp__btn.is-focused {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 2.5px #fff, 0 0 0 6px rgba(255, 255, 255, 0.18);
+  transform: scale(1.14);
+}
+
+/* Seek label below button */
+.vp__btn-label {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.vp__divider {
+  width: 1px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.18);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ── Volume popup (cosmetic — shows level when button is focused) */
+.vp__vol-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vp__vol-popup {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(16, 20, 32, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+  pointer-events: none;
+  white-space: nowrap;
+  animation: vp-popup-in 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  z-index: 20;
+}
+
+@keyframes vp-popup-in {
+  from { opacity: 0; transform: translateX(-50%) scale(0.82); }
+  to   { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+.vp__vol-track {
+  width: 6px;
+  height: 76px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 3px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.vp__vol-fill {
+  width: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: height 0.18s ease;
+}
+
+.vp__vol-pct {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Settings modal ──────────────────────────────────────── */
+.vp__settings-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 30;
+  animation: vp-fade-in 0.22s ease both;
+}
+
+@keyframes vp-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.vp__settings-panel {
+  background: rgba(16, 20, 34, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 36px 40px;
+  min-width: 320px;
+  color: #fff;
+  box-shadow: 0 28px 72px rgba(0,0,0,0.60);
+  animation: vp-panel-in 0.24s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes vp-panel-in {
+  from { opacity: 0; transform: scale(0.88) translateY(14px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.vp__settings-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 28px;
+}
+
+.vp__settings-section { margin-bottom: 20px; }
+
+.vp__settings-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin: 0 0 10px;
+}
+
+.vp__settings-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vp__settings-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+  border: 1.5px solid transparent;
+}
+.vp__settings-opt.is-active  { color: #fff; font-weight: 600; }
+.vp__settings-opt.is-focused {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.30);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.vp__settings-check {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 13px;
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.vp__settings-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 12px;
+  transition:
+    background 0.18s ease,
+    box-shadow  0.18s ease,
+    transform   0.18s ease;
+}
+.vp__settings-close.is-focused {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.50);
+  box-shadow: 0 0 0 2.5px #fff, 0 0 0 6px rgba(255, 255, 255, 0.14);
+  transform: scale(1.03);
+}
+
+/* ── Navbar hiding utility ───────────────────────────────── */
+/* Applied to .app-container while the player is mounted */
+.app-container.hide-navbar .side-menu   { display: none !important; }
+.app-container.hide-navbar .main-content {
+  margin-left: 0   !important;
+  padding-left: 0  !important;
+  width: 100%      !important;
+  max-width: 100%  !important;
+}

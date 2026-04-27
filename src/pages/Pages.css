@@ -1,0 +1,187 @@
+/* Pages Common Styles */
+.page-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Scroll container used by ContentPage — same pattern as .home-page */
+.content-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.10) transparent;
+}
+.content-page::-webkit-scrollbar { width: 4px; }
+.content-page::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 2px;
+}
+
+/* Hero section between title and rows (stat cards, badges, etc.) */
+.page-hero-section {
+  padding: 0 60px 32px;
+}
+
+/* Shared stats row used by Movies + Series pages */
+.stats-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.page-header {
+  padding: 40px 60px 30px 60px;
+  background: linear-gradient(180deg, rgba(15, 22, 36, 0.97) 0%, rgba(15, 22, 36, 0) 100%);
+}
+
+.page-title {
+  color: white;
+  font-size: 42px;
+  font-weight: 800;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+
+.page-subtitle {
+  color: #a0a0a0;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+.page-content {
+  padding: 0 60px 60px 60px;
+}
+
+/* Stats Cards */
+.movies-hero,
+.series-hero,
+.popular-hero,
+.mylist-hero {
+  margin-bottom: 40px;
+}
+
+.movies-stats,
+.series-stats {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 140px;
+}
+
+.stat-number {
+  color: #e50914;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: #b0b0b0;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Trending Badge */
+.trending-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  border-radius: 50px;
+  padding: 16px 32px;
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+}
+
+.badge-icon {
+  font-size: 28px;
+}
+
+.badge-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* My List Stats */
+.list-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.list-count {
+  background: linear-gradient(135deg, rgba(70, 211, 105, 0.2) 0%, rgba(70, 211, 105, 0.05) 100%);
+  border: 1px solid rgba(70, 211, 105, 0.3);
+  border-radius: 50px;
+  padding: 12px 24px;
+  color: #46d369;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Empty List State */
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.empty-icon {
+  width: 80px;
+  height: 80px;
+  border: 3px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 24px;
+}
+
+.empty-list h2 {
+  color: white;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.empty-list p {
+  color: #808080;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Rows Container */
+.rows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 60px;
+}

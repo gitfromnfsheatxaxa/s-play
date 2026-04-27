@@ -1,0 +1,85 @@
+/* Button Component Styles */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-semibold);
+  transition: var(--focus-transition), background-color 0.2s ease;
+  white-space: nowrap;
+  outline: none;
+  cursor: pointer;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Primary Button */
+.button-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+/* .focused set by Norigin; :focus-visible as browser fallback */
+.button-primary:focus-visible,
+.button-primary.focused {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--focus-ring), 0 8px 30px rgba(229, 9, 20, 0.5);
+  transform: scale(1.03);
+  outline: none;
+}
+
+/* Secondary Button */
+.button-secondary {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-primary);
+  backdrop-filter: blur(10px);
+}
+
+.button-secondary:focus-visible,
+.button-secondary.focused {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: var(--focus-ring);
+  transform: scale(1.03);
+  outline: none;
+}
+
+/* Button Sizes */
+.button-small {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  min-height: 40px;
+}
+
+.button-medium {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-base);
+  min-height: 48px;
+}
+
+.button-large {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-lg);
+  min-height: 56px;
+}
+
+/* Icon spacing */
+.button-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.button-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.button-large .button-icon svg {
+  width: 24px;
+  height: 24px;
+}

@@ -1,0 +1,152 @@
+/* src/components/TopTenRow/TopTenRow.css */
+
+.top10-row-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 60px 8px 200px;
+  position: relative;
+}
+
+/* Horizontal scroll track */
+.top10-row__scroll {
+  display: flex;
+  flex-direction: row;
+  gap: 0;             /* items manage their own spacing via width/overlap */
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 16px 4px 20px;
+  scroll-margin-top: 80px;
+  scroll-margin-bottom: 20px;
+}
+
+/* ─── Each Top 10 item ─────────────────────────────────────────────────────── */
+/* Netflix-style: large rank number on left, portrait poster on right overlapping it */
+.top10-item {
+  position: relative;
+  flex-shrink: 0;
+  width: 210px;       /* number ~80px visible + poster 150px, ~20px overlap */
+  height: 220px;
+  margin-right: 8px;
+}
+
+/* ─── Rank number ─── */
+.top10-number {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 130px;
+  width: auto;
+  z-index: 1;
+  /* Stroke effect: the SVG already has a gradient fill + black mask outline */
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Fallback text for ranks 5+ */
+.top10-number--text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-family: 'SF Pro Display', system-ui, sans-serif;
+  font-size: 110px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -6px;
+  background: linear-gradient(135deg, #FAFF00 0%, #FF1000 33%, #FF6A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─── Portrait poster ─── */
+.top10-poster {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 150px;
+  height: 220px;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 2;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transform-origin: center bottom;
+}
+
+.top10-poster--focused {
+  transform: scale(1.06);
+  box-shadow:
+    0 0 0 3px var(--color-accent-primary),
+    0 0 0 5px rgba(255, 87, 8, 0.35),
+    0 16px 40px rgba(0, 0, 0, 0.75);
+}
+
+/* Poster background image */
+.top10-poster__img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Bottom overlay inside poster */
+.top10-poster__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 36px 10px 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.top10-poster__title {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* ─── Rating badges inside poster ─── */
+.top10-poster__ratings {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.top10-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+}
+
+.top10-rating__icon {
+  width: 22px;
+  height: 11px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.top10-rating__icon--kp {
+  width: 12px;
+  height: 12px;
+}

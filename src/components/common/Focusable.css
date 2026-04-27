@@ -1,0 +1,50 @@
+/* Focusable Component Styles */
+
+/**
+ * Focusable - TV Focus Design System
+ * 
+ * TV-Specific Focus States:
+ * - 6px red ring outline (using box-shadow)
+ * - scale(1.05) transform
+ * - Smooth transitions for natural feel
+ */
+
+.focusable {
+  position: relative;
+  transition: 
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.15s ease;
+  transform-origin: center center;
+}
+
+/**
+ * Default focus state — Norigin sets .focused class
+ * 
+ * TV-Specific Design:
+ * - 6px red ring: 0 0 0 6px rgba(229, 9, 20, 0.8)
+ * - Scale: 1.05
+ * - Enhanced shadow for depth
+ */
+.focusable:focus,
+.focusable.focused {
+  transform: scale(1.05);
+  /* 6px red ring + enhanced depth shadow */
+  box-shadow: 
+    0 0 0 6px rgba(229, 9, 20, 0.8),
+    0 8px 24px rgba(229, 9, 20, 0.4);
+  outline: none;
+  z-index: 10;
+}
+
+/* Disabled state */
+.focusable-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.focusable-disabled:focus,
+.focusable-disabled.focused {
+  transform: none;
+  box-shadow: none;
+}

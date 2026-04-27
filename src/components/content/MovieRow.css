@@ -1,0 +1,120 @@
+/* ═══════════════════════════════════════════
+   MovieRow — Horizontal Catalog Row
+   Padding strategy: row-header and row-cards
+   both use the same left offset (60px) so
+   titles align exactly with card edges.
+   ═══════════════════════════════════════════ */
+
+.content-row {
+  position: relative;
+  max-width: 1980px;
+  /* Vertical space between rows is controlled by rows-container gap */
+}
+
+/* ── Row header ── */
+.row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Match the card-start padding in .row-cards */
+  padding: 0 60px;
+  margin-bottom: 14px;
+}
+
+.row-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #484848;
+  margin: 0;
+  transition: color 0.25s ease;
+}
+
+/* Title lights up when row is focused */
+.content-row.focused .row-title {
+  color: #c8c8c8;
+}
+
+/* ── Nav buttons ── */
+.row-nav {
+  display: flex;
+  gap: 8px;
+  /* Hidden until row is focused */
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.content-row.focused .row-nav {
+  opacity: 1;
+}
+
+.row-nav-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #a0a0a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  outline: none;
+}
+
+.row-nav-btn:hover,
+.row-nav-btn:focus-visible {
+  background: #E50914;
+  border-color: #E50914;
+  color: #fff;
+  outline: none;
+}
+
+/* ── Scrollable track ── */
+.row-track {
+  overflow-x: auto;
+  overflow-y: visible;      /* lets scaled cards + shadow bleed out vertically */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Vertical padding = room for scale(1.08) + 7px ring without vertical clip */
+  padding: 24px 0;
+  /* Negative margin cancels padding so rows don't gap weirdly */
+  margin: -24px 0;
+}
+
+.row-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Card strip ── */
+.row-cards {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  /* Left padding aligns first card with row-title.
+     Right padding = same so last card isn't flush against viewport. */
+  padding: 0 60px;
+}
+
+/* ── Edge fades (mask that hides cards scrolling under padding) ── */
+.edge-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+
+/* Edge fades reveal when row is active */
+.content-row.focused .edge-fade {
+  opacity: 1;
+}

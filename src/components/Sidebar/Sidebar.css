@@ -1,0 +1,220 @@
+/* src/components/Sidebar/Sidebar.css */
+
+/* ─── Sidebar shell ─────────────────────────────────────────────────────────── */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* Collapsed state: width 130px */
+  width: 130px;
+  height: 100vh;
+  z-index: 1000 !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 32px;
+  /* Gradient background that fades to transparent on the right */
+  background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.76987) 46%, rgba(1, 6, 20, 0) 100%);
+  transition: width 0.25s ease;
+}
+
+/* ─── Expanded state ────────────────────────────────────────────────────────── */
+.sidebar--expanded {
+  width: 100vw;
+  align-items: flex-start;
+}
+
+/* ─── Logo ──────────────────────────────────────────────────────────────────── */
+.sidebar-logo {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar--expanded .sidebar-logo {
+  justify-content: flex-start;
+  padding-left: 18px;
+}
+
+.sidebar-logo-img--collapsed {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.sidebar-logo-img--expanded {
+  height: 32px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+/* ─── Buttons container (top nav + profile) ─────────────────────────────────── */
+.sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  width: 100%;
+  align-items: center;
+}
+
+.sidebar--expanded .sidebar-buttons {
+  align-items: flex-start;
+}
+
+/* ─── Settings container (bottom nav) ───────────────────────────────────────── */
+.sidebar-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.sidebar--expanded .sidebar-settings {
+  align-items: flex-start;
+}
+
+/* ─── Nav item ──────────────────────────────────────────────────────────────── */
+.nav-item {
+  position: relative;
+  width: 200px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  gap: 14px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.sidebar--expanded .nav-item {
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.nav-item--avatar {
+  height: 52px;
+}
+
+/* ─── Orange left indicator ─────────────────────────────────────────────────── */
+.nav-item__indicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 22px;
+  border-radius: 0 3px 3px 0;
+  background-color: var(--color-accent-primary);
+}
+
+/* ─── Icon ──────────────────────────────────────────────────────────────────── */
+.nav-item__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item__icon--avatar {
+  width: 32px;
+  height: 32px;
+}
+
+.nav-item__icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.4;
+  transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+/* ─── Label ─────────────────────────────────────────────────────────────────── */
+.nav-item__label {
+  font-family: 'SF Pro Display', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-fg-secondary);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+.sidebar--expanded .nav-item__label {
+  opacity: 0.55;
+  position: static;
+  visibility: visible;
+}
+
+/* ─── Avatar image ──────────────────────────────────────────────────────────── */
+.sidebar-avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+}
+
+/* ─── ACTIVE state ──────────────────────────────────────────────────────────── */
+.nav-item--active .nav-item__icon-img {
+  filter: brightness(0) invert(1);
+  opacity: 1;
+}
+
+.nav-item--active .nav-item__label {
+  color: var(--color-fg-primary);
+  opacity: 1;
+  font-weight: 600;
+}
+
+.nav-item--active .sidebar-avatar-img {
+  opacity: 1;
+}
+
+/* ─── FOCUSED state ─────────────────────────────────────────────────────────── */
+.nav-item--focused,
+.nav-item:focus {
+  outline: none;
+}
+
+/* Icon brightens on focus (collapsed and expanded) */
+.nav-item--focused .nav-item__icon-img {
+  opacity: 1;
+  filter: brightness(0) invert(1);
+}
+
+.nav-item--focused .sidebar-avatar-img {
+  opacity: 1;
+}
+
+/* Subtle orange tint background in expanded state */
+.sidebar--expanded .nav-item--focused {
+  background: rgba(255, 87, 8, 0.12);
+  border-radius: 8px;
+}
+
+/* Label brightens on focus when expanded */
+.sidebar--expanded .nav-item--focused .nav-item__label {
+  opacity: 0.85;
+  color: var(--color-fg-primary);
+}

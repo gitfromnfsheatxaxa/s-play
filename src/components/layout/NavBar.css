@@ -1,0 +1,143 @@
+/* NavBar Component Styles */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 100;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--space-6);
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.logo-text {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  letter-spacing: 2px;
+}
+
+.navbar-logo:focus {
+  box-shadow: var(--focus-ring);
+}
+
+/* Navigation Items */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.navbar-item-label {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.navbar-item:focus .navbar-item-label,
+.navbar-item:hover .navbar-item-label {
+  color: var(--color-text-primary);
+}
+
+.navbar-item:focus {
+  box-shadow: var(--focus-ring);
+}
+
+/* Active/Current Page Indicator */
+.navbar-item.active .navbar-item-label {
+  color: var(--color-text-primary);
+  font-weight: var(--font-semibold);
+}
+
+.navbar-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+/* Actions */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.navbar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+  transition: var(--transition-fast);
+}
+
+.navbar-icon:focus {
+  box-shadow: var(--focus-ring);
+}
+
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+}
+
+.navbar-profile:focus .profile-avatar {
+  box-shadow: var(--focus-ring);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-item-label {
+    font-size: var(--text-sm);
+  }
+
+  .logo-text {
+    font-size: var(--text-lg);
+  }
+}

@@ -1,0 +1,368 @@
+/* ═══════════════════════════════════════════
+   FeaturedHero — Fixed glass container
+   position: fixed so it stays at the top and
+   updates dynamically as card focus moves.
+   Aligns with card rows via left/right inset.
+   ═══════════════════════════════════════════ */
+
+.featured-hero {
+  /* Fixed — stays anchored at top, content updates via CatalogContext */
+  position: fixed;
+  top: 0;
+  left: 5rem;    /* 60px side-menu + 16px breathing room */
+  right: 0;
+  z-index: 100;
+  min-width: 1240px;
+  max-width:1960px;
+  height: 44vh;
+  min-height: 440px;
+  max-height: 500px;
+
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+
+  /* ── Glass container — same language as .card-poster ── */
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.38),
+    inset 0  1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Top shimmer line — matches .card-poster::before */
+.featured-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.60) 50%,
+    transparent 100%
+  );
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Left shimmer line — matches .card-poster::after */
+.featured-hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px; height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.18) 100%
+  );
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ── Background image fills the glass container ── */
+.featured-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-bg-secondary); /* fallback if no image */
+  border-radius: 0 0 20px;
+  overflow: hidden;
+}
+
+/* ── Skeleton shimmer — shown while image is loading or absent ── */
+.featured-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Base: slightly lighter than the navy bg */
+  background-color: rgba(255, 255, 255, 0.04);
+  /* Sweeping shimmer stripe */
+  background-image: linear-gradient(
+    110deg,
+    transparent          0%,
+    transparent          35%,
+    rgba(255,255,255,0.07) 50%,
+    transparent          65%,
+    transparent          100%
+  );
+  background-size: 250% 100%;
+  animation: skeleton-sweep 2s ease-in-out infinite;
+  border-radius: 20px;
+}
+
+@keyframes skeleton-sweep {
+  0%   { background-position:  200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Subtle colour pulse on top of the sweep */
+.featured-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: radial-gradient(
+    ellipse 60% 60% at 30% 60%,
+    rgba(79, 140, 255, 0.06) 0%,
+    transparent 70%
+  );
+  animation: skeleton-pulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton-pulse {
+  0%   { opacity: 0.4; }
+  100% { opacity: 1;   }
+}
+
+/* ── Background image — fades in once loaded ── */
+.featured-background-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  /* Start invisible; .loaded class fades it in */
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.featured-background-image.loaded {
+  opacity: 0.68;
+}
+
+@media (min-width: 1600px) {
+  .featured-background-image.loaded {
+    object-position: center 15%;
+    opacity: 0.72;
+  }
+}
+
+/* ── Gradient overlays inside the container ── */
+.featured-gradient-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(180deg,
+    rgba(15, 22, 36, 0.70) 0%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.featured-gradient-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 220px;
+  background: linear-gradient(0deg,
+    rgba(15, 22, 36, 0.92) 0%,
+    rgba(15, 22, 36, 0.55) 45%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.featured-gradient-left {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 58%;
+  background: linear-gradient(90deg,
+    rgba(15, 22, 36, 0.85) 0%,
+    rgba(15, 22, 36, 0.40) 55%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.featured-gradient-right {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 14%;
+  background: linear-gradient(-90deg,
+    rgba(15, 22, 36, 0.25) 0%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+/* ── Content ── */
+.featured-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 40px 28px 36px;
+  max-width: 520px;
+}
+
+/* Badge */
+.featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #E50914;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+
+/* Title */
+.featured-title {
+  font-size: 38px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.8px;
+  line-height: 1.06;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Meta */
+.featured-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.featured-meta-dot {
+  width: 3px; height: 3px;
+  background: rgba(255,255,255,0.30);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.featured-rating { color: #46d369; font-size: 12px; font-weight: 700; }
+.featured-year   { color: rgba(255,255,255,0.52); font-size: 12px; }
+.featured-genres { color: rgba(255,255,255,0.38); font-size: 11px; }
+
+/* Description */
+.featured-description {
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.68);
+  margin: 0 0 18px 0;
+  max-width: 400px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Action buttons ── */
+.featured-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.featured-actions .button {
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 9px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+/* Play — white fill, dark text */
+.featured-actions .button-primary {
+  background: #ffffff;
+  color: #0a0f1e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.30);
+  border: none;
+}
+
+.featured-actions .button-primary:hover {
+  background: #ebebeb;
+}
+
+.featured-actions .button-primary.focused,
+.featured-actions .button-primary:focus-visible {
+  background: #ffffff;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 5px rgba(255, 255, 255, 0.35),
+    0 6px 24px rgba(0, 0, 0, 0.35);
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* More Info — glass pill */
+.featured-actions .button-secondary {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.featured-actions .button-secondary:hover {
+  background: rgba(255, 255, 255, 0.20);
+}
+
+.featured-actions .button-secondary.focused,
+.featured-actions .button-secondary:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.52);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.48),
+    0 6px 20px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  transform: scale(1.05);
+  outline: none;
+}
+
+.featured-actions .button-content {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* ── Now-viewing pill ── */
+.featured-dynamic-indicator {
+  position: absolute;
+  top: 12px; right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 4px 11px;
+  border-radius: 20px;
+  z-index: 5;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.indicator-dot {
+  width: 6px; height: 6px;
+  background: #e50914;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.82); }
+}

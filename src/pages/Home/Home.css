@@ -1,0 +1,25 @@
+/* src/pages/Home/Home.css */
+
+.home-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-bg-background);
+  /* overflow: hidden; */
+}
+
+/* Content scrolls normally */
+.home-content {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.home-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 0 80px ;
+  background-color: var(--color-bg-background);
+}

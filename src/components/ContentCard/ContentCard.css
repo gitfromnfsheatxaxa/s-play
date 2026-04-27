@@ -1,0 +1,118 @@
+/* src/components/ContentCard/ContentCard.css */
+
+.content-card {
+  flex-shrink: 0;
+  width: 220px;
+  height: 148px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transform-origin: center center;
+}
+
+/* Focused state */
+.content-card--focused,
+.content-card:focus {
+  transform: scale(1.06);
+  box-shadow:
+    0 0 0 3px var(--color-accent-primary),
+    0 0 0 5px rgba(255, 87, 8, 0.35),
+    0 16px 40px rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  outline: none;
+}
+
+/* ─── Poster ─── */
+.card__poster {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ─── Badge ─── */
+.card__badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 3px 8px;
+  font: var(--label-3-bold);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__badge--primary {
+  background-color: var(--color-accent-primary);
+  color: var(--color-fg-primary-variant);
+}
+
+.card__badge--warning {
+  background-color: var(--color-warning-primary);
+  color: var(--color-fg-primary-variant);
+}
+
+/* ─── Bottom overlay ─── */
+.card__overlay {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 28px 10px 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+}
+
+/* Card title */
+.card__title {
+  font: var(--label-3-medium);
+  font-weight: 600;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.95);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Rating badges ─── */
+.card__ratings {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.card__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+}
+
+.card__rating-icon {
+  width: 22px;
+  height: 11px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.card__rating--kp .card__rating-icon {
+  width: 12px;
+  height: 12px;
+}

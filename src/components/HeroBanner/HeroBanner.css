@@ -1,0 +1,269 @@
+/* src/components/HeroBanner/HeroBanner.css */
+/* Typography uses only design-system.css custom properties */
+
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 62vh;
+  min-height: 480px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: url('../../assets/background/bg.png') no-repeat left center/ cover;
+  transition: opacity 0.22s ease;
+}
+
+/* Cross-fade: fades out during content swap, then fades back in */
+.hero--fading {
+  opacity: 0;
+}
+
+
+/* Actual movie image — bottom-most layer */
+.hero__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 0;
+}
+
+/* Dynamic tinted gradient on top of backdrop — dims/colors the image */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Procedural star field */
+.hero__stars {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image:
+    radial-gradient(1px 1px at  8%  12%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 22%  35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45%   8%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60%  25%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75%  15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 88%  40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15%  60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35%  75%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55%  55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 92%  70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 30%  20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 70%  10%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50%  90%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at  5%  85%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80%  80%, rgba(255,255,255,0.5) 0%, transparent 100%);
+}
+
+/* Gradient overlays:
+   - Left: dark solid → transparent (sidebar readability)
+   - Bottom: dark → transparent (text readability)    */
+.hero__overlay {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background:
+    linear-gradient(
+      to right,
+      rgba(4, 4, 4, 0.96) 0%,
+      rgba(4, 4, 4, 0.944) 25%,
+      rgba(4, 4, 4, 0.65) 52%,
+      transparent 62%
+    ),
+    linear-gradient(
+      to top,
+      rgba(4, 4, 4, 0.92) 0%,
+      rgba(4, 4, 4, 0.5)  25%,
+      transparent         60%
+    );
+    
+}
+
+/* ─── Content layout ─── */
+.hero__content {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  /* Content starts at 220px — clears the expanded sidebar (200px) by 20px */
+  padding: 0 80px 52px 220px;
+  gap: 40px;
+}
+
+/* ─── Left column: text info ─── */
+.hero__info {
+  flex: 0 0 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Metadata row — label-2 from design-system */
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hero__meta-item {
+  /* --label-2-medium: 14px / 20px 'SF Pro Display' */
+  font: var(--label-2-medium);
+  color: var(--color-fg-secondary);
+  letter-spacing: 0.3px;
+}
+
+.hero__meta-dot {
+  /* --label-3-medium: 12px / 16px */
+  font: var(--label-3-medium);
+  color: var(--color-fg-hint);
+}
+
+.hero__meta-platform {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  /* --label-2-medium: 14px / 20px */
+  font: var(--label-2-medium);
+  font-weight: 600;
+  color: var(--color-fg-secondary);
+  margin-left: 4px;
+}
+
+.hero__meta-play-icon {
+  /* --label-3-medium: 12px / 16px */
+  font: var(--label-3-medium);
+  color: var(--color-accent-primary);
+}
+
+/* Title — heading-3 from design-system (40px / 48px) */
+.hero__title {
+  font: var(--heading-3-bold);
+  font-weight: 700;
+  color: var(--color-fg-primary);
+  letter-spacing: -0.5px;
+}
+
+/* Description — label-2-regular from design-system (14px / 20px) */
+.hero__description {
+  font: var(--label-2-regular);
+  color: var(--color-fg-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 380px;
+}
+
+/* Actions row */
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+/* ─── Play button ─── */
+.hero-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background-color: var(--color-accent-primary);
+  color: var(--color-fg-primary-variant);
+  border: none;
+  border-radius: 8px;
+  /* label-1-bold: 16px / 24px */
+  font: var(--label-1-bold);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hero-play-btn__icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-play-btn__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Focused state (.hero-play-btn--focused is set by Norigin via useFocusable) */
+.hero-play-btn--focused,
+.hero-play-btn:focus {
+  background-color: var(--color-accent-hover);
+  transform: scale(1.05);
+  box-shadow: 0 0 0 5px rgba(255, 87, 8, 0.5), 0 8px 24px rgba(255, 87, 8, 0.35);
+  outline: none;
+}
+
+/* ─── Right column: movie visual ─── */
+.hero__visual {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-bottom: 8px;
+  gap: 12px;
+}
+
+/* MARVEL badge */
+.hero__marvel-badge {
+  background-color: #EC1D24;
+  color: var(--color-fg-primary-variant);
+  /* label-3-bold: 12px / 16px */
+  font: var(--label-3-bold);
+  font-weight: 900;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+
+/* Stylised movie title logo */
+.hero__movie-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero__movie-logo-title {
+  /* title-2: 64px / 76px SF Pro Display */
+  font: var(--title-2-bold);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+  background: linear-gradient(
+    135deg,
+    #FFB347 0%,
+    #FF8C00 30%,
+    #FF6B00 60%,
+    #D4500A 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 24px rgba(255, 140, 0, 0.4));
+}
+
+.hero__movie-logo-subtitle {
+  /* heading-6-semibold: 20px / 24px */
+  font: var(--heading-6-semibold);
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--color-fg-primary);
+  opacity: 0.9;
+  text-transform: uppercase;
+}
