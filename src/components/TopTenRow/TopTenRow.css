@@ -45,7 +45,7 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 65%;   /* proportional to item height at any screen size */
+  height: 80%;   /* proportional to item height at any screen size */
   width: auto;
   z-index: 1;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));

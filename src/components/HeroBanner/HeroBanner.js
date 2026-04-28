@@ -92,7 +92,7 @@ function HeroBanner({ movie, onFocus }) {
               {m.ageRating && <span className="hero__meta-chip">{m.ageRating}</span>}
               {m.language && <span className="hero__meta-chip">{m.language}</span>}
               {m.platform && (
-                <span className="hero__meta-chip small_one ">
+                <span className="hero__meta-chip ">
                   <span className="hero__meta-play-icon">▶</span>
                   {m.platform}
                 </span>
