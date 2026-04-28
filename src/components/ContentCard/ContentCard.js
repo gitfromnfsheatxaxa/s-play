@@ -30,15 +30,21 @@ function ContentCard({ item, index, totalItems, onFocus, onCardFocus, onSelect }
     ? { backgroundImage: `url("${item.image}")` }
     : { background: item.gradient };
 
+  const positionClass = index === 0 ? 'content-card--first'
+    : index === totalItems - 1 ? 'content-card--last'
+    : '';
+
   return (
     <div
       ref={ref}
-      className={`content-card ${focused ? 'content-card--focused' : ''}`}
+      className={`content-card ${positionClass} ${focused ? 'content-card--focused' : ''}`}
       onClick={() => onSelect && onSelect(item)}
     >
       <div className="card__poster" style={posterStyle}>
+        {/* Новинка / СТАРТ badge — top left */}
         <span className={`card__badge ${badgeClass}`}>{item.badge}</span>
-
+        {/* START badge — top right */}
+        <span className="card__start-badge">START</span>
         <div className="card__overlay">
           <span className="card__title">{item.title}</span>
 

@@ -20,16 +20,21 @@
 
 /* Horizontal scrollable card track */
 .content-row__scroll {
+  scroll-padding: 200px;
   display: flex;
   flex-direction: row;
   gap: 14px;
   overflow-x: auto;
-  overflow-y: visible; /* allow scale transform to extend upward */
-  padding: 10px 4px 16px;
+  overflow-y: visible;
+  /* overflow-x:auto coerces overflow-y to auto, clipping box-shadows.
+     Padding must exceed the shadow extents: 5px ring on sides/top, 36px below. */
+  padding: 16px 16px 44px;
+  
   scroll-snap-type: x mandatory;
   /* When scrollIntoView fires, leave 80px above so the row title is visible */
   scroll-margin-top: 80px;
   scroll-margin-bottom: 20px;
+
 }
 
 .content-row__scroll > * {

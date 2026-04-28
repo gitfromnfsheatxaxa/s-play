@@ -2,26 +2,32 @@
 
 .content-card {
   flex-shrink: 0;
-  width: 220px;
-  height: 148px;
+  margin-right:15px;
+  /* 5 full cards + 20% of 6th visible at any screen width.
+     Overhead = 292px (layout) + 5×29px (gap) = 437px. Divisor = 5.2. */
+  width: calc((100vw - 437px) / 5.1);
+  aspect-ratio: 3 / 2;
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: outline-color 0.15s ease;
   transform-origin: center center;
+  outline: 3px solid transparent;
+  outline-offset: 3px;
 }
 
-/* Focused state */
+/* First card grows rightward only — prevents overflow into the sidebar */
+.content-card--first { transform-origin: left center; }
+
+/* Last card grows leftward only — prevents clipping at row end */
+.content-card--last  { transform-origin: right center; }
+
+/* Focused state — outline renders outside overflow clip, no barrier */
 .content-card--focused,
 .content-card:focus {
-  transform: scale(1.06);
-  box-shadow:
-    0 0 0 3px var(--color-accent-primary),
-    0 0 0 5px rgba(255, 87, 8, 0.35),
-    0 16px 40px rgba(0, 0, 0, 0.7);
+  outline-color: var(--color-accent-primary);
   z-index: 10;
-  outline: none;
 }
 
 /* ─── Poster ─── */
@@ -38,20 +44,24 @@
 }
 
 /* ─── Badge ─── */
+/* All values scale with viewport so the badge stays proportional to the card */
 .card__badge {
   position: absolute;
-  top: 6px;
-  left: 6px;
-  padding: 3px 8px;
-  font: var(--label-3-bold);
-  font-weight: 800;
-  font-size: 10px;
-  letter-spacing: 0.8px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  display: flex;
+  top: 16px;
+  left: 16px;
+  /* font scales with vw so it always fits the responsive card width */
+  font-size: clamp(9px, 0.65vw, 12px);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  /* padding in em means it scales with font-size automatically */
+  padding: 0.7em 1rem;
+  border-radius: 12px 8px 8px 8px;
+  text-transform: capitalize;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .card__badge--primary {
@@ -60,8 +70,24 @@
 }
 
 .card__badge--warning {
-  background-color: var(--color-warning-primary);
+  background-color: var(--color-accent-primary);
   color: var(--color-fg-primary-variant);
+}
+
+/* START badge — top right, same size scale as card__badge */
+.card__start-badge {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: clamp(9px, 0.65vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  padding: 0.38em 0.75em;
+  border-radius: 0.45em;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  white-space: nowrap;
 }
 
 /* ─── Bottom overlay ─── */

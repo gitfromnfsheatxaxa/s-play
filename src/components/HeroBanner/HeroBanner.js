@@ -1,14 +1,19 @@
 // src/components/HeroBanner/HeroBanner.js
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useFocusable, FocusContext } from '@noriginmedia/norigin-spatial-navigation';
+import { useFocusable, FocusContext, setFocus } from '@noriginmedia/norigin-spatial-navigation';
+import kpIcon   from '../../assets/icons/small_kino poisk.svg';
+import imdbIcon from '../../assets/icons/small imdb.svg';
+// Fixed backdrop — every movie shows the same Avengers background
+import avengersBackdrop from '../../assets/background/image.png';
 import './HeroBanner.css';
 
 function PlayButton({ movieId, onPlay }) {
   const { ref, focused } = useFocusable({
     focusKey: `BTN-HERO-PLAY-${movieId}`,
     onEnterPress: () => onPlay && onPlay(),
-    onArrowPress: (direction) => {
-      if (direction === 'up') return false; // nothing above hero
+    onArrowPress: (dir) => {
+      if (dir === 'up') return false;
+      if (dir === 'left') { setFocus('NAV-HOME'); return false; }
       return true;
     },
   });
@@ -20,9 +25,7 @@ function PlayButton({ movieId, onPlay }) {
       onClick={() => onPlay && onPlay()}
     >
       <span className="hero-play-btn__icon">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M8 5v14l11-7z" />
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
       </span>
       <span className="hero-play-btn__label">Смотреть</span>
     </button>
@@ -30,22 +33,18 @@ function PlayButton({ movieId, onPlay }) {
 }
 
 function HeroBanner({ movie, onFocus }) {
-  // displayMovie is what is currently rendered; it lags behind `movie` by one fade cycle.
   const [displayMovie, setDisplayMovie] = useState(movie);
   const [fading, setFading] = useState(false);
   const fadeTimer = useRef(null);
 
   useEffect(() => {
     if (movie.id === displayMovie.id) return;
-
-    // Fade out → swap content → fade in
     setFading(true);
     clearTimeout(fadeTimer.current);
     fadeTimer.current = setTimeout(() => {
       setDisplayMovie(movie);
       setFading(false);
-    }, 220); // must match CSS transition duration
-
+    }, 220);
     return () => clearTimeout(fadeTimer.current);
   }, [movie.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -60,82 +59,95 @@ function HeroBanner({ movie, onFocus }) {
   }, [displayMovie.title]);
 
   const m = displayMovie;
-  const metaParts = [
-    m.year,
-    m.quality,
-    ...(m.genres ?? []),
-    m.ageRating,
-    m.language,
-  ].filter(Boolean);
 
   return (
     <FocusContext.Provider value={focusKey}>
-      <section
-        className={`hero ${fading ? 'hero--fading' : ''}`}
-        ref={ref}
-      >
-        {/* Real movie backdrop photo — lowest layer */}
-        {m.heroImage && (
-          <img src={m.heroImage} className="hero__backdrop" alt="" aria-hidden="true" />
-        )}
+      <section className={`hero ${fading ? 'hero--fading' : ''}`} ref={ref}>
 
-        {/* Dynamic tinted gradient overlay on top of the backdrop */}
-        <div
-          className="hero__bg"
-          style={{ background: m.backdropGradient ?? m.gradient ?? undefined }}
-        />
+        {/* Fixed Avengers backdrop — always shown regardless of focused movie */}
+        <img src={avengersBackdrop} className="hero__backdrop" alt="" aria-hidden="true" />
 
-        <div className="hero__stars" />
+        {/* Dark left + bottom readability vignette */}
         <div className="hero__overlay" />
 
+        {/* Content */}
         <div className="hero__content">
-          {/* Left column: metadata + title + description + play button */}
+
+          {/* ── LEFT column ── */}
           <div className="hero__info">
-            {metaParts.length > 0 && (
-              <div className="hero__meta">
-                {metaParts.map((part, i) => (
-                  <React.Fragment key={i}>
-                    <span className="hero__meta-item">{part}</span>
-                    {i < metaParts.length - 1 && (
-                      <span className="hero__meta-dot">•</span>
-                    )}
-                  </React.Fragment>
-                ))}
-                {m.platform && (
-                  <span className="hero__meta-platform">
-                    <span className="hero__meta-play-icon">▶</span>
-                    {m.platform}
+
+            {/* Small movie logo image — above ratings */}
+            {m.heroLogoImage && (
+              <img
+                src={m.heroLogoImage}
+                className="hero__logo-img"
+                alt={m.heroTitle || m.title}
+              />
+            )}
+
+            {/* Rating badges: KP · IMDb only (no SPlay) */}
+            {(m.kinopoiskRating || m.imdbRating) && (
+              <div className="hero__ratings">
+                {m.kinopoiskRating && (
+                  <span className="hero__rating-badge">
+                    <img src={kpIcon} alt="КП" className="hero__rating-icon" />
+                    {m.kinopoiskRating}
+                  </span>
+                )}
+                {m.imdbRating && (
+                  <span className="hero__rating-badge">
+                    <img src={imdbIcon} alt="IMDb" className="hero__rating-icon" />
+                    {m.imdbRating}
                   </span>
                 )}
               </div>
             )}
 
+            {/* Meta chips: year · quality · genres · age · language · platform */}
+            <div className="hero__meta">
+              {m.year && <span className="hero__meta-chip">{m.year}</span>}
+              {m.quality && <span className="hero__meta-chip">{m.quality}</span>}
+              {m.genres?.length > 0 && (
+                <span className="hero__meta-chip">{m.genres.join('/')}</span>
+              )}
+              {m.ageRating && <span className="hero__meta-chip">{m.ageRating}</span>}
+              {m.language && <span className="hero__meta-chip">{m.language}</span>}
+              {m.platform && (
+                <span className="hero__meta-chip hero__meta-chip--platform">
+                  <span className="hero__meta-play-icon">▶</span>
+                  {m.platform}
+                </span>
+              )}
+            </div>
+
+            {/* Title */}
             <h1 className="hero__title">{m.title}</h1>
 
+            {/* Description */}
             {m.description && (
               <p className="hero__description">{m.description}</p>
             )}
 
+            {/* Watch button */}
             <div className="hero__actions">
               <PlayButton movieId={m.id} onPlay={handlePlay} />
             </div>
           </div>
 
-          {/* Right visual: large stylised movie title */}
+          {/* ── RIGHT column — large movie logo ── */}
           <div className="hero__visual">
-            {m.heroBadge && (
-              <div className="hero__marvel-badge">{m.heroBadge}</div>
-            )}
-            {m.heroTitle ? (
+            {m.heroLogoImage ? (
+              <img
+                src={m.heroLogoImage}
+                className="hero__visual-logo"
+                alt={m.heroTitle || m.title}
+              />
+            ) : (
               <div className="hero__movie-logo">
-                <div className="hero__movie-logo-title">{m.heroTitle}</div>
+
                 {m.heroSubtitle && (
                   <div className="hero__movie-logo-subtitle">{m.heroSubtitle}</div>
                 )}
-              </div>
-            ) : (
-              <div className="hero__movie-logo">
-                <div className="hero__movie-logo-title">{m.title.toUpperCase()}</div>
               </div>
             )}
           </div>

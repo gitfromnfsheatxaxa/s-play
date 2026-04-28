@@ -26,7 +26,6 @@
 .ad-banner__small {
   display: flex;
   gap: 14px;
-    height: 130px;
 }
 
 /* Individual small ad */
@@ -50,7 +49,6 @@
 
 .ad-small img {
   width: 100%;
-  height: 130px;
   object-fit: cover;
   display: block;
 }

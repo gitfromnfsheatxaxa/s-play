@@ -1,5 +1,4 @@
 /* src/components/HeroBanner/HeroBanner.css */
-/* Typography uses only design-system.css custom properties */
 
 .hero {
   position: relative;
@@ -8,178 +7,181 @@
   min-height: 480px;
   overflow: hidden;
   flex-shrink: 0;
-  background: url('../../assets/background/bg.png') no-repeat left center/ cover;
+  background: #040404;
   transition: opacity 0.22s ease;
 }
 
-/* Cross-fade: fades out during content swap, then fades back in */
-.hero--fading {
-  opacity: 0;
-}
+.hero--fading { opacity: 0; }
 
-
-/* Actual movie image — bottom-most layer */
+/* ─── Layer 0: fixed Avengers backdrop ─── */
 .hero__backdrop {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: right center;
   z-index: 0;
 }
 
-/* Dynamic tinted gradient on top of backdrop — dims/colors the image */
-.hero__bg {
+/* ─── Layer 1: left-dark + bottom-dark readability vignette ─── */
+.hero__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-size: cover;
-  background-position: center;
-}
-
-/* Procedural star field */
-.hero__stars {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background-image:
-    radial-gradient(1px 1px at  8%  12%, rgba(255,255,255,0.6) 0%, transparent 100%),
-    radial-gradient(1px 1px at 22%  35%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 45%   8%, rgba(255,255,255,0.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 60%  25%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 75%  15%, rgba(255,255,255,0.6) 0%, transparent 100%),
-    radial-gradient(1px 1px at 88%  40%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 15%  60%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 35%  75%, rgba(255,255,255,0.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 55%  55%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 92%  70%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(2px 2px at 30%  20%, rgba(255,255,255,0.5) 0%, transparent 100%),
-    radial-gradient(2px 2px at 70%  10%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 50%  90%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at  5%  85%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 80%  80%, rgba(255,255,255,0.5) 0%, transparent 100%);
-}
-
-/* Gradient overlays:
-   - Left: dark solid → transparent (sidebar readability)
-   - Bottom: dark → transparent (text readability)    */
-.hero__overlay {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
   background:
     linear-gradient(
       to right,
-      rgba(4, 4, 4, 0.96) 0%,
-      rgba(4, 4, 4, 0.944) 25%,
-      rgba(4, 4, 4, 0.65) 52%,
-      transparent 62%
+      rgba(4,4,4,0.98) 0%,
+      rgba(4,4,4,0.95) 18%,
+      rgba(4,4,4,0.70) 42%,
+      rgba(4,4,4,0.15) 58%,
+      transparent 68%
     ),
     linear-gradient(
       to top,
-      rgba(4, 4, 4, 0.92) 0%,
-      rgba(4, 4, 4, 0.5)  25%,
-      transparent         60%
+      rgba(4,4,4,0.90) 0%,
+      rgba(4,4,4,0.40) 25%,
+      transparent 55%
     );
-    
 }
 
-/* ─── Content layout ─── */
+/* ─── Layer 2: content ─── */
 .hero__content {
   position: absolute;
   inset: 0;
-  z-index: 4;
+  z-index: 2;
   display: flex;
   align-items: flex-end;
-  /* Content starts at 220px — clears the expanded sidebar (200px) by 20px */
-  padding: 0 80px 52px 220px;
+  padding: 0 60px 48px 220px;
   gap: 40px;
 }
 
-/* ─── Left column: text info ─── */
+/* ════════════════════════════════
+   LEFT COLUMN  (~30vw)
+════════════════════════════════ */
 .hero__info {
-  flex: 0 0 420px;
+  flex: 0 0 30vw;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
 }
 
-/* Metadata row — label-2 from design-system */
-.hero__meta {
+/* ─── Small movie logo above ratings ─── */
+.hero__logo-img {
+  width: auto;
+  max-height: 70px;
+  max-width: 210px;
+  object-fit: contain;
+  object-position: left bottom;
+  display: block;
+}
+
+/* ─── Rating badges (KP + IMDb only) ─── */
+.hero__ratings {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.hero__rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1;
+}
+
+.hero__rating-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ─── Meta chips row ─── */
+/* Matches screenshot: small compact pills, subtle background, plain text */
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   flex-wrap: wrap;
 }
 
-.hero__meta-item {
-  /* --label-2-medium: 14px / 20px 'SF Pro Display' */
-  font: var(--label-2-medium);
-  color: var(--color-fg-secondary);
-  letter-spacing: 0.3px;
-}
-
-.hero__meta-dot {
-  /* --label-3-medium: 12px / 16px */
-  font: var(--label-3-medium);
-  color: var(--color-fg-hint);
-}
-
-.hero__meta-platform {
-  display: flex;
+.hero__meta-chip {
+  display: inline-flex;
   align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Platform chip (PREMIER) — orange filled */
+.hero__meta-chip--platform {
+  background: var(--color-accent-primary);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 700;
   gap: 4px;
-  /* --label-2-medium: 14px / 20px */
-  font: var(--label-2-medium);
-  font-weight: 600;
-  color: var(--color-fg-secondary);
-  margin-left: 4px;
 }
 
 .hero__meta-play-icon {
-  /* --label-3-medium: 12px / 16px */
-  font: var(--label-3-medium);
-  color: var(--color-accent-primary);
+  font-size: 7px;
+  color: #fff;
 }
 
-/* Title — heading-3 from design-system (40px / 48px) */
+/* ─── Title ─── */
 .hero__title {
   font: var(--heading-3-bold);
   font-weight: 700;
-  color: var(--color-fg-primary);
+  color: #ffffff;
   letter-spacing: -0.5px;
+  margin: 0;
 }
 
-/* Description — label-2-regular from design-system (14px / 20px) */
+/* ─── Description ─── */
 .hero__description {
   font: var(--label-2-regular);
-  color: var(--color-fg-secondary);
+  color: rgba(255, 255, 255, 0.72);
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  max-width: 380px;
-}
-
-/* Actions row */
-.hero__actions {
-  display: flex;
-  gap: 16px;
-  margin-top: 4px;
+  line-height: 1.55;
+  margin: 0;
 }
 
 /* ─── Play button ─── */
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 2px;
+}
+
 .hero-play-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 32px;
+  padding: 13px 32px;
   background-color: var(--color-accent-primary);
-  color: var(--color-fg-primary-variant);
+  color: #ffffff;
   border: none;
   border-radius: 8px;
-  /* label-1-bold: 16px / 24px */
   font: var(--label-1-bold);
   font-weight: 700;
   letter-spacing: 0.3px;
@@ -194,12 +196,8 @@
   align-items: center;
 }
 
-.hero-play-btn__icon svg {
-  width: 100%;
-  height: 100%;
-}
+.hero-play-btn__icon svg { width: 100%; height: 100%; }
 
-/* Focused state (.hero-play-btn--focused is set by Norigin via useFocusable) */
 .hero-play-btn--focused,
 .hero-play-btn:focus {
   background-color: var(--color-accent-hover);
@@ -208,7 +206,9 @@
   outline: none;
 }
 
-/* ─── Right column: movie visual ─── */
+/* ════════════════════════════════
+   RIGHT COLUMN — big logo image
+════════════════════════════════ */
 .hero__visual {
   flex: 1;
   display: flex;
@@ -216,23 +216,20 @@
   align-items: flex-start;
   justify-content: flex-end;
   padding-bottom: 8px;
-  gap: 12px;
 }
 
-/* MARVEL badge */
-.hero__marvel-badge {
-  background-color: #EC1D24;
-  color: var(--color-fg-primary-variant);
-  /* label-3-bold: 12px / 16px */
-  font: var(--label-3-bold);
-  font-weight: 900;
-  letter-spacing: 2px;
-  padding: 4px 10px;
-  border-radius: 3px;
-  align-self: flex-start;
+/* Large herobannerlogo.png */
+.hero__visual-logo {
+  width: auto;
+  max-width: 500px;
+  max-height: 240px;
+  object-fit: contain;
+  object-position: left bottom;
+  display: block;
+  filter: drop-shadow(0 4px 32px rgba(0,0,0,0.7));
 }
 
-/* Stylised movie title logo */
+/* ─── CSS text fallback (for cards without heroLogoImage) ─── */
 .hero__movie-logo {
   display: flex;
   flex-direction: column;
@@ -240,18 +237,11 @@
 }
 
 .hero__movie-logo-title {
-  /* title-2: 64px / 76px SF Pro Display */
   font: var(--title-2-bold);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -2px;
-  background: linear-gradient(
-    135deg,
-    #FFB347 0%,
-    #FF8C00 30%,
-    #FF6B00 60%,
-    #D4500A 100%
-  );
+  background: linear-gradient(135deg, #FFB347 0%, #FF8C00 30%, #FF6B00 60%, #D4500A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -259,7 +249,6 @@
 }
 
 .hero__movie-logo-subtitle {
-  /* heading-6-semibold: 20px / 24px */
   font: var(--heading-6-semibold);
   font-weight: 700;
   letter-spacing: 4px;

@@ -1,4 +1,4 @@
-// src/components/TopTenRow/TopTenRow.js
+// src/components/TopTenRow/TopTenRow.js  (Рекомендации для [user])
 import React, { useCallback } from 'react';
 import { useFocusable, FocusContext, setFocus } from '@noriginmedia/norigin-spatial-navigation';
 import icon1 from '../../assets/icons/1.svg';
@@ -11,20 +11,17 @@ import './TopTenRow.css';
 
 const NUMBER_ICONS = [icon1, icon2, icon3, icon4];
 
-// ─── TopTenCard ────────────────────────────────────────────────────────────────
-function TopTenCard({ item, index, totalItems, rank, onFocus, onCardFocus }) {
+// ─── RecommendationCard — landscape card with rank number overlay ──────────────
+function RecommendationCard({ item, index, totalItems, rank, onFocus, onCardFocus }) {
   const { ref, focused } = useFocusable({
-    focusKey: `TOP10-CARD-${item.id}`,
+    focusKey: `REC-CARD-${item.id}`,
     onEnterPress: () => {},
     onFocus: (layout) => {
-      if (onFocus) onFocus(layout);       // horizontal scroll via ContentRow pattern
-      if (onCardFocus) onCardFocus(item); // hero update
+      if (onFocus) onFocus(layout);
+      if (onCardFocus) onCardFocus(item);
     },
     onArrowPress: (direction) => {
-      if (direction === 'left' && index === 0) {
-        setFocus('NAV-HOME');
-        return false;
-      }
+      if (direction === 'left' && index === 0) { setFocus('NAV-HOME'); return false; }
       if (direction === 'right' && index === totalItems - 1) return false;
       return true;
     },
@@ -37,36 +34,38 @@ function TopTenCard({ item, index, totalItems, rank, onFocus, onCardFocus }) {
     : { background: item.gradient };
 
   return (
-    <div className="top10-item">
-      {/* Large gradient rank number — decorative, not focusable */}
-      {numberIcon ? (
-        <img src={numberIcon} className="top10-number" alt={`#${rank}`} aria-hidden="true" />
-      ) : (
-        <span className="top10-number top10-number--text" aria-hidden="true">{rank}</span>
-      )}
+    <div className="rec-item">
+      {/* Large gradient rank number — bottom-left, partially behind card */}
+      {numberIcon
+        ? <img src={numberIcon} className="rec-number" alt="" aria-hidden="true" />
+        : <span className="rec-number rec-number--text" aria-hidden="true">{rank}</span>
+      }
 
-      {/* Poster — Norigin ref goes here (the actual focusable element) */}
+      {/* Landscape card — same proportions as ContentCard, Norigin ref here */}
       <div
         ref={ref}
-        className={`top10-poster ${focused ? 'top10-poster--focused' : ''}`}
+        className={`rec-card ${focused ? 'rec-card--focused' : ''}`}
       >
-        <div className="top10-poster__img" style={posterStyle} />
-
-        <div className="top10-poster__overlay">
-          <p className="top10-poster__title">{item.title}</p>
-          <div className="top10-poster__ratings">
-            {item.imdbRating && (
-              <span className="top10-rating top10-rating--imdb">
-                <img src={imdbIcon} alt="IMDb" className="top10-rating__icon" />
-                {item.imdbRating}
-              </span>
-            )}
-            {item.kinopoiskRating && (
-              <span className="top10-rating top10-rating--kp">
-                <img src={kpIcon} alt="КП" className="top10-rating__icon top10-rating__icon--kp" />
-                {item.kinopoiskRating}
-              </span>
-            )}
+        <div className="rec-card__poster" style={posterStyle}>
+          <span className={`card__badge ${item.badgeVariant === 'primary' ? 'card__badge--primary' : 'card__badge--warning'}`}>
+            {item.badge}
+          </span>
+          <div className="rec-card__overlay">
+            <span className="rec-card__title">{item.title}</span>
+            <div className="card__ratings">
+              {item.imdbRating && (
+                <span className="card__rating card__rating--imdb">
+                  <img src={imdbIcon} alt="IMDb" className="card__rating-icon" />
+                  {item.imdbRating}
+                </span>
+              )}
+              {item.kinopoiskRating && (
+                <span className="card__rating card__rating--kp">
+                  <img src={kpIcon} alt="КП" className="card__rating-icon card__rating-icon--kp" />
+                  {item.kinopoiskRating}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -74,14 +73,13 @@ function TopTenCard({ item, index, totalItems, rank, onFocus, onCardFocus }) {
   );
 }
 
-// ─── TopTenRow ─────────────────────────────────────────────────────────────────
+// ─── TopTenRow (Recommendations) ──────────────────────────────────────────────
 function TopTenRow({ row, onCardFocus }) {
-  // ref IS the horizontal scroll container — layout.x maps to scrollLeft
   const { ref, focusKey } = useFocusable({
     focusKey: `ROW-${row.id}`,
     trackChildren: true,
     saveLastFocusedChild: true,
-    preferredChildFocusKey: row.items[0] ? `TOP10-CARD-${row.items[0].id}` : undefined,
+    preferredChildFocusKey: row.items[0] ? `REC-CARD-${row.items[0].id}` : undefined,
   });
 
   const onInternalCardFocus = useCallback(
@@ -96,12 +94,17 @@ function TopTenRow({ row, onCardFocus }) {
 
   return (
     <div className="top10-row-wrapper">
-      <h2 className="content-row__title">{row.title}</h2>
+      <h2 className="content-row__title">
+        {row.title}{' '}
+        {row.username && (
+          <span className="rec-username">{row.username}</span>
+        )}
+      </h2>
 
       <FocusContext.Provider value={focusKey}>
         <div className="top10-row__scroll" ref={ref}>
           {row.items.map((item, idx) => (
-            <TopTenCard
+            <RecommendationCard
               key={item.id}
               item={item}
               index={idx}

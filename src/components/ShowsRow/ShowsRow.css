@@ -1,0 +1,151 @@
+/* src/components/ShowsRow/ShowsRow.css — Сериалы wide-card row */
+
+.shows-row-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 60px 8px 200px;
+  position: relative;
+}
+
+/* Horizontal scroll container */
+.shows-row__scroll {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: visible;
+  /* Padding accommodates the outline focus ring (6px) + buffer */
+  padding: 20px 20px 20px 40px;
+  scroll-margin-top: 80px;
+  scroll-margin-bottom: 20px;
+}
+
+/* ─── Wide show card ─── */
+.show-card {
+  flex-shrink: 0;
+  position: relative;
+  /* 1 full card + 90% of 2nd visible at any screen width.
+     Overhead = 300px (layout) + 46px (gap). Divisor = 1.9. */
+  width: calc((100vw - 346px) / 1.9);
+  aspect-ratio: 16 / 9;
+  margin-right: 30px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: outline-color 0.15s ease;
+  transform-origin: center center;
+  /* outline is used instead of box-shadow so the focus ring is NOT clipped
+     by the parent scroll container's overflow boundary */
+  outline: 3px solid transparent;
+  outline-offset: 3px;
+}
+
+.show-card:first-child { transform-origin: left center; }
+.show-card:last-child  { transform-origin: right center; }
+
+/* outline paints outside the overflow clip — no barrier on first card */
+.show-card--focused {
+  outline-color: var(--color-accent-primary);
+}
+
+/* ─── Right-darkening scrim ─── */
+/* Left portion: movie image fully visible
+   Right portion: dark background for title text readability */
+.show-card__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      transparent 25%,
+      rgba(0,0,0,0.35) 45%,
+      rgba(0,0,0,0.80) 65%,
+      rgba(0,0,0,0.92) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(0,0,0,0.50) 0%,
+      transparent 28%
+    );
+}
+
+/* ─── Top bar: badge LEFT + 4 chips RIGHT ─── */
+.show-card__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 0;
+}
+
+/* Override: card__badge is position:absolute globally, but inside the show card's
+   flex top-bar it must flow as a normal flex item so it stays left-aligned */
+.show-card__top .card__badge {
+  position: static;
+  top: auto;
+  left: auto;
+}
+
+/* ─── 4 chips container ─── */
+.show-card__chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Each chip: rating, age, language, START
+   Font scales with viewport so chips stay proportional to the card width */
+.show-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-family: 'SF Pro Display', system-ui, sans-serif;
+  font-size: clamp(11px, 0.75vw, 15px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.45em;
+  padding: 0.38em 0.8em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* START chip — orange accent */
+.show-chip--start {
+  background: var(--color-accent-primary);
+  border-color: transparent;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* ─── Title: right half, right-aligned, bottom ─── */
+.show-card__title {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 52%;
+  z-index: 2;
+  font-family: 'SF Pro Display', system-ui, sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-align: right;
+  padding: 0 20px 22px 0;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.95);
+}
