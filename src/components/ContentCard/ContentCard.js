@@ -1,8 +1,8 @@
 // src/components/ContentCard/ContentCard.js
 import React from 'react';
 import { useFocusable, setFocus } from '@noriginmedia/norigin-spatial-navigation';
-import imdbIcon from '../../assets/icons/imdb-icon 1.png';
-import kpIcon from '../../assets/icons/Group.png';
+
+import StartIcon from '../../assets/icons/START.svg';
 import './ContentCard.css';
 
 function ContentCard({ item, index, totalItems, onFocus, onCardFocus, onSelect }) {
@@ -44,25 +44,8 @@ function ContentCard({ item, index, totalItems, onFocus, onCardFocus, onSelect }
         {/* Новинка / СТАРТ badge — top left */}
         <span className={`card__badge ${badgeClass}`}>{item.badge}</span>
         {/* START badge — top right */}
-        <span className="card__start-badge">START</span>
-        <div className="card__overlay">
-          <span className="card__title">{item.title}</span>
+        <span className="card__start-badge"><img src={StartIcon} alt=""/></span>
 
-          <div className="card__ratings">
-            {item.imdbRating && (
-              <span className="card__rating card__rating--imdb">
-                <img src={imdbIcon} alt="IMDb" className="card__rating-icon" />
-                {item.imdbRating}
-              </span>
-            )}
-            {item.kinopoiskRating && (
-              <span className="card__rating card__rating--kp">
-                <img src={kpIcon} alt="КП" className="card__rating-icon" />
-                {item.kinopoiskRating}
-              </span>
-            )}
-          </div>
-        </div>
       </div>
     </div>
   );

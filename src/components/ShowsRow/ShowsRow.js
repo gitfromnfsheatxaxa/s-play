@@ -27,7 +27,6 @@ function ShowCard({ item, index, totalItems, onFocus, onCardFocus }) {
       style={bgStyle}
     >
       {/* Right-darkening scrim */}
-      <div className="show-card__scrim" />
 
       {/* Top bar: Новинка badge LEFT  |  4 chips RIGHT */}
       <div className="show-card__top">
@@ -81,6 +80,8 @@ function ShowsRow({ row, onCardFocus }) {
       <h2 className="content-row__title">{row.title}</h2>
 
       <FocusContext.Provider value={focusKey}>
+        {/* ref on the scroll container so layout.x maps directly to scrollLeft */}
+
         <div className="shows-row__scroll" ref={ref}>
           {row.items.map((item, idx) => (
             <ShowCard

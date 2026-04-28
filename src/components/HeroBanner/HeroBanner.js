@@ -3,34 +3,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useFocusable, FocusContext, setFocus } from '@noriginmedia/norigin-spatial-navigation';
 import kpIcon   from '../../assets/icons/small_kino poisk.svg';
 import imdbIcon from '../../assets/icons/small imdb.svg';
+import splayIcon from '../../assets/icons/small_splay.svg';
 // Fixed backdrop — every movie shows the same Avengers background
 import avengersBackdrop from '../../assets/background/image.png';
 import './HeroBanner.css';
-
-function PlayButton({ movieId, onPlay }) {
-  const { ref, focused } = useFocusable({
-    focusKey: `BTN-HERO-PLAY-${movieId}`,
-    onEnterPress: () => onPlay && onPlay(),
-    onArrowPress: (dir) => {
-      if (dir === 'up') return false;
-      if (dir === 'left') { setFocus('NAV-HOME'); return false; }
-      return true;
-    },
-  });
-
-  return (
-    <button
-      ref={ref}
-      className={`hero-play-btn ${focused ? 'hero-play-btn--focused' : ''}`}
-      onClick={() => onPlay && onPlay()}
-    >
-      <span className="hero-play-btn__icon">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-      </span>
-      <span className="hero-play-btn__label">Смотреть</span>
-    </button>
-  );
-}
 
 function HeroBanner({ movie, onFocus }) {
   const [displayMovie, setDisplayMovie] = useState(movie);
@@ -54,9 +30,6 @@ function HeroBanner({ movie, onFocus }) {
     onFocus: () => { if (onFocus) onFocus(); },
   });
 
-  const handlePlay = useCallback(() => {
-    console.log('Playing:', displayMovie.title);
-  }, [displayMovie.title]);
 
   const m = displayMovie;
 
@@ -86,8 +59,14 @@ function HeroBanner({ movie, onFocus }) {
             )}
 
             {/* Rating badges: KP · IMDb only (no SPlay) */}
-            {(m.kinopoiskRating || m.imdbRating) && (
+            {( m.splayRating || m.kinopoiskRating || m.imdbRating) && (
               <div className="hero__ratings">
+                {m.splayRating && (
+                    <span className="hero__rating-badge">
+                    <img src={splayIcon} alt="SP" className="hero__rating-icon" />
+                      {m.splayRating}
+                  </span>
+                )}
                 {m.kinopoiskRating && (
                   <span className="hero__rating-badge">
                     <img src={kpIcon} alt="КП" className="hero__rating-icon" />
@@ -113,7 +92,7 @@ function HeroBanner({ movie, onFocus }) {
               {m.ageRating && <span className="hero__meta-chip">{m.ageRating}</span>}
               {m.language && <span className="hero__meta-chip">{m.language}</span>}
               {m.platform && (
-                <span className="hero__meta-chip hero__meta-chip--platform">
+                <span className="hero__meta-chip small_one ">
                   <span className="hero__meta-play-icon">▶</span>
                   {m.platform}
                 </span>
@@ -128,10 +107,6 @@ function HeroBanner({ movie, onFocus }) {
               <p className="hero__description">{m.description}</p>
             )}
 
-            {/* Watch button */}
-            <div className="hero__actions">
-              <PlayButton movieId={m.id} onPlay={handlePlay} />
-            </div>
           </div>
 
           {/* ── RIGHT column — large movie logo ── */}

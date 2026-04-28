@@ -1,0 +1,40 @@
+.empty-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 100vh;
+  background: var(--color-bg-primary, #0a0a0f);
+}
+
+.empty-page__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 64px 80px;
+  border-radius: 20px;
+  border: 3px solid transparent;
+  background: rgba(255, 255, 255, 0.04);
+  transition: border-color 0.22s ease, background 0.22s ease;
+  outline: none;
+}
+
+.empty-page__card--focused {
+  border-color: var(--color-accent-primary, #FF5708);
+  background: rgba(255, 87, 8, 0.08);
+}
+
+.empty-page__title {
+  font-size: 52px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.empty-page__sub {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}

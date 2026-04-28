@@ -50,23 +50,7 @@ function RecommendationCard({ item, index, totalItems, rank, onFocus, onCardFocu
           <span className={`card__badge ${item.badgeVariant === 'primary' ? 'card__badge--primary' : 'card__badge--warning'}`}>
             {item.badge}
           </span>
-          <div className="rec-card__overlay">
-            <span className="rec-card__title">{item.title}</span>
-            <div className="card__ratings">
-              {item.imdbRating && (
-                <span className="card__rating card__rating--imdb">
-                  <img src={imdbIcon} alt="IMDb" className="card__rating-icon" />
-                  {item.imdbRating}
-                </span>
-              )}
-              {item.kinopoiskRating && (
-                <span className="card__rating card__rating--kp">
-                  <img src={kpIcon} alt="КП" className="card__rating-icon card__rating-icon--kp" />
-                  {item.kinopoiskRating}
-                </span>
-              )}
-            </div>
-          </div>
+
         </div>
       </div>
     </div>

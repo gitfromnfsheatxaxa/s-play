@@ -393,7 +393,7 @@ const TOP_TEN = [
   { ...SHARED, id: 'top10-4', title: 'Человек-паук', year: 2021, quality: 'FullHD', ageRating: '12+', language: 'RU', genres: ['Боевик', 'Фантастика'], description: 'Питер Паркер сталкивается с мультивселенной и злодеями из других реальностей.', backdropGradient: 'radial-gradient(ellipse at 60% 25%, rgba(30,50,160,0.55) 0%, transparent 55%), linear-gradient(135deg, #010108 0%, #08101a 45%, #020308 100%)', imdbRating: '8.2', kinopoiskRating: '7.9', splayRating: '8.0', badge: 'Новинка', badgeVariant: 'warning', image: cardImg2, gradient: 'linear-gradient(160deg, #080a1a 0%, #18204a 50%, #2c3878 100%)', heroTitle: 'ЧЕЛОВЕК-ПАУК', heroSubtitle: 'НЕТ ПУТИ ДОМОЙ', heroBadge: 'MARVEL' },
 ];
 
-const RECOMMENDATIONS_USERNAME = 'Фæхриддин';
+const RECOMMENDATIONS_USERNAME = 'Фaхриддин';
 export const RECOMMENDATIONS_ROW = { id: 'row-recommendations', title: 'Рекомендации для', username: RECOMMENDATIONS_USERNAME, items: TOP_TEN };
 
 export function getFeaturedContent() { return FEATURED_MOVIE; }

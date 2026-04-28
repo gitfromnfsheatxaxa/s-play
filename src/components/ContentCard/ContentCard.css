@@ -46,22 +46,24 @@
 /* ─── Badge ─── */
 /* All values scale with viewport so the badge stays proportional to the card */
 .card__badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  /* font scales with vw so it always fits the responsive card width */
-  font-size: clamp(9px, 0.65vw, 12px);
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  line-height: 1;
-  /* padding in em means it scales with font-size automatically */
-  padding: 0.7em 1rem;
-  border-radius: 12px 8px 8px 8px;
-  text-transform: capitalize;
-  display: inline-flex;
-  align-items: center;
+  width: 90px;
+  height: 29px;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  white-space: nowrap;
+  align-items: center;
+  position: absolute;
+  left:6px;
+
+  top: 6px;
+  bottom: 80.56%;
+  border-radius: 10px 6px 6px 6px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #F8F8F8;
+
 }
 
 .card__badge--primary {
@@ -77,17 +79,23 @@
 /* START badge — top right, same size scale as card__badge */
 .card__start-badge {
   position: absolute;
-  top: 5%;
-  right: 5%;
+  right:6px;
+  top: 6px;
   font-size: clamp(9px, 0.65vw, 12px);
   font-weight: 700;
   letter-spacing: 0.5px;
   line-height: 1;
-  padding: 0.38em 0.75em;
-  border-radius: 0.45em;
+  padding: 0.50em 0.6rem ;
+  border-radius: 6px 10px 6px 6px;
   background: rgba(0, 0, 0, 0.55);
   color: #ffffff;
   white-space: nowrap;
+}
+.card__start-badge img{
+  display: flex;
+  width: 38px;
+  height: 18px;
+  margin: auto;
 }
 
 /* ─── Bottom overlay ─── */

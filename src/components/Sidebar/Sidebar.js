@@ -30,26 +30,20 @@ const BOTTOM_NAV = [
 ];
 
 // ─── Profile Avatar ───────────────────────────────────────────────────────────
-function ProfileAvatar({ id, isActive, onSelect }) {
+function ProfileAvatar({ id, isActive, onSelect, contentFocusKey }) {
   const { ref, focused } = useFocusable({
     focusKey: id,
-    onEnterPress: () => onSelect && onSelect(id),
-    onFocus: () => {
-      // When this item receives focus via arrow keys, update the active state
-      if (onSelect) onSelect(id);
-    },
+    onFocus: () => { if (onSelect) onSelect(id); },
+    onEnterPress: () => { if (contentFocusKey) setFocus(contentFocusKey); },
     onArrowPress: (direction) => {
       if (direction === 'left') return false;
       if (direction === 'right') {
-        setFocus('ROW-row-premieres');
+        if (contentFocusKey) setFocus(contentFocusKey);
         return false;
       }
       return true;
     },
   });
-
-  // Indicator only shows on the ACTIVE (selected) item, not on focused items.
-  const showIndicator = isActive;
 
   return (
     <div
@@ -61,7 +55,7 @@ function ProfileAvatar({ id, isActive, onSelect }) {
       ].join(' ')}
       onClick={() => onSelect && onSelect(id)}
     >
-      {showIndicator && <span className="nav-item__indicator" />}
+      {isActive && <span className="nav-item__indicator" />}
       <span className="nav-item__icon nav-item__icon--avatar">
         <img src={Avatars} alt="Profile" className="sidebar-avatar-img" />
       </span>
@@ -71,11 +65,7 @@ function ProfileAvatar({ id, isActive, onSelect }) {
 }
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
-function Sidebar({ activeItem, onNavigate }) {
-  // hasFocusedChild: true when any nav item inside has keyboard focus.
-  // Drives the collapsed ↔ expanded CSS transition.
-  // No isFocusBoundary — each NavItem handles its own directional blocking,
-  // and RIGHT navigation uses explicit setFocus() calls.
+function Sidebar({ activeItem, onNavigate, contentFocusKey }) {
   const { ref, focusKey, hasFocusedChild } = useFocusable({
     focusKey: 'SIDEBAR',
     trackChildren: true,
@@ -85,11 +75,6 @@ function Sidebar({ activeItem, onNavigate }) {
 
   return (
     <FocusContext.Provider value={focusKey}>
-      {/*
-        Outer shell: controls the visible width (130px collapsed / 100vw expanded).
-        overflow:hidden clips the inner content to create the collapsed look.
-        The inner items always stay at 200px so Norigin positions are stable.
-      */}
       <aside
         className={`sidebar${isExpanded ? ' sidebar--expanded' : ''}`}
         ref={ref}
@@ -115,19 +100,18 @@ function Sidebar({ activeItem, onNavigate }) {
               isFirst={idx === 0}
               isLast={false}
               onSelect={onNavigate}
+              contentFocusKey={contentFocusKey}
             />
           ))}
-
-
         </div>
 
         {/* ── Bottom settings ── */}
         <div className="sidebar-settings">
-          {/* Profile Avatar */}
           <ProfileAvatar
             id="NAV-PROFILES"
             isActive={activeItem === 'NAV-PROFILES'}
             onSelect={onNavigate}
+            contentFocusKey={contentFocusKey}
           />
           {BOTTOM_NAV.map((item, idx) => (
             <NavItem
@@ -139,10 +123,10 @@ function Sidebar({ activeItem, onNavigate }) {
               isFirst={false}
               isLast={idx === BOTTOM_NAV.length - 1}
               onSelect={onNavigate}
+              contentFocusKey={contentFocusKey}
             />
           ))}
         </div>
-
       </aside>
     </FocusContext.Provider>
   );

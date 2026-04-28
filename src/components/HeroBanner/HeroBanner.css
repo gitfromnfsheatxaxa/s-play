@@ -53,7 +53,7 @@
   z-index: 2;
   display: flex;
   align-items: flex-end;
-  padding: 0 60px 48px 220px;
+  padding: 0 60px 48px 170px;
   gap: 40px;
 }
 
@@ -72,10 +72,11 @@
 .hero__logo-img {
   width: auto;
   max-height: 70px;
-  max-width: 210px;
+  max-width: 250px;
   object-fit: contain;
   object-position: left bottom;
   display: block;
+
 }
 
 /* ─── Rating badges (KP + IMDb only) ─── */
@@ -89,8 +90,6 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 5px;
   padding: 4px 8px;
   font-size: 12px;
@@ -111,26 +110,35 @@
 /* Matches screenshot: small compact pills, subtle background, plain text */
 .hero__meta {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 5px;
   flex-wrap: wrap;
 }
 
 .hero__meta-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.4;
-  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 140%;
+  color: #FFFFFF;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
+.small_one{
+  padding: 7px 10px !important;
 
+}
 /* Platform chip (PREMIER) — orange filled */
 .hero__meta-chip--platform {
   background: var(--color-accent-primary);
@@ -147,23 +155,30 @@
 
 /* ─── Title ─── */
 .hero__title {
-  font: var(--heading-3-bold);
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.5px;
-  margin: 0;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
+  color: #FFFFFF;
+  flex: none;
+
+  flex-grow: 0;
+
 }
 
 /* ─── Description ─── */
 .hero__description {
-  font: var(--label-2-regular);
-  color: rgba(255, 255, 255, 0.72);
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.55;
-  margin: 0;
+  width: 40rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 32px;
+  color: #FFFFFF;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
 /* ─── Play button ─── */

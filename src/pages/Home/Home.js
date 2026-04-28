@@ -7,6 +7,13 @@ import ContentRow from '../../components/ContentRow/ContentRow';
 import AdBanner from '../../components/AdBanner/AdBanner';
 import TopTenRow from '../../components/TopTenRow/TopTenRow';
 import ShowsRow from '../../components/ShowsRow/ShowsRow';
+import Search from '../Search/Search';
+import Catalog from '../Catalog/Catalog';
+import Channels from '../Channels/Channels';
+import Favorites from '../Favorites/Favorites';
+import Notifications from '../Notifications/Notifications';
+import Settings from '../Settings/Settings';
+import Profile from '../Profile/Profile';
 import {
   getFeaturedContent,
   getContentRows,
@@ -15,6 +22,31 @@ import {
   getBroadcastsRow,
 } from '../../services/mockDataService';
 import './Home.css';
+
+// Maps each nav item to the focus key that Enter / RIGHT should land on
+const CONTENT_FOCUS_KEYS = {
+  'NAV-HOME':          'ROW-row-premieres',
+  'NAV-SEARCH':        'PAGE-SEARCH-CONTENT',
+  'NAV-CATALOG':       'PAGE-CATALOG-CONTENT',
+  'NAV-CHANNELS':      'PAGE-CHANNELS-CONTENT',
+  'NAV-FAVORITES':     'PAGE-FAVORITES-CONTENT',
+  'NAV-NOTIFICATIONS': 'PAGE-NOTIFICATIONS-CONTENT',
+  'NAV-SETTINGS':      'PAGE-SETTINGS-CONTENT',
+  'NAV-PROFILES':      'PAGE-PROFILE-CONTENT',
+};
+
+function renderPage(currentPage) {
+  switch (currentPage) {
+    case 'NAV-SEARCH':        return <Search />;
+    case 'NAV-CATALOG':       return <Catalog />;
+    case 'NAV-CHANNELS':      return <Channels />;
+    case 'NAV-FAVORITES':     return <Favorites />;
+    case 'NAV-NOTIFICATIONS': return <Notifications />;
+    case 'NAV-SETTINGS':      return <Settings />;
+    case 'NAV-PROFILES':      return <Profile />;
+    default:                  return null;
+  }
+}
 
 function Home() {
   const featured = getFeaturedContent();
@@ -25,19 +57,16 @@ function Home() {
   const showsRow = getShowsRow();
   const broadcastsRow = getBroadcastsRow();
 
-  const [activeItem, setActiveItem] = useState('NAV-HOME');
+  const [currentPage, setCurrentPage] = useState('NAV-HOME');
   const [focusedItem, setFocusedItem] = useState(featured);
 
-  const handleNavigate = useCallback((itemId) => { setActiveItem(itemId); }, []);
-  // When focus leaves the sidebar, keep the indicator on the current page (Главная).
-  const handleContentFocus = useCallback(() => { setActiveItem('NAV-HOME'); }, []);
+  const handleNavigate = useCallback((itemId) => { setCurrentPage(itemId); }, []);
   const handleCardFocus = useCallback((item) => { setFocusedItem(item); }, []);
 
-  const { ref: contentRef, focusKey: contentFocusKey } = useFocusable({
-    focusKey: 'CONTENT',
+  const { ref: contentRef, focusKey: homeFocusKey } = useFocusable({
+    focusKey: 'HOME-CONTENT',
     trackChildren: true,
     preferredChildFocusKey: 'ROW-row-premieres',
-    onFocus: handleContentFocus,
   });
 
   const onHeroFocus = useCallback(() => {
@@ -49,62 +78,70 @@ function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  const contentFocusKey = CONTENT_FOCUS_KEYS[currentPage] || 'ROW-row-premieres';
+  const isHome = currentPage === 'NAV-HOME';
+
   return (
     <div className="home-page">
-      <Sidebar activeItem={activeItem} onNavigate={handleNavigate} />
+      <Sidebar
+        activeItem={currentPage}
+        onNavigate={handleNavigate}
+        contentFocusKey={contentFocusKey}
+      />
 
-      <FocusContext.Provider value={contentFocusKey}>
-        <div className="home-content" ref={contentRef}>
-          <HeroBanner movie={focusedItem} onFocus={onHeroFocus} />
+      {isHome ? (
+        <FocusContext.Provider value={homeFocusKey}>
+          <div className="home-content" ref={contentRef}>
+            <HeroBanner movie={focusedItem} onFocus={onHeroFocus} />
 
-          <div className="home-rows">
-            {/* Премьеры */}
-            {premieresRow && (
-              <ContentRow
-                key={premieresRow.id}
-                row={premieresRow}
-                onCardFocus={handleCardFocus}
-              />
-            )}
+            <div className="home-rows">
+              {premieresRow && (
+                <ContentRow
+                  key={premieresRow.id}
+                  row={premieresRow}
+                  onCardFocus={handleCardFocus}
+                />
+              )}
 
-            <AdBanner />
+              <AdBanner />
 
-            {/* Фильмы */}
-            {filmsRow && (
-              <ContentRow
-                key={filmsRow.id}
-                row={filmsRow}
-                onCardFocus={handleCardFocus}
-              />
-            )}
+              {filmsRow && (
+                <ContentRow
+                  key={filmsRow.id}
+                  row={filmsRow}
+                  onCardFocus={handleCardFocus}
+                />
+              )}
 
-            {/* Рекомендации для [user] */}
-            {recommendationsRow && (
-              <TopTenRow
-                row={recommendationsRow}
-                onCardFocus={handleCardFocus}
-              />
-            )}
+              {recommendationsRow && (
+                <TopTenRow
+                  row={recommendationsRow}
+                  onCardFocus={handleCardFocus}
+                />
+              )}
 
-            {/* Сериалы */}
-            {showsRow && (
-              <ShowsRow
-                row={showsRow}
-                onCardFocus={handleCardFocus}
-              />
-            )}
+              {showsRow && (
+                <ShowsRow
+                  row={showsRow}
+                  onCardFocus={handleCardFocus}
+                />
+              )}
 
-            {/* Телепередачи */}
-            {broadcastsRow && (
-              <ContentRow
-                key={broadcastsRow.id}
-                row={broadcastsRow}
-                onCardFocus={handleCardFocus}
-              />
-            )}
+              {broadcastsRow && (
+                <ContentRow
+                  key={broadcastsRow.id}
+                  row={broadcastsRow}
+                  onCardFocus={handleCardFocus}
+                />
+              )}
+            </div>
           </div>
+        </FocusContext.Provider>
+      ) : (
+        <div className="home-content">
+          {renderPage(currentPage)}
         </div>
-      </FocusContext.Provider>
+      )}
     </div>
   );
 }

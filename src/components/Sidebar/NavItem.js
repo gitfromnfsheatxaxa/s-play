@@ -2,50 +2,34 @@
 import React from 'react';
 import { useFocusable, setFocus } from '@noriginmedia/norigin-spatial-navigation';
 
-function NavItem({ id, icon, label, isActive, isFirst, isLast, onSelect }) {
+function NavItem({ id, icon, label, isActive, isFirst, isLast, onSelect, contentFocusKey }) {
   const { ref, focused } = useFocusable({
     focusKey: id,
-    onEnterPress: () => onSelect && onSelect(id),
-    onFocus: () => {
-      // When this item receives focus via arrow keys, update the active state
-      if (onSelect) onSelect(id);
-    },
+    onFocus: () => { if (onSelect) onSelect(id); },
+    onEnterPress: () => { if (contentFocusKey) setFocus(contentFocusKey); },
     onArrowPress: (direction) => {
-      // Never leave sidebar to the left
       if (direction === 'left') return false;
-
-      // RIGHT from sidebar: jump directly to the Премьеры card row.
-      // Spatial navigation alone routes to the hero play button (closer in Y).
-      // Explicit setFocus is the reliable pattern for TV sidebars.
       if (direction === 'right') {
-        setFocus('ROW-row-premieres');
+        if (contentFocusKey) setFocus(contentFocusKey);
         return false;
       }
-
-      // Block UP from the very first sidebar item
       if (direction === 'up' && isFirst) return false;
-
-      // Block DOWN from the very last sidebar item
       if (direction === 'down' && isLast) return false;
-
       return true;
     },
   });
-
-  // Indicator only shows on the ACTIVE (selected) item, not on focused items.
-  const showIndicator = isActive;
 
   return (
     <div
       ref={ref}
       className={[
         'nav-item',
-        isActive  ? 'nav-item--active'  : '',
-        focused   ? 'nav-item--focused' : '',
+        isActive ? 'nav-item--active'  : '',
+        focused  ? 'nav-item--focused' : '',
       ].join(' ')}
       onClick={() => onSelect && onSelect(id)}
     >
-      {showIndicator && <span className="nav-item__indicator" />}
+      {isActive && <span className="nav-item__indicator" />}
 
       <span className="nav-item__icon">
         <img src={icon} alt="" className="nav-item__icon-img" />
