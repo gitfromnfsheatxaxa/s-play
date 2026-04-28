@@ -1,0 +1,75 @@
+.search-bar {
+  width: 100%;
+  height: 52px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 24px;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition: background 0.22s ease, outline-color 0.22s ease;
+  cursor: text;
+}
+
+.search-bar--focused {
+  background: rgba(255, 255, 255, 0.11);
+  outline-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Keyboard is open — show orange accent outline even when bar is not focused */
+.search-bar--active {
+  outline-color: rgba(255, 255, 255, 0.2);
+}
+
+.search-bar__icon {
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.45);
+  flex-shrink: 0;
+  transition: color 0.22s ease;
+}
+
+.search-bar--focused .search-bar__icon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.search-bar__text-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 22px;
+  overflow: hidden;
+}
+
+.search-bar__placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+.search-bar__query {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar__caret {
+  display: inline-block;
+  width: 2px;
+  height: 18px;
+  background: var(--color-accent-primary, #FF5708);
+  margin-left: 2px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: search-caret-blink 1.1s step-end infinite;
+}
+
+@keyframes search-caret-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}

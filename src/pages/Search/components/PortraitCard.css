@@ -1,0 +1,42 @@
+.portrait-card {
+  flex-shrink: 0;
+  position: relative;
+  width: calc((100vw - 360px) / 5.3);
+  aspect-ratio: 2 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  outline: 3px solid transparent;
+  outline-offset: 3px;
+  cursor: pointer;
+  transition: outline-color 0.15s ease;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.portrait-card--focused {
+  outline-color: var(--color-accent-primary, #FF5708);
+  z-index: 10;
+}
+
+.portrait-card__poster {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.portrait-card__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}

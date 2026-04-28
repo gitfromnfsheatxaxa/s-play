@@ -1,0 +1,42 @@
+.actor-card {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.actor-card__circle {
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  overflow: hidden;
+  outline: 3px solid transparent;
+  outline-offset: 3px;
+  transition: outline-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.actor-card--focused .actor-card__circle {
+  outline-color: var(--color-accent-primary, #FF5708);
+}
+
+.actor-card__circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.actor-card__name {
+  width: 77px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  color: #FFFFFF;
+
+
+}

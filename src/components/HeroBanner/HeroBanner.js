@@ -24,18 +24,13 @@ function HeroBanner({ movie, onFocus }) {
     return () => clearTimeout(fadeTimer.current);
   }, [movie.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { ref, focusKey } = useFocusable({
-    focusKey: 'HERO',
-    trackChildren: true,
-    onFocus: () => { if (onFocus) onFocus(); },
-  });
 
 
   const m = displayMovie;
 
   return (
-    <FocusContext.Provider value={focusKey}>
-      <section className={`hero ${fading ? 'hero--fading' : ''}`} ref={ref}>
+    <div>
+      <section className={`hero ${fading ? 'hero--fading' : ''}`} >
 
         {/* Fixed Avengers backdrop — always shown regardless of focused movie */}
         <img src={avengersBackdrop} className="hero__backdrop" alt="" aria-hidden="true" />
@@ -128,7 +123,7 @@ function HeroBanner({ movie, onFocus }) {
           </div>
         </div>
       </section>
-    </FocusContext.Provider>
+    </div>
   );
 }
 

@@ -1,0 +1,81 @@
+.search-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+.search-keyboard__row {
+  display: flex;
+  gap: 6px;
+}
+
+/* ── Base key ── */
+.kb-key {
+  min-width: 0;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition: background 0.12s ease, outline-color 0.12s ease, color 0.12s ease;
+  letter-spacing: 0.2px;
+}
+
+.kb-key--focused {
+  background: var(--color-accent-primary, #FF5708);
+  color: #fff;
+  outline-color: rgba(255, 87, 8, 0.5);
+}
+
+/* Special key sizing overrides */
+.kb-key--space  { font-size: 0; }   /* hide empty label */
+.kb-key--clear  { font-size: 12px; letter-spacing: 0; }
+.kb-key--lang   { font-size: 13px; }
+.kb-key--symbols { font-size: 13px; }
+.kb-key--back   { font-size: 16px; }
+.kb-key--shift  { font-size: 14px; }
+.kb-key--zero   {}
+
+/* ── Chips row ── */
+.search-keyboard__chips {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.kb-chip {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 34px;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition: background 0.12s ease, outline-color 0.12s ease, color 0.12s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0 8px;
+}
+
+.kb-chip--focused {
+  background: rgba(255, 87, 8, 0.18);
+  outline-color: var(--color-accent-primary, #FF5708);
+  color: #fff;
+}

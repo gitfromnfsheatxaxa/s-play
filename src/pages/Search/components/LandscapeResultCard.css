@@ -1,0 +1,66 @@
+.landscape-card {
+  flex-shrink: 0;
+  position: relative;
+  width: calc((100vw - 360px) / 3.3);
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  outline: 3px solid transparent;
+  outline-offset: 3px;
+  cursor: pointer;
+  transition: outline-color 0.15s ease;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.landscape-card--focused {
+  outline-color: var(--color-accent-primary, #FF5708);
+  z-index: 10;
+}
+
+.landscape-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.landscape-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.28) 55%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+}
+
+.landscape-card__badge-kino {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  background: var(--color-accent-primary, #FF5708);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px 8px 4px 8px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.landscape-card__badge-start {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
