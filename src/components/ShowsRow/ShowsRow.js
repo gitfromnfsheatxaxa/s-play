@@ -67,11 +67,15 @@ function ShowsRow({ row, onCardFocus }) {
 
   const onInternalCardFocus = useCallback(
     (layout) => {
-      ref.current?.scrollTo({ left: layout.x, behavior: 'smooth' });
-      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const scrollOffset = layout.x - 5;
+      ref.current?.scrollTo({
+        left: Math.max(0, scrollOffset),
+        behavior: 'smooth'
+      });      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     },
     [ref]
   );
+
 
   if (!row.items || row.items.length === 0) return null;
 
