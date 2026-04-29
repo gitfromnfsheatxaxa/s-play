@@ -10,7 +10,11 @@ function ActorCard({ actor, index, totalItems, onFocus, onCollapseKeyboard }) {
       if (onCollapseKeyboard) onCollapseKeyboard();
     },
     onArrowPress: (direction) => {
-      if (direction === 'left' && index === 0) return false;
+      if (direction === 'left' && index === 0) {
+        // Replace 'NAV-SEARCH' with your Sidebar's specific focus key
+        setFocus('NAV-SEARCH');
+        return false; // Prevent default engine behavior
+      }
       if (direction === 'right' && index === totalItems - 1) return false;
       if (direction === 'down') return false;
       if (direction === 'up') {

@@ -46,7 +46,39 @@
   /* hide scrollbar */
   scrollbar-width: none;
 }
+.actor-card {
+  flex-shrink: 0;
+  /* Since gaps for actors are 20px, the math changes slightly for them:
+     (100vw - 195px - (4 * 20px)) / 5 = 275px total overhead */
+  width: calc((100vw - 275px) / 8);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%; /* For circular actor avatars */
+}
+/* 1. Base card styling */
+.portrait-card {
+  flex-shrink: 0;
+  width: calc((100vw - 300px) / 5);
+  height: calc((100vw - 300px) / 5);
 
+  aspect-ratio: 2 / 3; /* Standard movie poster ratio */
+  border-radius: 10px;
+  /* ... rest of your styles */
+}
+
+/* 2. Focused state scaling */
+.portrait-card--focused {
+  /* Grows slightly when focused */
+  outline: 4px solid #FF5708;
+  outline-offset: 4px;
+}
+
+/* 3. Poster content */
+.portrait-card__poster {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
 .portrait-card-row::-webkit-scrollbar,
 .landscape-result-row::-webkit-scrollbar,
 .actor-row::-webkit-scrollbar {
@@ -58,3 +90,4 @@
   align-items: flex-start;
   padding-bottom: 16px;
 }
+

@@ -16,11 +16,14 @@
 .search-bar--focused {
   background: rgba(255, 255, 255, 0.11);
   outline-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 87, 8, 1)
 }
 
 /* Keyboard is open — show orange accent outline even when bar is not focused */
 .search-bar--active {
   outline-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 87, 8, 1)
+
 }
 
 .search-bar__icon {

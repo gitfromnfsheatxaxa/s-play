@@ -5,16 +5,18 @@ import './PortraitCard.css';
 function PortraitCard({ item, index, totalItems, onFocus, onCollapseKeyboard, hasResults }) {
   const { ref, focused } = useFocusable({
     focusKey: `SEARCH-CARD-${item.id}`,
+    // The 'layout' object contains .x, .y, .width, .height
     onFocus: (layout) => {
       if (onFocus) onFocus(layout);
       if (onCollapseKeyboard) onCollapseKeyboard();
     },
     onArrowPress: (direction) => {
-      if (direction === 'left' && index === 0) return false;
+      if (direction === 'left' && index === 0) {
+        setFocus('NAV-SEARCH');
+        return false;
+      }
       if (direction === 'right' && index === totalItems - 1) return false;
       if (direction === 'up') {
-        // When landscape results are visible they sit between catalog and the
-        // search bar, so UP should land there. Otherwise go straight to SEARCH-BAR.
         setFocus(hasResults ? 'SEARCH-LCARD-lr-1' : 'SEARCH-BAR');
         return false;
       }
@@ -23,17 +25,15 @@ function PortraitCard({ item, index, totalItems, onFocus, onCollapseKeyboard, ha
   });
 
   return (
-    <div ref={ref} className={`portrait-card ${focused ? 'portrait-card--focused' : ''}`}>
-      <div
-        className="portrait-card__poster"
-        style={{
-          backgroundImage: item.image
-            ? `url(${item.image})`
-            : item.gradient || 'none',
-        }}
-      />
-      <div className="portrait-card__badge">Текст</div>
-    </div>
+      <div ref={ref} className={`portrait-card ${focused ? 'portrait-card--focused' : ''}`}>
+        <div
+            className="portrait-card__poster"
+            style={{
+              backgroundImage: item.image ? `url("${item.image}")` : 'none',
+              backgroundColor: !item.image ? '#333' : 'transparent'
+            }}
+        />
+      </div>
   );
 }
 

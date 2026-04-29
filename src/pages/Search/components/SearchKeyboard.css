@@ -1,81 +1,169 @@
+/*
+ * --key  : single key size
+ * --gap  : gap between keys
+ * --sgap : gap between the 3 sections (mic | qwerty | numpad)
+ */
+:root {
+  --key:  clamp(2.8rem, 4.2vw, 5.2rem);
+  --gap:  clamp(0.25rem, 0.45vw, 0.55rem);
+  --sgap: clamp(0.6rem,  1.1vw, 1.4rem);
+  --radius: clamp(0.4rem, 0.7vw, 0.85rem);
+  --outline: clamp(0.12rem, 0.18vw, 0.19rem);
+}
+
+/* ─── Container ──────────────────────────────────────────────────── */
 .search-keyboard {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 4px 0;
+  gap: var(--gap);
+  width: fit-content;        /* shrink to content width */
+  margin-left: auto;         /* push everything to the right */
 }
 
-.search-keyboard__row {
+/* 3-section layout: mic | qwerty | numpad */
+.keyboard-main {
   display: flex;
-  gap: 6px;
+  gap: var(--sgap);
+  align-items: flex-start;
+  margin-bottom: var(--sgap);
 }
-
-/* ── Base key ── */
-.kb-key {
-  min-width: 0;
-  height: 44px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.88);
+/* ─── Mic column ─────────────────────────────────────────────────── */
+.mic-col {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  user-select: none;
-  outline: 2px solid transparent;
-  outline-offset: -2px;
-  transition: background 0.12s ease, outline-color 0.12s ease, color 0.12s ease;
-  letter-spacing: 0.2px;
+  flex-shrink: 0;
 }
 
-.kb-key--focused {
-  background: var(--color-accent-primary, #FF5708);
-  color: #fff;
-  outline-color: rgba(255, 87, 8, 0.5);
+/* ─── QWERTY grid — no longer flex:1 ────────────────────────────── */
+.keyboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
 }
-
-/* Special key sizing overrides */
-.kb-key--space  { font-size: 0; }   /* hide empty label */
-.kb-key--clear  { font-size: 12px; letter-spacing: 0; }
-.kb-key--lang   { font-size: 13px; }
-.kb-key--symbols { font-size: 13px; }
-.kb-key--back   { font-size: 16px; }
-.kb-key--shift  { font-size: 14px; }
-.kb-key--zero   {}
-
-/* ── Chips row ── */
 .search-keyboard__chips {
   display: flex;
-  gap: 6px;
-  margin-top: 4px;
+  gap: var(--gap);
+}
+.search-keyboard__row {
+  display: flex;
+  gap: var(--gap);
 }
 
-.kb-chip {
-  flex: 1 1 0;
-  min-width: 0;
-  height: 34px;
-  border-radius: 17px;
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.65);
+/* ─── Numpad column ──────────────────────────────────────────────── */
+.numpad-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  flex-shrink: 0;
+}
+
+/* ─── Base Key ───────────────────────────────────────────────────── */
+.kb-key {
+  width: var(--key);
+  height: var(--key);
+  background: #1B1C1C;
+  border-radius: var(--radius);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.75rem, 1.2vw, 1.45rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 400;
   cursor: pointer;
   user-select: none;
-  outline: 2px solid transparent;
-  outline-offset: -2px;
-  transition: background 0.12s ease, outline-color 0.12s ease, color 0.12s ease;
+  flex-shrink: 0;
+  outline: var(--outline) solid transparent;
+  outline-offset: calc(var(--outline) * -1);
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+
+/* ─── Mic: 1 key wide, 4 keys + 3 gaps tall ─────────────────────── */
+.kb-key--mic {
+  width: var(--key);
+  height: calc(4 * var(--key) + 3 * var(--gap));
+}
+
+.kb-key--mic svg,
+.kb-key--mic .kb-icon {
+  width: clamp(1rem, 1.6vw, 1.8rem);
+  height: clamp(1rem, 1.6vw, 1.8rem);
+}
+
+/* ─── Bottom-row special keys ────────────────────────────────────── */
+
+/* Space = 3 keys + 2 gaps */
+.kb-key--space {
+  width: calc(3 * var(--key) + 2 * var(--gap));
+  font-size: 0;
+}
+
+/* Backspace = 2 keys + 1 gap */
+.kb-key--clear {
+  width: calc(2 * var(--key) + var(--gap));
+  font-size: clamp(0.85rem, 1.3vw, 1.5rem);
+}
+
+.kb-key--symbols,
+.kb-key--lang {
+  font-size: clamp(0.6rem, 0.95vw, 1.1rem);
+}
+
+.kb-key--shift {
+  font-size: clamp(0.85rem, 1.3vw, 1.5rem);
+}
+
+
+/* ─── Numpad ─────────────────────────────────────────────────────── */
+.kb-key--num {
+  font-size: clamp(0.75rem, 1.2vw, 1.45rem);
+}
+
+/* 0 = 3 keys + 2 gaps */
+.kb-key--zero {
+  width: calc(3 * var(--key) + 2 * var(--gap));
+  font-size: clamp(0.75rem, 1.2vw, 1.45rem);
+}
+
+/* ─── Focused ────────────────────────────────────────────────────── */
+.kb-key--focused {
+  background: #FF5708;
+  outline-color: rgba(255, 87, 8, 0.5);
+  transform: scale(1.04);
+}
+
+/* ─── Icon inside keys ───────────────────────────────────────────── */
+.kb-icon {
+  width: clamp(0.9rem, 1.5vw, 1.7rem);
+  height: clamp(0.9rem, 1.5vw, 1.7rem);
+  object-fit: contain;
+  pointer-events: none;
+}
+
+
+
+.kb-chip {
+  height: clamp(2rem, 2.5vw, 3.8rem);
+  padding: 0 clamp(0.6rem, 1vw, 1.2rem);
+  background: #1B1C1C;
+  border-radius: var(--radius);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.7rem, 1vw, 1.2rem);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   white-space: nowrap;
-  overflow: hidden;
-  padding: 0 8px;
+  cursor: pointer;
+  user-select: none;
+  outline: var(--outline) solid transparent;
+  outline-offset: calc(var(--outline) * -1);
+  transition: background 0.12s ease;
 }
 
 .kb-chip--focused {
-  background: rgba(255, 87, 8, 0.18);
-  outline-color: var(--color-accent-primary, #FF5708);
-  color: #fff;
+  background: #FF5708;
+  outline-color: rgba(255, 87, 8, 0.5);
 }
