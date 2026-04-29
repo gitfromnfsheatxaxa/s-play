@@ -9,27 +9,22 @@
   scrollbar-color: rgba(255,255,255,0.10) transparent;
 }
 
-.home-page::-webkit-scrollbar { width: 4px; }
+.home-page::-webkit-scrollbar { width: 0.25rem; }
 .home-page::-webkit-scrollbar-thumb {
   background: rgba(255,255,255,0.10);
-  border-radius: 2px;
+  border-radius: 0.125rem;
 }
 
-/* Spacer mirrors the fixed hero exactly:
-   top:16px + height:44vh + 16px gap before rows.
-   Must match .featured-hero dimensions in FeaturedHero.css. */
 .hero-spacer {
-  /* Matches .featured-hero exactly: top:0, height:44vh, min/max */
   height: 44vh;
-  min-height: 300px;
-  max-height: 500px;
+  min-height: 18.75rem;
+  max-height: 31.25rem;
   flex-shrink: 0;
 }
 
-/* Rows sit below the fixed hero, aligned with it */
 .rows-container {
-  padding: 8px 0 80px;
+  padding: 0.5rem 0 5rem;
   display: flex;
   flex-direction: column;
-  gap: 44px;
+  gap: 2.75rem;
 }

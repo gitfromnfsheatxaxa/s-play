@@ -3,52 +3,45 @@
 .top10-row-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px 60px 8px 140px;
+  gap: 1rem;
+  padding: 1rem 3.75rem 0.5rem 8.75rem;
   position: relative;
 }
 
-/* Orange username in the row title */
 .rec-username {
   color: var(--color-accent-primary);
   font-weight: 700;
 }
 
-/* Horizontal scroll track */
 .top10-row__scroll {
   display: flex;
   flex-direction: row;
   gap: 0;
   overflow-x: auto;
   overflow-y: visible;
-  padding: 16px 16px 44px;
-  scroll-margin-top: 80px;
-  scroll-margin-bottom: 20px;
+  padding: 1rem 1rem 2.75rem;
+  scroll-margin-top: 5rem;
+  scroll-margin-bottom: 1.25rem;
 }
 
 /* ─── Recommendation item ──────────────────────────────────────────────────── */
-/* Large number on left, landscape card on right overlapping it               */
 .rec-item {
   position: relative;
   flex-shrink: 0;
-  /* Exactly 4 items fill the screen: 4 items + 3 gaps of 12px.
-     Available = 100vw − 292px (layout overhead). */
   width: calc((100vw - 328px) / 4);
-  /* Height derived from card being 80% wide at 3:2 ratio → item ratio = 15:8 */
   aspect-ratio: 15 / 8;
-  margin-right: 12px;
+  margin-right: 0.75rem;
 }
 
 /* ─── Rank number ─── */
 .rec-number {
-
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 80%;   /* proportional to item height at any screen size */
+  height: 80%;
   width: auto;
   z-index: 1;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
+  filter: drop-shadow(0 0.125rem 0.5rem rgba(0,0,0,0.7));
   pointer-events: none;
   user-select: none;
 }
@@ -59,28 +52,29 @@
   left: 0;
   bottom: 0;
   font-family: 'SF Pro Display', system-ui, sans-serif;
-  font-size: 90px;
+  font-size: clamp(4rem, 5.625vw, 8.4375rem);
   font-weight: 900;
   line-height: 1;
-  letter-spacing: -4px;
+  letter-spacing: -0.25rem;
   background: linear-gradient(135deg, #FAFF00 0%, #FF1000 33%, #FF6A00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 0.125rem 0.5rem rgba(0,0,0,0.5));
   z-index: 1;
   pointer-events: none;
   user-select: none;
 }
 
-/* ─── Landscape card (same proportions as ContentCard) ─── */
+/* ─── Landscape card ─── */
 .rec-card {
   position: absolute;
   right: 0;
   top: 0;
-  width: 80%;    /* leaves ~20% for the number on the left */
-  height: 100%;  /* fills rec-item height, which is set by aspect-ratio 15:8 */
-  border-radius: 10px;
+  scroll-margin-bottom: 4.5rem;
+  width: 80%;
+  height: 100%;
+  border-radius: 0.625rem;
   overflow: hidden;
   z-index: 2;
   cursor: pointer;
@@ -97,7 +91,6 @@
   outline-color: var(--color-accent-primary);
 }
 
-/* Poster background */
 .rec-card__poster {
   position: relative;
   width: 100%;
@@ -110,19 +103,18 @@
   background-repeat: no-repeat;
 }
 
-/* Bottom overlay */
 .rec-card__overlay {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 5px;
-  padding: 28px 10px 8px;
+  gap: 0.3125rem;
+  padding: 1.75rem 0.625rem 0.5rem;
   background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
 }
 
 .rec-card__title {
-  font-size: 12px;
+  font-size: clamp(0.625rem, 0.75vw, 1.125rem);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
   display: -webkit-box;

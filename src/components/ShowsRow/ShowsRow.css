@@ -3,42 +3,33 @@
 .shows-row-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px 60px 8px 140px;
+  gap: 1rem;
+  padding: 1rem 3.75rem 0.5rem 8.75rem;
   position: relative;
-
 }
 
-/* Horizontal scroll container */
 .shows-row__scroll {
   display: flex;
   flex-direction: row;
-  gap: 16px;
-
+  gap: 1rem;
   overflow-x: auto;
   overflow-y: visible;
-
-  /* Update this line: */
-  padding: 20px 20px 20px 40px;
-
-  /* Add this line to match your left padding */
-  scroll-padding-left: 40px;
-
+  padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+  scroll-padding-left: 2.5rem;
   scroll-snap-type: x mandatory;
-  scroll-margin-top: 80px;
-  scroll-margin-bottom: 20px;
+  scroll-margin-top: 5rem;
+  scroll-margin-bottom: 1.25rem;
 }
 
 /* ─── Wide show card ─── */
 .show-card {
   flex-shrink: 0;
   position: relative;
-  /* 1 full card + 90% of 2nd visible at any screen width.
-     Overhead = 300px (layout) + 46px (gap). Divisor = 1.9. */
+  scroll-margin-bottom: 4.5rem;
   width: calc((100vw - 346px) / 1.9);
   aspect-ratio: 16 / 9;
-  margin-right: 30px;
-  border-radius: 12px;
+  margin-right: 1.875rem;
+  border-radius: 0.75rem;
   overflow: hidden;
   cursor: pointer;
   background-size: cover;
@@ -46,8 +37,6 @@
   background-repeat: no-repeat;
   transition: outline-color 0.15s ease;
   transform-origin: center center;
-  /* outline is used instead of box-shadow so the focus ring is NOT clipped
-     by the parent scroll container's overflow boundary */
   outline: 3px solid transparent;
   outline-offset: 3px;
 }
@@ -55,14 +44,9 @@
 .show-card:first-child { transform-origin: left center; }
 .show-card:last-child  { transform-origin: right center; }
 
-/* outline paints outside the overflow clip — no barrier on first card */
 .show-card--focused {
   outline-color: var(--color-accent-primary);
 }
-
-/* ─── Right-darkening scrim ─── */
-/* Left portion: movie image fully visible
-   Right portion: dark background for title text readability */
 
 /* ─── Top bar: badge LEFT + 4 chips RIGHT ─── */
 .show-card__top {
@@ -74,11 +58,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px 0;
+  padding: 0.875rem 1rem 0;
 }
 
-/* Override: card__badge is position:absolute globally, but inside the show card's
-   flex top-bar it must flow as a normal flex item so it stays left-aligned */
 .show-card__top .card__badge {
   position: static;
   top: auto;
@@ -89,38 +71,36 @@
 .show-card__chips {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
-/* Each chip: rating, age, language, START
-   Font scales with viewport so chips stay proportional to the card width */
 .show-chip {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 0.6rem;
-  gap: 3.43px;
+  gap: 0.25rem;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(2px);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   font-style: normal;
   font-weight: 600;
-  line-height: 33px;
-  height: 33px;
+  line-height: 2.0625rem;
+  height: 2.0625rem;
   color: #F8F8F8;
-  font-size: 14px;
-}
-.show-chip-img {
-  width: 60px;
+  font-size: clamp(0.75rem, 0.875vw, 1.25rem);
 }
 
-/* START chip — orange accent */
+.show-chip-img {
+  width: 3.75rem;
+}
+
 .show-chip--start {
   background: var(--color-accent-primary);
   border-color: transparent;
   color: #ffffff;
   font-weight: 700;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.02em;
 }
 
 /* ─── Title: right half, right-aligned, bottom ─── */
@@ -131,14 +111,13 @@
   width: 52%;
   z-index: 2;
   font-family: 'SF Pro Display', system-ui, sans-serif;
-  font-size: 36px;
+  font-size: clamp(1.75rem, 2.25vw, 3.375rem);
   font-weight: 900;
   line-height: 1.05;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.03125rem;
   color: #ffffff;
   text-transform: uppercase;
   text-align: right;
-  padding: 0 20px 22px 0;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.95);
+  padding: 0 1.25rem 1.375rem 0;
+  text-shadow: 0 0.125rem 1.25rem rgba(0, 0, 0, 0.95);
 }
-

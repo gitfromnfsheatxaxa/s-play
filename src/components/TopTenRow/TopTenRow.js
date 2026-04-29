@@ -69,7 +69,7 @@ function TopTenRow({ row, onCardFocus }) {
   const onInternalCardFocus = useCallback(
     (layout) => {
       ref.current?.scrollTo({ left: layout.x, behavior: 'smooth' });
-      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     },
     [ref]
   );

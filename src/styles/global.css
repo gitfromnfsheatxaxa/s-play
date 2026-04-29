@@ -10,7 +10,9 @@
 }
 
 html {
-  font-size: 16px;
+  /* Fluid root: 14px at ≤1680px, 16px at 1920px, 20px at ≥2400px.
+     All rem values scale proportionally — no per-component media queries needed. */
+  font-size: clamp(14px, 0.8333vw, 20px);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,19 +1,43 @@
 /* src/components/HeroBanner/HeroBanner.css */
 
-.hero {
-  position: relative;
-  width: 100vw;
-  height: 62vh;
-  min-height: 480px;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: #040404;
-  transition: opacity 0.22s ease;
+/* ─── Keyframes ─────────────────────────────────────────────────────────────── */
+
+/* Backdrop: slow atmospheric reveal — dims from black then opens up */
+@keyframes heroBackdropReveal {
+  0%   { opacity: 0;    transform: scale(1.04); }
+  30%  { opacity: 0.45; }
+  100% { opacity: 1;    transform: scale(1); }
 }
 
-.hero--fading { opacity: 0; }
+/* Text elements: slide in from the left */
+@keyframes heroSlideIn {
+  from { opacity: 0; transform: translateX(-2.5rem); }
+  to   { opacity: 1; transform: translateX(0); }
+}
 
-/* ─── Layer 0: fixed Avengers backdrop ─── */
+/* ─── Hero section ──────────────────────────────────────────────────────────── */
+.hero {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 100%;
+  height: 62vh;
+  min-height: 30rem;
+  overflow: hidden;
+  background: #040404;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero--hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4%);
+}
+
+
+/* ─── Backdrop ──────────────────────────────────────────────────────────────── */
 .hero__backdrop {
   position: absolute;
   inset: 0;
@@ -22,9 +46,11 @@
   object-fit: cover;
   object-position: right center;
   z-index: 0;
+  /* Replay on every re-key */
+  animation: heroBackdropReveal 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
-/* ─── Layer 1: left-dark + bottom-dark readability vignette ─── */
+/* ─── Overlay ───────────────────────────────────────────────────────────────── */
 .hero__overlay {
   position: absolute;
   inset: 0;
@@ -46,183 +72,125 @@
     );
 }
 
-/* ─── Layer 2: content ─── */
+/* ─── Content layout ────────────────────────────────────────────────────────── */
 .hero__content {
   position: absolute;
   inset: 0;
   z-index: 2;
   display: flex;
   align-items: flex-end;
-  padding: 0 60px 48px 170px;
-  gap: 40px;
+  padding: 0 3.75rem 3rem 10.625rem;
+  gap: 2.5rem;
 }
 
 /* ════════════════════════════════
-   LEFT COLUMN  (~30vw)
+   LEFT COLUMN
 ════════════════════════════════ */
 .hero__info {
   flex: 0 0 30vw;
-  min-width: 320px;
+  min-width: 20rem;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
-/* ─── Small movie logo above ratings ─── */
+/* Each text block slides in with a slightly longer delay per element */
 .hero__logo-img {
   width: auto;
-  max-height: 70px;
-  max-width: 250px;
+  max-height: 4.375rem;
+  max-width: 15.625rem;
   object-fit: contain;
   object-position: left bottom;
   display: block;
-
+  animation: heroSlideIn 0.38s ease 0.05s both;
 }
 
-/* ─── Rating badges (KP + IMDb only) ─── */
 .hero__ratings {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
+  animation: heroSlideIn 0.38s ease 0.1s both;
 }
 
 .hero__rating-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  border-radius: 5px;
-  padding: 4px 8px;
-  font-size: 12px;
+  gap: 0.3125rem;
+  border-radius: 0.3125rem;
+  padding: 0.25rem 0.5rem;
+  font-size: clamp(1rem, 1.25vw, 1.875rem);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.88);
   line-height: 1;
 }
 
 .hero__rating-icon {
-  width: 20px;
-  height: 20px;
+  width: 1.875rem;
+  height: 1.875rem;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
 }
 
-/* ─── Meta chips row ─── */
-/* Matches screenshot: small compact pills, subtle background, plain text */
 .hero__meta {
   display: flex;
   align-items: flex-start;
-  gap: 5px;
+  gap: 0.3125rem;
   flex-wrap: wrap;
+  animation: heroSlideIn 0.4s ease 0.15s both;
 }
 
 .hero__meta-chip {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 10px;
-  gap: 5px;
+  padding: 0.625rem;
+  gap: 0.3125rem;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  font-style: normal;
+  border-radius: 0.5rem;
   font-weight: 400;
-  font-size: 20px;
+  font-size: clamp(1rem, 1.25vw, 1.875rem);
   line-height: 140%;
   color: #FFFFFF;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 }
-.small_one{
-  padding: 7px 10px !important;
 
-}
-/* Platform chip (PREMIER) — orange filled */
+.small_one { padding: 0.4375rem 0.625rem !important; }
+
 .hero__meta-chip--platform {
   background: var(--color-accent-primary);
   border-color: transparent;
   color: #fff;
   font-weight: 700;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .hero__meta-play-icon {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #fff;
 }
 
-/* ─── Title ─── */
 .hero__title {
-
   font-style: normal;
   font-weight: 600;
-  font-size: 32px;
-  line-height: 38px;
+  font-size: clamp(1.5rem, 2vw, 3rem);
+  line-height: 1.19;
   color: #FFFFFF;
-  flex: none;
-
-  flex-grow: 0;
-
+  animation: heroSlideIn 0.42s ease 0.2s both;
 }
 
-/* ─── Description ─── */
 .hero__description {
   width: 40rem;
-  font-style: normal;
   font-weight: 400;
   font-size: 1rem;
-  line-height: 32px;
+  line-height: 2rem;
   color: #FFFFFF;
-  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.4);
+  animation: heroSlideIn 0.44s ease 0.27s both;
 }
 
-/* ─── Play button ─── */
-.hero__actions {
-  display: flex;
-  gap: 16px;
-  margin-top: 2px;
-}
-
-.hero-play-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 32px;
-  background-color: var(--color-accent-primary);
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font: var(--label-1-bold);
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.hero-play-btn__icon {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.hero-play-btn__icon svg { width: 100%; height: 100%; }
-
-.hero-play-btn--focused,
-.hero-play-btn:focus {
-  background-color: var(--color-accent-hover);
-  transform: scale(1.05);
-  box-shadow: 0 0 0 5px rgba(255, 87, 8, 0.5), 0 8px 24px rgba(255, 87, 8, 0.35);
-  outline: none;
-}
 
 /* ════════════════════════════════
-   RIGHT COLUMN — big logo image
+   RIGHT COLUMN
 ════════════════════════════════ */
 .hero__visual {
   flex: 1;
@@ -230,43 +198,42 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
-  padding-bottom: 8px;
+  padding-bottom: 0.5rem;
+  animation: heroSlideIn 0.5s ease 0.12s both;
 }
 
-/* Large herobannerlogo.png */
 .hero__visual-logo {
   width: auto;
-  max-width: 500px;
-  max-height: 240px;
+  max-width: 31.25rem;
+  max-height: 15rem;
   object-fit: contain;
   object-position: left bottom;
   display: block;
-  filter: drop-shadow(0 4px 32px rgba(0,0,0,0.7));
+  filter: drop-shadow(0 0.25rem 2rem rgba(0,0,0,0.7));
 }
 
-/* ─── CSS text fallback (for cards without heroLogoImage) ─── */
 .hero__movie-logo {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .hero__movie-logo-title {
   font: var(--title-2-bold);
   font-weight: 900;
   line-height: 1;
-  letter-spacing: -2px;
+  letter-spacing: -0.125rem;
   background: linear-gradient(135deg, #FFB347 0%, #FF8C00 30%, #FF6B00 60%, #D4500A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 4px 24px rgba(255, 140, 0, 0.4));
+  filter: drop-shadow(0 0.25rem 1.5rem rgba(255, 140, 0, 0.4));
 }
 
 .hero__movie-logo-subtitle {
   font: var(--heading-6-semibold);
   font-weight: 700;
-  letter-spacing: 4px;
+  letter-spacing: 0.25rem;
   color: var(--color-fg-primary);
   opacity: 0.9;
   text-transform: uppercase;

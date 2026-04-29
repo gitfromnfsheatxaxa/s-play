@@ -22,10 +22,7 @@ function LandscapeResultCard({ item, index, totalItems, onFocus, onCollapseKeybo
         setFocus('SEARCH-BAR');
         return false;
       }
-      if (direction === 'down') {
-        setFocus('SEARCH-CARD-movie-1');
-        return false;
-      }
+
       return true;
     },
   });

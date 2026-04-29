@@ -2,12 +2,10 @@
 
 .content-card {
   flex-shrink: 0;
-  margin-right:15px;
-  /* 5 full cards + 20% of 6th visible at any screen width.
-     Overhead = 292px (layout) + 5×29px (gap) = 437px. Divisor = 5.2. */
+  margin-right: 0.9375rem;
   width: calc((100vw - 437px) / 5.1);
   aspect-ratio: 3 / 2;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -15,15 +13,13 @@
   transform-origin: center center;
   outline: 3px solid transparent;
   outline-offset: 3px;
+  /* scrollIntoView({ block:'end' }) leaves this gap between card bottom and viewport floor */
+  scroll-margin-bottom: 4.5rem;
 }
 
-/* First card grows rightward only — prevents overflow into the sidebar */
 .content-card--first { transform-origin: left center; }
-
-/* Last card grows leftward only — prevents clipping at row end */
 .content-card--last  { transform-origin: right center; }
 
-/* Focused state — outline renders outside overflow clip, no barrier */
 .content-card--focused,
 .content-card:focus {
   outline-color: var(--color-accent-primary);
@@ -44,26 +40,23 @@
 }
 
 /* ─── Badge ─── */
-/* All values scale with viewport so the badge stays proportional to the card */
 .card__badge {
-  width: 90px;
-  height: 29px;
+  width: 5.625rem;
+  height: 1.8125rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   position: absolute;
-  left:6px;
-
-  top: 6px;
+  left: 0.375rem;
+  top: 0.375rem;
   bottom: 80.56%;
-  border-radius: 10px 6px 6px 6px;
+  border-radius: 0.625rem 0.375rem 0.375rem 0.375rem;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+  font-size: clamp(0.75rem, 1vw, 1.5rem);
+  line-height: 1.2;
   color: #F8F8F8;
-
 }
 
 .card__badge--primary {
@@ -76,25 +69,26 @@
   color: var(--color-fg-primary-variant);
 }
 
-/* START badge — top right, same size scale as card__badge */
+/* START badge — top right */
 .card__start-badge {
   position: absolute;
-  right:6px;
-  top: 6px;
-  font-size: clamp(9px, 0.65vw, 12px);
+  right: 0.375rem;
+  top: 0.375rem;
+  font-size: clamp(0.5rem, 0.65vw, 0.75rem);
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03125rem;
   line-height: 1;
-  padding: 0.50em 0.6rem ;
-  border-radius: 6px 10px 6px 6px;
+  padding: 0.50em 0.6rem;
+  border-radius: 0.375rem 0.625rem 0.375rem 0.375rem;
   background: rgba(0, 0, 0, 0.55);
   color: #ffffff;
   white-space: nowrap;
 }
-.card__start-badge img{
+
+.card__start-badge img {
   display: flex;
-  width: 38px;
-  height: 18px;
+  width: 2.375rem;
+  height: 1.125rem;
   margin: auto;
 }
 
@@ -104,8 +98,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 5px;
-  padding: 28px 10px 8px;
+  gap: 0.3125rem;
+  padding: 1.75rem 0.625rem 0.5rem;
   background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
 }
 
@@ -113,7 +107,7 @@
 .card__title {
   font: var(--label-3-medium);
   font-weight: 600;
-  font-size: 12px;
+  font-size: clamp(0.625rem, 0.75vw, 1.125rem);
   color: rgba(255, 255, 255, 0.95);
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -124,29 +118,29 @@
 /* ─── Rating badges ─── */
 .card__ratings {
   display: flex;
-  gap: 6px;
+  gap: 0.375rem;
   align-items: center;
 }
 
 .card__rating {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 10px;
+  gap: 0.1875rem;
+  font-size: clamp(0.5rem, 0.625vw, 0.9375rem);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1;
 }
 
 .card__rating-icon {
-  width: 22px;
-  height: 11px;
+  width: 1.375rem;
+  height: 0.6875rem;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
 }
 
 .card__rating--kp .card__rating-icon {
-  width: 12px;
-  height: 12px;
+  width: 0.75rem;
+  height: 0.75rem;
 }

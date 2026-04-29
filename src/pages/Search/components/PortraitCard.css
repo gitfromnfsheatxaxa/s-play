@@ -3,7 +3,7 @@
   position: relative;
   width: calc((100vw - 360px) / 5.3);
   aspect-ratio: 2 / 3;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   overflow: hidden;
   outline: 3px solid transparent;
   outline-offset: 3px;
@@ -27,14 +27,14 @@
 
 .portrait-card__badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 0.625rem;
+  left: 0.625rem;
   z-index: 1;
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 4px;
-  padding: 2px 8px;
-  font-size: 11px;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  font-size: clamp(0.5rem, 0.6875vw, 1rem);
   font-weight: 500;
   color: #fff;
   backdrop-filter: blur(4px);

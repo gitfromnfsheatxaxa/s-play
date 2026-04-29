@@ -16,13 +16,9 @@ function ContentRow({ row, onCardFocus }) {
 
   const onInternalCardFocus = useCallback(
     (layout) => {
-      // Horizontal: keep the focused card in view within this row.
+      // Horizontal only — vertical positioning is handled by Home.js so that
+      // a single scroll fires after all layout shifts (banner spacer) have settled.
       ref.current?.scrollTo({ left: layout.x, behavior: 'smooth' });
-      // Vertical: bring this row into view within .home-content.
-      // scrollIntoView targets the nearest scrollable ancestor (.home-content)
-      // so it never conflicts with the horizontal scrollTo above.
-      // scroll-margin-top in CSS leaves room for the row title.
-      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     },
     [ref]
   );

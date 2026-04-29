@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFocusable, FocusContext, setFocus } from '@noriginmedia/norigin-spatial-navigation';
 import './SearchKeyboard.css';
 
@@ -7,13 +7,27 @@ import microPhoneIcon from "../../../assets/icons/microphone-01.svg";
 import deleteIcon     from "../../../assets/icons/delete.svg";
 import spaceIcon      from "../../../assets/icons/Vector 3.svg";
 
-const QWERTY_ROWS = [
+const QWERTY_ROWS_EN = [
   ['Q','W','E','R','T','Y','U','I','O'],
   ['A','S','D','F','G','H','J','K','L'],
   ['Z','X','C','V','B','N','M','P','.'],
   [
     { type: 'symbols', label: '?!#' },
     { type: 'lang',    label: 'Рус' },
+    { type: 'space',   label: ''    },
+    { type: 'shift',   label: ''    },
+    { type: 'back',    label: ''    },
+    { type: 'clear',   label: 'Очистить' },
+  ],
+];
+
+const QWERTY_ROWS_RU = [
+  ['Й','Ц','У','К','Е','Н','Г','Ш','Щ'],
+  ['З','Х','Ъ','Ф','Ы','В','А','П','Р'],
+  ['О','Л','Д','Ж','Э','Я','Ч','С','М'],
+  [
+    { type: 'symbols', label: '?!#' },
+    { type: 'lang',    label: 'Eng' },
     { type: 'space',   label: ''    },
     { type: 'shift',   label: ''    },
     { type: 'back',    label: ''    },
@@ -36,10 +50,9 @@ function MicKey({ onMic }) {
     focusKey: 'SEARCH-KEY-mic',
     onEnterPress: () => { if (onMic) onMic(); },
     onArrowPress: (direction) => {
-      if (direction === 'up')    { setFocus('SEARCH-BAR');       return false; }
-      if (direction === 'left')  { setFocus('SEARCH-SUGG-0');    return false; }
-      if (direction === 'right') { setFocus('SEARCH-KEY-Q');     return false; }
-      if (direction === 'down')  { setFocus('SEARCH-CHIP-0');    return false; }
+      if (direction === 'up')    { setFocus('SEARCH-BAR');         return false; }
+      if (direction === 'left')  { setFocus('SEARCH-SUGG-0');    return false; }      if (direction === 'right') { setFocus('SEARCH-KEY-FIRST');   return false; }
+      if (direction === 'down')  { setFocus('SEARCH-CHIP-0');      return false; }
       return true;
     },
   });
@@ -52,7 +65,7 @@ function MicKey({ onMic }) {
 }
 
 // ─── QWERTY key ───────────────────────────────────────────────────────────────
-function KeyboardKey({ keyDef, rowIndex, colIndex, rowLength, isLastKeyRow, onChar, onBackspace, onClear, onSpace, onShift }) {
+function KeyboardKey({ keyDef, rowIndex, colIndex, rowLength, isLastKeyRow, isRu, onChar, onBackspace, onClear, onSpace, onShift, onLang }) {
   const isStr = typeof keyDef === 'string';
   const char  = isStr ? keyDef : keyDef.label;
   const type  = isStr ? 'char' : keyDef.type;
@@ -61,16 +74,22 @@ function KeyboardKey({ keyDef, rowIndex, colIndex, rowLength, isLastKeyRow, onCh
   const isFirstCol = colIndex === 0;
   const isLastCol  = colIndex === rowLength - 1;
 
-  const focusId = isStr ? `SEARCH-KEY-${char}` : `SEARCH-KEY-${type}`;
+  // Stable SEARCH-KEY-FIRST for top-left key regardless of language
+  const focusId = (isStr && rowIndex === 0 && colIndex === 0)
+      ? 'SEARCH-KEY-FIRST'
+      : isStr
+          ? `SEARCH-KEY-${char}`
+          : `SEARCH-KEY-${type}`;
 
   const { ref, focused } = useFocusable({
     focusKey: focusId,
     onEnterPress: () => {
-      if      (type === 'char')    { if (onChar)      onChar(char); }
-      else if (type === 'back')    { if (onBackspace) onBackspace(); }
-      else if (type === 'clear')   { if (onClear)     onClear(); }
-      else if (type === 'space')   { if (onSpace)     onSpace(); }
-      else if (type === 'shift')   { if (onShift)     onShift(); }
+      if      (type === 'char')  { if (onChar)      onChar(char); }
+      else if (type === 'back')  { if (onBackspace) onBackspace(); }
+      else if (type === 'clear') { if (onClear)     onClear(); }
+      else if (type === 'space') { if (onSpace)     onSpace(); }
+      else if (type === 'shift') { if (onShift)     onShift(); }
+      else if (type === 'lang')  { if (onLang)      onLang(); }
     },
     onArrowPress: (direction) => {
       if (direction === 'up' && isFirstRow) {
@@ -82,12 +101,7 @@ function KeyboardKey({ keyDef, rowIndex, colIndex, rowLength, isLastKeyRow, onCh
         return false;
       }
       if (direction === 'right' && isLastCol) {
-        const numFocusKeys = [
-          'SEARCH-NUM-1',
-          'SEARCH-NUM-4',
-          'SEARCH-NUM-7',
-          'SEARCH-NUM-0',
-        ];
+        const numFocusKeys = ['SEARCH-NUM-1', 'SEARCH-NUM-4', 'SEARCH-NUM-7', 'SEARCH-NUM-0'];
         setFocus(numFocusKeys[rowIndex] ?? 'SEARCH-NUM-1');
         return false;
       }
@@ -100,12 +114,8 @@ function KeyboardKey({ keyDef, rowIndex, colIndex, rowLength, isLastKeyRow, onCh
   });
 
   const renderContent = () => {
-    if (type === 'shift') return (
-        <img src={arrowIcon} alt="shift" className="kb-icon" />
-    );
-    if (type === 'back') return (
-        <img src={deleteIcon} alt="backspace" className="kb-icon" />
-    );
+    if (type === 'shift') return <img src={arrowIcon}  alt="shift"     className="kb-icon" />;
+    if (type === 'back')  return <img src={deleteIcon} alt="backspace" className="kb-icon" />;
     if (type === 'space') return (
         <img
             src={spaceIcon}
@@ -125,7 +135,7 @@ function KeyboardKey({ keyDef, rowIndex, colIndex, rowLength, isLastKeyRow, onCh
 }
 
 // ─── Numpad key ───────────────────────────────────────────────────────────────
-function NumpadKey({ keyDef, rowIndex, colIndex, rowLength, onChar }) {
+function NumpadKey({ keyDef, rowIndex, colIndex, rowLength, isRu, onChar }) {
   const isStr = typeof keyDef === 'string';
   const char  = isStr ? keyDef : keyDef.label;
   const type  = isStr ? 'num' : keyDef.type;
@@ -141,12 +151,9 @@ function NumpadKey({ keyDef, rowIndex, colIndex, rowLength, onChar }) {
         return false;
       }
       if (direction === 'left' && colIndex === 0) {
-        const qwertyLastKeys = [
-          'SEARCH-KEY-O',
-          'SEARCH-KEY-L',
-          'SEARCH-KEY-.',
-          'SEARCH-KEY-clear',
-        ];
+        const qwertyLastKeys = isRu
+            ? ['SEARCH-KEY-Щ', 'SEARCH-KEY-Р', 'SEARCH-KEY-М', 'SEARCH-KEY-clear']
+            : ['SEARCH-KEY-O',  'SEARCH-KEY-L', 'SEARCH-KEY-.', 'SEARCH-KEY-clear'];
         setFocus(qwertyLastKeys[rowIndex] ?? 'SEARCH-KEY-O');
         return false;
       }
@@ -205,12 +212,20 @@ function SearchKeyboard({
                           onDeactivate,
                           chips = CHIPS,
                         }) {
+  const [isRu, setIsRu] = useState(false);
+
   const { ref, focusKey } = useFocusable({
     focusKey: 'SEARCH-KEYBOARD',
     trackChildren: true,
   });
 
+  const QWERTY_ROWS = isRu ? QWERTY_ROWS_RU : QWERTY_ROWS_EN;
   const lastKeyRowIdx = QWERTY_ROWS.length - 1;
+
+  const handleLang = () => {
+    setIsRu(prev => !prev);
+    setTimeout(() => setFocus('SEARCH-KEY-mic'), 0);
+  };
 
   return (
       <FocusContext.Provider value={focusKey}>
@@ -235,11 +250,13 @@ function SearchKeyboard({
                             colIndex={cIdx}
                             rowLength={row.length}
                             isLastKeyRow={rIdx === lastKeyRowIdx}
+                            isRu={isRu}
                             onChar={onChar}
                             onBackspace={onBackspace}
                             onClear={onClear}
                             onSpace={onSpace}
                             onShift={onShift}
+                            onLang={handleLang}
                         />
                     ))}
                   </div>
@@ -257,6 +274,7 @@ function SearchKeyboard({
                             rowIndex={rIdx}
                             colIndex={cIdx}
                             rowLength={row.length}
+                            isRu={isRu}
                             onChar={onChar}
                         />
                     ))}

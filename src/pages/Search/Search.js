@@ -28,9 +28,8 @@ function Search() {
         preferredChildFocusKey: 'SEARCH-CARD-movie-1',
     });
 
-    // Set initial focus on first catalog card (same pattern as Home.js)
     useEffect(() => {
-        const t = setTimeout(() => setFocus('SEARCH-CARD-movie-1'), 100);
+        const t = setTimeout(() => setFocus('SEARCH-BAR'), 100);
         return () => clearTimeout(t);
     }, []);
 

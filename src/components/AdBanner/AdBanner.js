@@ -1,6 +1,6 @@
 // src/components/AdBanner/AdBanner.js
 import React from 'react';
-import { useFocusable, FocusContext, setFocus } from '@noriginmedia/norigin-spatial-navigation';
+import { useFocusable, FocusContext } from '@noriginmedia/norigin-spatial-navigation';
 import adSmall1 from '../../assets/ad/ad_small1.svg';
 import adSmall3 from '../../assets/ad/ad_small3.svg';
 import './AdBanner.css';
@@ -11,15 +11,14 @@ const ADS = [
   { id: 'AD-3', image: adSmall1 },
 ];
 
-function SmallAd({ ad, index, total }) {
+function SmallAd({ ad, index, total, onFocus: onParentFocus }) {
   const { ref, focused } = useFocusable({
     focusKey: `AD-SMALL-${ad.id}`,
     onFocus: () => {
-      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      if (onParentFocus) onParentFocus();
     },
     onArrowPress: (dir) => {
-
-
       if (dir === 'right' && index === total - 1) return false;
       return true;
     },
@@ -35,7 +34,7 @@ function SmallAd({ ad, index, total }) {
   );
 }
 
-function AdBanner() {
+function AdBanner({ onFocus }) {
   const { ref, focusKey } = useFocusable({
     focusKey: 'AD-BANNER',
     trackChildren: true,
@@ -46,7 +45,7 @@ function AdBanner() {
       <div className="ad-banner" ref={ref}>
         <div className="ad-banner__small">
           {ADS.map((ad, idx) => (
-            <SmallAd key={ad.id} ad={ad} index={idx} total={ADS.length} />
+            <SmallAd key={ad.id} ad={ad} index={idx} total={ADS.length} onFocus={onFocus} />
           ))}
         </div>
       </div>

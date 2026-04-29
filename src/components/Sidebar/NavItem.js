@@ -5,11 +5,14 @@ import { useFocusable, setFocus } from '@noriginmedia/norigin-spatial-navigation
 function NavItem({ id, icon, label, isActive, isFirst, isLast, onSelect, contentFocusKey }) {
   const { ref, focused } = useFocusable({
     focusKey: id,
-    onFocus: () => { if (onSelect) onSelect(id); },
-    onEnterPress: () => { if (contentFocusKey) setFocus(contentFocusKey); },
+    onEnterPress: () => {
+      if (onSelect) onSelect(id);
+      if (contentFocusKey) setFocus(contentFocusKey);
+    },
     onArrowPress: (direction) => {
       if (direction === 'left') return false;
       if (direction === 'right') {
+        if (onSelect) onSelect(id);
         if (contentFocusKey) setFocus(contentFocusKey);
         return false;
       }

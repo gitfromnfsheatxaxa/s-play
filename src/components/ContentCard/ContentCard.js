@@ -11,6 +11,11 @@ function ContentCard({ item, index, totalItems, onFocus, onCardFocus, onSelect }
     onEnterPress: () => onSelect && onSelect(item),
     onFocus: (layout) => {
       if (onFocus) onFocus(layout);
+      // Position card 2rem above the viewport floor.
+      // rAF defers until after Norigin's layout pass so the ref is measured correctly.
+      requestAnimationFrame(() => {
+        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      });
       if (onCardFocus) onCardFocus(item);
     },
     onArrowPress: (direction) => {
@@ -41,11 +46,8 @@ function ContentCard({ item, index, totalItems, onFocus, onCardFocus, onSelect }
       onClick={() => onSelect && onSelect(item)}
     >
       <div className="card__poster" style={posterStyle}>
-        {/* Новинка / СТАРТ badge — top left */}
         <span className={`card__badge ${badgeClass}`}>{item.badge}</span>
-        {/* START badge — top right */}
-        <span className="card__start-badge"><img src={StartIcon} alt=""/></span>
-
+        <span className="card__start-badge"><img src={StartIcon} alt="" /></span>
       </div>
     </div>
   );

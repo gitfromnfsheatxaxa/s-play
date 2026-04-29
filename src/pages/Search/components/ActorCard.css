@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
   cursor: pointer;
 }
 
 .actor-card__circle {
-  width: 175px;
-  height: 175px;
+  width: clamp(6rem, 10.9375vw, 14rem);
+  height: clamp(6rem, 10.9375vw, 14rem);
   border-radius: 50%;
   overflow: hidden;
   outline: 3px solid transparent;
@@ -30,13 +30,11 @@
 }
 
 .actor-card__name {
-  width: 77px;
+  width: 4.8125rem;
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: clamp(1rem, 1.25vw, 1.875rem);
+  line-height: 1.5;
   text-align: center;
   color: #FFFFFF;
-
-
 }

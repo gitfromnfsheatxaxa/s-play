@@ -1,6 +1,6 @@
 .search-page {
   min-height: 100%;
-  padding: 28px 40px 60px 155px;
+  padding: 1.75rem 2.5rem 3.75rem 9.6875rem;
   box-sizing: border-box;
   background: var(--color-bg-background, #0a0a0f);
 }
@@ -11,26 +11,26 @@
   flex-direction: column;
 }
 
-/* Two-column grid: [suggestions 220px] [keyboard rest] */
+/* Two-column grid: [suggestions 13.75rem] [keyboard rest] */
 .search-page__keyboard-block {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 14px;
-  margin-top: 12px;
+  grid-template-columns: 13.75rem 1fr;
+  gap: 0.875rem;
+  margin-top: 0.75rem;
 }
 
 /* ── Content sections ── */
 .search-page__section {
-  margin-top: 28px;
+  margin-top: 1.75rem;
 }
 
 .search-page__section-title {
-  font-size: 18px;
+  font-size: clamp(0.875rem, 1.125vw, 1.6875rem);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.92);
-  margin: 0 0 14px 0;
-  padding-left: 16px;
-  letter-spacing: -0.2px;
+  margin: 0 0 0.875rem 0;
+  padding-left: 1rem;
+  letter-spacing: -0.0125rem;
 }
 
 /* ── Horizontal scroll rows ── */
@@ -39,46 +39,40 @@
 .actor-row {
   display: flex;
   flex-direction: row;
-  gap: 14px;
+  gap: 0.875rem;
   overflow-x: auto;
   overflow-y: visible;
-  padding: 8px 16px 40px;
-  /* hide scrollbar */
+  padding: 0.5rem 1rem 2.5rem;
   scrollbar-width: none;
 }
+
 .actor-card {
   flex-shrink: 0;
-  /* Since gaps for actors are 20px, the math changes slightly for them:
-     (100vw - 195px - (4 * 20px)) / 5 = 275px total overhead */
   width: calc((100vw - 275px) / 8);
   aspect-ratio: 1 / 1;
-  border-radius: 50%; /* For circular actor avatars */
+  border-radius: 50%;
 }
-/* 1. Base card styling */
+
 .portrait-card {
   flex-shrink: 0;
   width: calc((100vw - 300px) / 5);
   height: calc((100vw - 300px) / 5);
-
-  aspect-ratio: 2 / 3; /* Standard movie poster ratio */
-  border-radius: 10px;
-  /* ... rest of your styles */
+  aspect-ratio: 2 / 3;
+  border-radius: 0.625rem;
 }
 
-/* 2. Focused state scaling */
 .portrait-card--focused {
-  /* Grows slightly when focused */
   outline: 4px solid #FF5708;
   outline-offset: 4px;
 }
 
-/* 3. Poster content */
 .portrait-card__poster {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
 }
+
 .portrait-card-row::-webkit-scrollbar,
 .landscape-result-row::-webkit-scrollbar,
 .actor-row::-webkit-scrollbar {
@@ -86,8 +80,7 @@
 }
 
 .actor-row {
-  gap: 20px;
+  gap: 1.25rem;
   align-items: flex-start;
-  padding-bottom: 16px;
+  padding-bottom: 1rem;
 }
-

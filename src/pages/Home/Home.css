@@ -5,10 +5,8 @@
   width: 100vw;
   height: 100vh;
   background-color: var(--color-bg-background);
-  /* overflow: hidden; */
 }
 
-/* Content scrolls normally */
 .home-content {
   width: 100vw !important;
   height: 100vh;
@@ -17,10 +15,11 @@
 }
 
 .home-rows {
-  
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 40px 0 80px ;
+  gap: 1.25rem;
+  /* Permanent space behind the fixed HeroBanner — content always starts below it */
+  padding-top: 62vh;
+  padding-bottom: 5rem;
   background-color: var(--color-bg-background);
 }

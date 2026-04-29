@@ -23,7 +23,6 @@ import {
 } from '../../services/mockDataService';
 import './Home.css';
 
-// Maps each nav item to the focus key that Enter / RIGHT should land on
 const CONTENT_FOCUS_KEYS = {
   'NAV-HOME':          'ROW-row-premieres',
   'NAV-SEARCH':        'PAGE-SEARCH-CONTENT',
@@ -61,12 +60,13 @@ function Home() {
     () => localStorage.getItem('tv-current-page') || 'NAV-HOME'
   );
   const [focusedItem, setFocusedItem] = useState(featured);
+  // padding-top:62vh is permanent so no layout shift on toggle — just opacity/transform
+  const [bannerVisible, setBannerVisible] = useState(true);
 
   const handleNavigate = useCallback((itemId) => {
     localStorage.setItem('tv-current-page', itemId);
     setCurrentPage(itemId);
   }, []);
-  const handleCardFocus = useCallback((item) => { setFocusedItem(item); }, []);
 
   const { ref: contentRef, focusKey: homeFocusKey } = useFocusable({
     focusKey: 'HOME-CONTENT',
@@ -74,16 +74,36 @@ function Home() {
     preferredChildFocusKey: 'ROW-row-premieres',
   });
 
+  // ContentRow cards → show banner + update content
+  const handleContentCardFocus = useCallback((item) => {
+    setFocusedItem(item);
+    setBannerVisible(true);
+  }, []);
+
+  // All other rows → hide banner
+  const handleHideBanner = useCallback(() => {
+    setBannerVisible(false);
+  }, []);
+
   const onHeroFocus = useCallback(() => {
     contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [contentRef]);
 
+  // On initial load — restore last visited page and focus the right element
   useEffect(() => {
     const restoredPage = localStorage.getItem('tv-current-page') || 'NAV-HOME';
-    const focusKey = restoredPage === 'NAV-HOME' ? 'CARD-movie-1' : restoredPage;
+    const FIRST_FOCUS = { 'NAV-HOME': 'CARD-movie-1', 'NAV-SEARCH': 'SEARCH-BAR' };
+    const focusKey = FIRST_FOCUS[restoredPage] ?? restoredPage;
     const timer = setTimeout(() => setFocus(focusKey), 150);
     return () => clearTimeout(timer);
   }, []);
+
+  // When navigating back to Home from another page, focus the first card
+  useEffect(() => {
+    if (currentPage !== 'NAV-HOME') return;
+    const timer = setTimeout(() => setFocus('CARD-movie-1'), 100);
+    return () => clearTimeout(timer);
+  }, [currentPage]);
 
   const contentFocusKey = CONTENT_FOCUS_KEYS[currentPage] || 'ROW-row-premieres';
   const isHome = currentPage === 'NAV-HOME';
@@ -96,41 +116,47 @@ function Home() {
         contentFocusKey={contentFocusKey}
       />
 
+      {isHome && (
+        <HeroBanner
+          movie={focusedItem}
+          visible={bannerVisible}
+          onFocus={onHeroFocus}
+        />
+      )}
+
       {isHome ? (
         <FocusContext.Provider value={homeFocusKey}>
           <div className="home-content" ref={contentRef}>
-            <HeroBanner movie={focusedItem} onFocus={onHeroFocus} />
-
             <div className="home-rows">
               {premieresRow && (
                 <ContentRow
                   key={premieresRow.id}
                   row={premieresRow}
-                  onCardFocus={handleCardFocus}
+                  onCardFocus={handleContentCardFocus}
                 />
               )}
 
-              <AdBanner />
+              <AdBanner onFocus={handleHideBanner} />
 
               {filmsRow && (
                 <ContentRow
                   key={filmsRow.id}
                   row={filmsRow}
-                  onCardFocus={handleCardFocus}
+                  onCardFocus={handleContentCardFocus}
                 />
               )}
 
               {recommendationsRow && (
                 <TopTenRow
                   row={recommendationsRow}
-                  onCardFocus={handleCardFocus}
+                  onCardFocus={handleHideBanner}
                 />
               )}
 
               {showsRow && (
                 <ShowsRow
                   row={showsRow}
-                  onCardFocus={handleCardFocus}
+                  onCardFocus={handleHideBanner}
                 />
               )}
 
@@ -138,7 +164,7 @@ function Home() {
                 <ContentRow
                   key={broadcastsRow.id}
                   row={broadcastsRow}
-                  onCardFocus={handleCardFocus}
+                  onCardFocus={handleContentCardFocus}
                 />
               )}
             </div>

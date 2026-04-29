@@ -33,11 +33,14 @@ const BOTTOM_NAV = [
 function ProfileAvatar({ id, isActive, onSelect, contentFocusKey }) {
   const { ref, focused } = useFocusable({
     focusKey: id,
-    onFocus: () => { if (onSelect) onSelect(id); },
-    onEnterPress: () => { if (contentFocusKey) setFocus(contentFocusKey); },
+    onEnterPress: () => {
+      if (onSelect) onSelect(id);
+      if (contentFocusKey) setFocus(contentFocusKey);
+    },
     onArrowPress: (direction) => {
       if (direction === 'left') return false;
       if (direction === 'right') {
+        if (onSelect) onSelect(id);
         if (contentFocusKey) setFocus(contentFocusKey);
         return false;
       }
@@ -69,6 +72,7 @@ function Sidebar({ activeItem, onNavigate, contentFocusKey }) {
   const { ref, focusKey, hasFocusedChild } = useFocusable({
     focusKey: 'SIDEBAR',
     trackChildren: true,
+    preferredChildFocusKey: activeItem,
   });
 
   const isExpanded = hasFocusedChild;

@@ -87,7 +87,7 @@ function ShowsRow({ row, onCardFocus }) {
           // This ensures the row itself jumps into view if it's at the bottom
           ref.current.scrollIntoView({
             behavior: 'smooth',
-            block: 'center', // Centers the row vertically in the screen
+            block: 'end',
             inline: 'nearest'
           });
         }

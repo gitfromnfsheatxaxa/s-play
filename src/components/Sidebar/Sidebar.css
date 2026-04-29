@@ -5,17 +5,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 130px;
+  width: 8.125rem;
   height: 100vh;
   z-index: 1000 !important;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Logo, nav buttons, settings each get equal space between them */
   justify-content: space-between;
-  padding-top: 40px;
-  padding-bottom: 32px;
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
   background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.76987) 46%, rgba(1, 6, 20, 0) 100%);
   transition: width 0.25s ease;
 }
@@ -32,25 +31,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* No margin — space-between handles spacing between sections */
   flex-shrink: 0;
 }
 
 .sidebar--expanded .sidebar-logo {
   justify-content: flex-start;
-  padding-left: 18px;
-  margin: 0 30px;
+  padding-left: 1.125rem;
+  margin: 0 1.875rem;
 }
 
 .sidebar-logo-img--collapsed {
-  width: 50px;
-  height: 45px;
+  width: 3.125rem;
+  height: 2.8125rem;
   object-fit: contain;
 }
 
 .sidebar-logo-img--expanded {
   width: auto;
-  max-width: 160px;
+  max-width: 10rem;
   object-fit: contain;
 }
 
@@ -59,14 +57,13 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  /* No flex:1 — let space-between distribute the three sections equally */
   width: 100%;
   align-items: center;
 }
 
 .sidebar--expanded .sidebar-buttons {
   align-items: flex-start;
-  margin: 0 30px;
+  margin: 0 1.875rem;
 }
 
 /* ─── Settings container (bottom nav) ───────────────────────────────────────── */
@@ -77,42 +74,41 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  /* No margin-top:auto — space-between handles it */
 }
 
 .sidebar--expanded .sidebar-settings {
   align-items: flex-start;
-    margin: 0 30px;
+  margin: 0 1.875rem;
 }
 
 /* ─── Nav item ──────────────────────────────────────────────────────────────── */
 .nav-item {
   position: relative;
   width: 100%;
-  height: 70px;
+  height: 4.375rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 0;
-  gap: 14px;
+  gap: 0.875rem;
   cursor: pointer;
   background: transparent;
 }
 
 .sidebar--expanded .nav-item {
-  width: 200px;
+  width: 12.5rem;
   justify-content: flex-start;
-  padding-left: 20px;
+  padding-left: 1.25rem;
 }
 
 .nav-item--avatar {
-  height: 70px;
+  height: 4.375rem;
   width: 100%;
 }
 
 .sidebar--expanded .nav-item--avatar {
-  width: 200px;
+  width: 12.5rem;
 }
 
 /* ─── Orange left indicator ─────────────────────────────────────────────────── */
@@ -121,16 +117,16 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 3px;
-  height: 28px;
-  border-radius: 0 3px 3px 0;
+  width: 0.1875rem;
+  height: 1.75rem;
+  border-radius: 0 0.1875rem 0.1875rem 0;
   background-color: var(--color-accent-primary);
 }
 
 /* ─── Icon ──────────────────────────────────────────────────────────────────── */
 .nav-item__icon {
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -138,8 +134,8 @@
 }
 
 .nav-item__icon--avatar {
-  width: 38px;
-  height: 38px;
+  width: 2.375rem;
+  height: 2.375rem;
 }
 
 .nav-item__icon-img {
@@ -153,7 +149,7 @@
 /* ─── Label ─────────────────────────────────────────────────────────────────── */
 .nav-item__label {
   font-family: 'SF Pro Display', system-ui, sans-serif;
-  font-size: 15px;
+  font-size: clamp(0.813rem, 0.9375vw, 1.375rem);
   font-weight: 500;
   line-height: 1;
   color: var(--color-fg-secondary);
@@ -173,8 +169,8 @@
 
 /* ─── Avatar image ──────────────────────────────────────────────────────────── */
 .sidebar-avatar-img {
-  width: 38px;
-  height: 38px;
+  width: 2.375rem;
+  height: 2.375rem;
   border-radius: 50%;
   object-fit: cover;
   display: block;
@@ -214,7 +210,7 @@
 }
 
 .sidebar--expanded .nav-item--focused {
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .sidebar--expanded .nav-item--focused .nav-item__label {

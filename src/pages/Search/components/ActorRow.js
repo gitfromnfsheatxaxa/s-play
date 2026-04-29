@@ -25,7 +25,7 @@ function ActorRow({ onCollapseKeyboard }) {
 
   const onInternalCardFocus = useCallback(
       (layout) => {
-        const scrollOffset = layout.x - 5;
+        const scrollOffset = layout.x - 140;
         ref.current?.scrollTo({
           left: Math.max(0, scrollOffset),
           behavior: 'smooth'
