@@ -36,10 +36,10 @@ function MicKey({ onMic }) {
     focusKey: 'SEARCH-KEY-mic',
     onEnterPress: () => { if (onMic) onMic(); },
     onArrowPress: (direction) => {
-      if (direction === 'up')    { setFocus('SEARCH-BAR');    return false; }
-      if (direction === 'left')  { return false; }
-      if (direction === 'right') { setFocus('SEARCH-KEY-Q');  return false; }
-      if (direction === 'down')  { setFocus('SEARCH-CHIP-0'); return false; }
+      if (direction === 'up')    { setFocus('SEARCH-BAR');       return false; }
+      if (direction === 'left')  { setFocus('SEARCH-SUGG-0');    return false; }
+      if (direction === 'right') { setFocus('SEARCH-KEY-Q');     return false; }
+      if (direction === 'down')  { setFocus('SEARCH-CHIP-0');    return false; }
       return true;
     },
   });

@@ -57,10 +57,15 @@ function Home() {
   const showsRow = getShowsRow();
   const broadcastsRow = getBroadcastsRow();
 
-  const [currentPage, setCurrentPage] = useState('NAV-HOME');
+  const [currentPage, setCurrentPage] = useState(
+    () => localStorage.getItem('tv-current-page') || 'NAV-HOME'
+  );
   const [focusedItem, setFocusedItem] = useState(featured);
 
-  const handleNavigate = useCallback((itemId) => { setCurrentPage(itemId); }, []);
+  const handleNavigate = useCallback((itemId) => {
+    localStorage.setItem('tv-current-page', itemId);
+    setCurrentPage(itemId);
+  }, []);
   const handleCardFocus = useCallback((item) => { setFocusedItem(item); }, []);
 
   const { ref: contentRef, focusKey: homeFocusKey } = useFocusable({
@@ -74,7 +79,9 @@ function Home() {
   }, [contentRef]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setFocus('CARD-movie-1'), 150);
+    const restoredPage = localStorage.getItem('tv-current-page') || 'NAV-HOME';
+    const focusKey = restoredPage === 'NAV-HOME' ? 'CARD-movie-1' : restoredPage;
+    const timer = setTimeout(() => setFocus(focusKey), 150);
     return () => clearTimeout(timer);
   }, []);
 

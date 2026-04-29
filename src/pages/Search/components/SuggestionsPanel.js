@@ -8,12 +8,16 @@ function SuggestionItem({ text, mode, index, totalItems, onSelect }) {
     focusKey: `SEARCH-SUGG-${index}`,
     onEnterPress: () => { if (onSelect) onSelect(text); },
     onArrowPress: (direction) => {
-      if (direction === 'left' && index === 0) {
-        // Replace 'NAV-SEARCH' with your Sidebar's specific focus key
+      if (direction === 'left') {
         setFocus('NAV-SEARCH');
-        return false; // Prevent default engine behavior
-      }      if (direction === 'up' && index === 0) {
+        return false;
+      }
+      if (direction === 'up' && index === 0) {
         setFocus('SEARCH-BAR');
+        return false;
+      }
+      if (direction === 'right') {
+        setFocus('SEARCH-KEY-mic');
         return false;
       }
       return true;

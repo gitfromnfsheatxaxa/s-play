@@ -5,7 +5,7 @@ import jonnyImg from '../../../assets/icons/jonny.png';
 import AvatarImg from '../../../assets/icons/Group 2087328756.png';
 
 const ACTORS = [
-  { id: 0, name: 'Джонни\nДепп', photo: jonnyImg },
+  { id: 0, name: 'Джонни\nДепп', photo: AvatarImg },
   { id: 1, name: 'Джонни\nДепп', photo: AvatarImg },
   { id: 2, name: 'Джонни\nДепп', photo: AvatarImg },
   { id: 3, name: 'Джонни\nДепп', photo: AvatarImg },
