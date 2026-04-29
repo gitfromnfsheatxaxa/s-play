@@ -1,15 +1,20 @@
 .landscape-card {
   flex-shrink: 0;
-  position: relative;
-  width: calc((100vw - 360px) / 3.3);
-  aspect-ratio: 16 / 9;
+  margin-right: 0.9375rem;
+
+  /* Fluid width: minimum 320px, preferred 25vw (or another relative unit), maximum 380px */
+  width: clamp(320px, 20vw, 380px);
+
+  aspect-ratio: 4 / 2.25;
   border-radius: 0.625rem;
   overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: outline-color 0.15s ease;
+  transform-origin: center center;
   outline: 3px solid transparent;
   outline-offset: 3px;
-  cursor: pointer;
-  transition: outline-color 0.15s ease;
-  background: rgba(255, 255, 255, 0.04);
+  scroll-margin-bottom: 1.5rem;
 }
 
 .landscape-card--focused {

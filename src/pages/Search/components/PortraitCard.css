@@ -1,15 +1,17 @@
 .portrait-card {
   flex-shrink: 0;
-  position: relative;
-  width: calc((100vw - 360px) / 5.3);
-  aspect-ratio: 2 / 3;
+  margin-right: 0.9375rem;
+  width: clamp(320px, 20vw, 380px) !important;
+  aspect-ratio: 4 / 2.25 !important;
   border-radius: 0.625rem;
   overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: outline-color 0.15s ease;
+  transform-origin: center center;
   outline: 3px solid transparent;
   outline-offset: 3px;
-  cursor: pointer;
-  transition: outline-color 0.15s ease;
-  background: rgba(255, 255, 255, 0.04);
+  scroll-margin-bottom: 1.5rem;
 }
 
 .portrait-card--focused {

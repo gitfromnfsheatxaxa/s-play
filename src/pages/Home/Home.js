@@ -20,6 +20,11 @@ import {
   getRecommendationsRow,
   getShowsRow,
   getBroadcastsRow,
+  getAnimeRow,
+  getComedyRow,
+  getHorrorRow,
+  getDocsRow,
+  getTopWeekRow,
 } from '../../services/mockDataService';
 import './Home.css';
 
@@ -55,6 +60,11 @@ function Home() {
   const recommendationsRow = getRecommendationsRow();
   const showsRow = getShowsRow();
   const broadcastsRow = getBroadcastsRow();
+  const animeRow = getAnimeRow();
+  const comedyRow = getComedyRow();
+  const horrorRow = getHorrorRow();
+  const docsRow = getDocsRow();
+  const topWeekRow = getTopWeekRow();
 
   const [currentPage, setCurrentPage] = useState(
     () => localStorage.getItem('tv-current-page') || 'NAV-HOME'
@@ -167,6 +177,47 @@ function Home() {
                   onCardFocus={handleContentCardFocus}
                 />
               )}
+
+              {animeRow && (
+                <ContentRow
+                  key={animeRow.id}
+                  row={animeRow}
+                  onCardFocus={handleContentCardFocus}
+                />
+              )}
+
+              {comedyRow && (
+                <ContentRow
+                  key={comedyRow.id}
+                  row={comedyRow}
+                  onCardFocus={handleContentCardFocus}
+                />
+              )}
+
+              {horrorRow && (
+                <ContentRow
+                  key={horrorRow.id}
+                  row={horrorRow}
+                  onCardFocus={handleContentCardFocus}
+                />
+              )}
+
+              {docsRow && (
+                <ContentRow
+                  key={docsRow.id}
+                  row={docsRow}
+                  onCardFocus={handleContentCardFocus}
+                />
+              )}
+
+              {topWeekRow && (
+                <ContentRow
+                  key={topWeekRow.id}
+                  row={topWeekRow}
+                  onCardFocus={handleContentCardFocus}
+                />
+              )}
+
             </div>
           </div>
         </FocusContext.Provider>

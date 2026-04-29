@@ -1,6 +1,6 @@
 // src/components/AdBanner/AdBanner.js
 import React from 'react';
-import { useFocusable, FocusContext } from '@noriginmedia/norigin-spatial-navigation';
+import {useFocusable, FocusContext, setFocus} from '@noriginmedia/norigin-spatial-navigation';
 import adSmall1 from '../../assets/ad/ad_small1.svg';
 import adSmall3 from '../../assets/ad/ad_small3.svg';
 import './AdBanner.css';
@@ -19,6 +19,10 @@ function SmallAd({ ad, index, total, onFocus: onParentFocus }) {
       if (onParentFocus) onParentFocus();
     },
     onArrowPress: (dir) => {
+      if (dir === 'left' && index === 0) {
+        setFocus('NAV-HOME');
+        return false;
+      }
       if (dir === 'right' && index === total - 1) return false;
       return true;
     },

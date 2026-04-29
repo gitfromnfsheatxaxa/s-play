@@ -3,8 +3,11 @@
 .content-card {
   flex-shrink: 0;
   margin-right: 0.9375rem;
-  width: calc((100vw - 437px) / 5.1);
-  aspect-ratio: 3 / 2;
+
+  /* Fluid width: minimum 320px, preferred 25vw (or another relative unit), maximum 380px */
+  width: clamp(320px, 20vw, 380px);
+
+  aspect-ratio: 4 / 2.25;
   border-radius: 0.625rem;
   overflow: hidden;
   cursor: pointer;
@@ -13,8 +16,7 @@
   transform-origin: center center;
   outline: 3px solid transparent;
   outline-offset: 3px;
-  /* scrollIntoView({ block:'end' }) leaves this gap between card bottom and viewport floor */
-  scroll-margin-bottom: 4.5rem;
+  scroll-margin-bottom: 1.5rem;
 }
 
 .content-card--first { transform-origin: left center; }
@@ -54,7 +56,7 @@
   border-radius: 0.625rem 0.375rem 0.375rem 0.375rem;
   font-style: normal;
   font-weight: 500;
-  font-size: clamp(0.75rem, 1vw, 1.5rem);
+  font-size: clamp(0.75rem, 1vw, 1rem);
   line-height: 1.2;
   color: #F8F8F8;
 }

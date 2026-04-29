@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 1rem;
   padding: 1rem 3.75rem 0.5rem 8.75rem;
+  margin: 3rem 0;
 }
 
 .ad-banner__big {

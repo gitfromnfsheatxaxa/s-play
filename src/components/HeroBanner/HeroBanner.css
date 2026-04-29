@@ -2,239 +2,249 @@
 
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */
 
-/* Backdrop: slow atmospheric reveal — dims from black then opens up */
 @keyframes heroBackdropReveal {
-  0%   { opacity: 0;    transform: scale(1.04); }
-  30%  { opacity: 0.45; }
-  100% { opacity: 1;    transform: scale(1); }
+    0% {
+        opacity: 0;
+        transform: scale(1.04);
+    }
+    30% {
+        opacity: 0.45;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-/* Text elements: slide in from the left */
 @keyframes heroSlideIn {
-  from { opacity: 0; transform: translateX(-2.5rem); }
-  to   { opacity: 1; transform: translateX(0); }
+    from {
+        opacity: 0;
+        transform: translateX(-2.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* ─── Hero section ──────────────────────────────────────────────────────────── */
 .hero {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  width: 100%;
-  height: 62vh;
-  min-height: 30rem;
-  overflow: hidden;
-  background: #040404;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 8.625rem; /* sidebar width (8.125rem) + 0.5rem gap */
+    right: 0.5rem;
+    z-index: 50;
+    height: 62vh;
+    min-height: 30rem;
+    overflow: hidden;
+    background: #040404;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .hero--hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-4%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4%);
 }
-
 
 /* ─── Backdrop ──────────────────────────────────────────────────────────────── */
 .hero__backdrop {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: right center;
-  z-index: 0;
-  /* Replay on every re-key */
-  animation: heroBackdropReveal 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
+    position: absolute;
+    inset: 0;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 6rem;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    z-index: 0;
+    animation: heroBackdropReveal 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* ─── Overlay ───────────────────────────────────────────────────────────────── */
 .hero__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(
-      to right,
-      rgba(4,4,4,0.98) 0%,
-      rgba(4,4,4,0.95) 18%,
-      rgba(4,4,4,0.70) 42%,
-      rgba(4,4,4,0.15) 58%,
-      transparent 68%
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+            to right,
+            rgba(4, 4, 4, 0.98) 0%,
+            rgba(4, 4, 4, 0.95) 18%,
+            rgba(4, 4, 4, 0.70) 42%,
+            rgba(4, 4, 4, 0.15) 58%,
+            transparent 68%
     ),
     linear-gradient(
-      to top,
-      rgba(4,4,4,0.90) 0%,
-      rgba(4,4,4,0.40) 25%,
-      transparent 55%
+            to top,
+            rgba(4, 4, 4, 0.90) 0%,
+            rgba(4, 4, 4, 0.40) 25%,
+            transparent 55%
     );
 }
 
 /* ─── Content layout ────────────────────────────────────────────────────────── */
 .hero__content {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  padding: 0 3.75rem 3rem 10.625rem;
-  gap: 2.5rem;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 3rem 3rem 2.5rem;
+    gap: 2.5rem;
 }
 
 /* ════════════════════════════════
    LEFT COLUMN
 ════════════════════════════════ */
 .hero__info {
-  flex: 0 0 30vw;
-  min-width: 20rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
+    flex: 0 0 30vw;
+    min-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
 }
 
-/* Each text block slides in with a slightly longer delay per element */
 .hero__logo-img {
-  width: auto;
-  max-height: 4.375rem;
-  max-width: 15.625rem;
-  object-fit: contain;
-  object-position: left bottom;
-  display: block;
-  animation: heroSlideIn 0.38s ease 0.05s both;
+    width: auto;
+    max-height: 4.375rem;
+    max-width: 15.625rem;
+    object-fit: contain;
+    object-position: left bottom;
+    display: block;
+    animation: heroSlideIn 0.38s ease 0.05s both;
 }
 
 .hero__ratings {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  animation: heroSlideIn 0.38s ease 0.1s both;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    animation: heroSlideIn 0.38s ease 0.1s both;
 }
 
 .hero__rating-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3125rem;
-  border-radius: 0.3125rem;
-  padding: 0.25rem 0.5rem;
-  font-size: clamp(1rem, 1.25vw, 1.875rem);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.88);
-  line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3125rem;
+    border-radius: 0.3125rem;
+    padding: 0.25rem 0.5rem;
+    font-size: clamp(1rem, 1.25vw, 1.875rem);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1;
 }
 
 .hero__rating-icon {
-  width: 1.875rem;
-  height: 1.875rem;
-  object-fit: contain;
-  display: block;
-  flex-shrink: 0;
+    width: 1.875rem;
+    height: 1.875rem;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
 }
 
 .hero__meta {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.3125rem;
-  flex-wrap: wrap;
-  animation: heroSlideIn 0.4s ease 0.15s both;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.3125rem;
+    flex-wrap: wrap;
+    animation: heroSlideIn 0.4s ease 0.15s both;
 }
 
 .hero__meta-chip {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0.625rem;
-  gap: 0.3125rem;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 0.5rem;
-  font-weight: 400;
-  font-size: clamp(1rem, 1.25vw, 1.875rem);
-  line-height: 140%;
-  color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0.625rem;
+    gap: 0.3125rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    font-weight: 400;
+    font-size: clamp(1rem, 1.25vw, 1.875rem);
+    line-height: 140%;
+    color: #FFFFFF;
 }
 
-.small_one { padding: 0.4375rem 0.625rem !important; }
+.small_one {
+    padding: 0.4375rem 0.625rem !important;
+}
 
 .hero__meta-chip--platform {
-  background: var(--color-accent-primary);
-  border-color: transparent;
-  color: #fff;
-  font-weight: 700;
-  gap: 0.25rem;
+    background: var(--color-accent-primary);
+    border-color: transparent;
+    color: #fff;
+    font-weight: 700;
+    gap: 0.25rem;
 }
 
 .hero__meta-play-icon {
-  font-size: 0.75rem;
-  color: #fff;
+    font-size: 0.75rem;
+    color: #fff;
 }
 
 .hero__title {
-  font-style: normal;
-  font-weight: 600;
-  font-size: clamp(1.5rem, 2vw, 3rem);
-  line-height: 1.19;
-  color: #FFFFFF;
-  animation: heroSlideIn 0.42s ease 0.2s both;
+    font-style: normal;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2vw, 3rem);
+    line-height: 1.19;
+    color: #FFFFFF;
+    animation: heroSlideIn 0.42s ease 0.2s both;
 }
 
 .hero__description {
-  width: 40rem;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 2rem;
-  color: #FFFFFF;
-  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.4);
-  animation: heroSlideIn 0.44s ease 0.27s both;
+    width: 40rem;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 2rem;
+    color: #FFFFFF;
+    text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.4);
+    animation: heroSlideIn 0.44s ease 0.27s both;
 }
-
 
 /* ════════════════════════════════
    RIGHT COLUMN
 ════════════════════════════════ */
 .hero__visual {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding-bottom: 0.5rem;
-  animation: heroSlideIn 0.5s ease 0.12s both;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-bottom: 0.5rem;
+    animation: heroSlideIn 0.5s ease 0.12s both;
 }
 
 .hero__visual-logo {
-  width: auto;
-  max-width: 31.25rem;
-  max-height: 15rem;
-  object-fit: contain;
-  object-position: left bottom;
-  display: block;
-  filter: drop-shadow(0 0.25rem 2rem rgba(0,0,0,0.7));
+    width: auto;
+    max-width: 31.25rem;
+    max-height: 15rem;
+    object-fit: contain;
+    object-position: left bottom;
+    display: block;
+    filter: drop-shadow(0 0.25rem 2rem rgba(0, 0, 0, 0.7));
 }
 
 .hero__movie-logo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .hero__movie-logo-title {
-  font: var(--title-2-bold);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.125rem;
-  background: linear-gradient(135deg, #FFB347 0%, #FF8C00 30%, #FF6B00 60%, #D4500A 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0.25rem 1.5rem rgba(255, 140, 0, 0.4));
+    font: var(--title-2-bold);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.125rem;
+    background: linear-gradient(135deg, #FFB347 0%, #FF8C00 30%, #FF6B00 60%, #D4500A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0.25rem 1.5rem rgba(255, 140, 0, 0.4));
 }
 
 .hero__movie-logo-subtitle {
-  font: var(--heading-6-semibold);
-  font-weight: 700;
-  letter-spacing: 0.25rem;
-  color: var(--color-fg-primary);
-  opacity: 0.9;
-  text-transform: uppercase;
+    font: var(--heading-6-semibold);
+    font-weight: 700;
+    letter-spacing: 0.25rem;
+    color: var(--color-fg-primary);
+    opacity: 0.9;
+    text-transform: uppercase;
 }

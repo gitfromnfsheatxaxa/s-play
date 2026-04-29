@@ -53,13 +53,7 @@
   border-radius: 50%;
 }
 
-.portrait-card {
-  flex-shrink: 0;
-  width: calc((100vw - 300px) / 5);
-  height: calc((100vw - 300px) / 5);
-  aspect-ratio: 2 / 3;
-  border-radius: 0.625rem;
-}
+
 
 .portrait-card--focused {
   outline: 4px solid #FF5708;
