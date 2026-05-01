@@ -117,14 +117,17 @@ function Home() {
 
   const contentFocusKey = CONTENT_FOCUS_KEYS[currentPage] || 'ROW-row-premieres';
   const isHome = currentPage === 'NAV-HOME';
+  const hideSidebar = currentPage === 'NAV-PROFILES';
 
   return (
     <div className="home-page">
-      <Sidebar
-        activeItem={currentPage}
-        onNavigate={handleNavigate}
-        contentFocusKey={contentFocusKey}
-      />
+      {!hideSidebar && (
+        <Sidebar
+          activeItem={currentPage}
+          onNavigate={handleNavigate}
+          contentFocusKey={contentFocusKey}
+        />
+      )}
 
       {isHome && (
         <HeroBanner

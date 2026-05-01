@@ -7,20 +7,15 @@
   align-items: center;
   gap: 0.875rem;
   padding: 0 1.5rem;
-  outline: 2px solid transparent;
-  outline-offset: -2px;
-  transition: background 0.22s ease, outline-color 0.22s ease;
   cursor: text;
 }
 
 .search-bar--focused {
   background: rgba(255, 255, 255, 0.11);
-  outline-color: rgba(255, 255, 255, 0.3);
   border: 1px solid rgba(255, 87, 8, 1);
 }
 
 .search-bar--active {
-  outline-color: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 87, 8, 1);
 }
 
@@ -57,6 +52,7 @@
   font-weight: 400;
   display: flex;
   align-items: center;
+  white-space: break-spaces;
 }
 
 .search-bar__caret {

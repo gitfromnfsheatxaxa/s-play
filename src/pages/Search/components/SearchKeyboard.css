@@ -1,14 +1,17 @@
-/*
- * --key  : single key size
- * --gap  : gap between keys
- * --sgap : gap between the 3 sections (mic | qwerty | numpad)
- */
 :root {
-  --key:  clamp(2.8rem, 4.2vw, 5.2rem);
-  --gap:  clamp(0.25rem, 0.45vw, 0.55rem);
-  --sgap: clamp(0.6rem,  1.1vw, 1.4rem);
-  --radius: clamp(0.4rem, 0.7vw, 0.85rem);
-  --outline: clamp(0.12rem, 0.18vw, 0.19rem);
+  /* * --key: Increased base from 3.2rem to 4.2rem (~67px base).
+   * Increased max cap from 5.5rem to 6.8rem (~108px max).
+   * This ensures the keys feel "chunky" and premium.
+   */
+  --key: min(clamp(4.2rem, 8.5vmin, 7rem), 6.8rem);
+
+  /* Gaps increased to prevent the keyboard from looking "crowded" at larger sizes */
+  --gap: clamp(0.4rem, 0.9vmin, 0.8rem);
+  --sgap: clamp(1rem, 2.2vmin, 2.5rem);
+
+  /* Corner radius and outline thickness adjusted for the larger scale */
+  --radius: clamp(0.6rem, 1.3vmin, 1.2rem);
+  --outline: clamp(0.15rem, 0.3vmin, 0.25rem);
 }
 
 /* ─── Container ──────────────────────────────────────────────────── */
@@ -16,8 +19,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--gap);
-  width: fit-content;        /* shrink to content width */
-  margin-left: auto;         /* push everything to the right */
+  width: fit-content;
+  /* shrink to content width */
+  margin-left: auto;
+  /* push everything to the right */
 }
 
 /* 3-section layout: mic | qwerty | numpad */
@@ -27,6 +32,7 @@
   align-items: flex-start;
   margin-bottom: var(--sgap);
 }
+
 /* ─── Mic column ─────────────────────────────────────────────────── */
 .mic-col {
   display: flex;
@@ -41,10 +47,12 @@
   flex-direction: column;
   gap: var(--gap);
 }
+
 .search-keyboard__chips {
   display: flex;
   gap: var(--gap);
 }
+
 .search-keyboard__row {
   display: flex;
   gap: var(--gap);
@@ -67,7 +75,8 @@
   color: #ffffff;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: clamp(0.75rem, 1.2vw, 1.45rem);
+  /* Fluid font scaling based on vmin */
+  font-size: clamp(1rem, 10vmin, 1.7rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,8 +96,8 @@
 
 .kb-key--mic svg,
 .kb-key--mic .kb-icon {
-  width: clamp(1rem, 1.6vw, 1.8rem);
-  height: clamp(1rem, 1.6vw, 1.8rem);
+  width: clamp(1rem, 2.3vmin, 1.8rem);
+  height: clamp(1rem, 2.3vmin, 1.8rem);
 }
 
 /* ─── Bottom-row special keys ────────────────────────────────────── */
@@ -96,34 +105,30 @@
 /* Space = 3 keys + 2 gaps */
 .kb-key--space {
   width: calc(3 * var(--key) + 2 * var(--gap));
-  font-size: 0;
 }
 
 /* Backspace = 2 keys + 1 gap */
 .kb-key--clear {
   width: calc(2 * var(--key) + var(--gap));
-  font-size: clamp(0.85rem, 1.3vw, 1.5rem);
+  font-size: clamp(1rem, 3vw + 2.45vh, 1.8rem) !important;
 }
 
 .kb-key--symbols,
 .kb-key--lang {
-  font-size: clamp(0.6rem, 0.95vw, 1.1rem);
+  font-size: clamp(1rem, 3vw + 2.45vh, 1.8rem) !important;
 }
 
 .kb-key--shift {
-  font-size: clamp(0.85rem, 1.3vw, 1.5rem);
+  font-size: clamp(2rem, 3vw + 2.45vh, 1.8rem) !important;
 }
-
 
 /* ─── Numpad ─────────────────────────────────────────────────────── */
-.kb-key--num {
-  font-size: clamp(0.75rem, 1.2vw, 1.45rem);
-}
+
 
 /* 0 = 3 keys + 2 gaps */
 .kb-key--zero {
   width: calc(3 * var(--key) + 2 * var(--gap));
-  font-size: clamp(0.75rem, 1.2vw, 1.45rem);
+  font-size: clamp(1rem, 3vw + 2.45vh, 1.8rem) !important;
 }
 
 /* ─── Focused ────────────────────────────────────────────────────── */
@@ -135,22 +140,21 @@
 
 /* ─── Icon inside keys ───────────────────────────────────────────── */
 .kb-icon {
-  width: clamp(0.9rem, 1.5vw, 1.7rem);
-  height: clamp(0.9rem, 1.5vw, 1.7rem);
+  width: clamp(0.85rem, 4vmin, 2rem);
+  height: clamp(0.85rem, 4vmin, 2rem);
   object-fit: contain;
   pointer-events: none;
 }
 
-
-
+/* ─── Top Category Chips ─────────────────────────────────────────── */
 .kb-chip {
-  height: clamp(2rem, 2.5vw, 3.8rem);
-  padding: 0 clamp(0.6rem, 1vw, 1.2rem);
+  height: clamp(1.8rem, 3.8vmin, 3.8rem);
+  padding: 0 clamp(0.5rem, 1.5vmin, 1.2rem);
   background: #1B1C1C;
   border-radius: var(--radius);
   color: #ffffff;
   font-family: 'Inter', sans-serif;
-  font-size: clamp(0.7rem, 1vw, 1.2rem);
+  font-size: clamp(1rem, 3vw + 2.45vh, 1.8rem) !important;
   font-weight: 400;
   display: flex;
   align-items: center;

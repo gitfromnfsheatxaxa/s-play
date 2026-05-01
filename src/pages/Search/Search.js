@@ -84,6 +84,7 @@ function Search() {
                         keyboardActive={keyboardActive}
                         onActivate={handleSearchBarActivate}
                         onScrollToTop={scrollToTop}
+                        downFocusKey={hasQuery ? 'SEARCH-LCARD-lr-1' : 'SEARCH-CARD-movie-1'}
                     />
 
                     {keyboardActive && (
