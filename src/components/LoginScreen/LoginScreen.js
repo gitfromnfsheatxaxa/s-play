@@ -184,7 +184,7 @@ function LoginScreen({
             />
           </div>
 
-          <div className="login-screen__forgot-wrap">
+          <div className="login-screen__actions">
             <LoginActionButton
               focusKey="LOGIN-FORGOT"
               label="Забыл пароль"
@@ -208,6 +208,7 @@ function LoginScreen({
             />
 
             <LoginActionButton
+                className="login-screen__actions"
               focusKey="LOGIN-CONTINUE"
               label="Продолжить"
               variant="primary"

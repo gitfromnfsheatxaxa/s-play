@@ -1,9 +1,10 @@
 // src/components/HeroBanner/HeroBanner.js
 import React, { useEffect, useRef, useState } from 'react';
-import kpIcon    from '../../assets/icons/small_kino poisk.svg';
-import imdbIcon  from '../../assets/icons/small imdb.svg';
+import kpIcon from '../../assets/icons/small_kino poisk.svg';
+import imdbIcon from '../../assets/icons/small imdb.svg';
 import splayIcon from '../../assets/icons/small_splay.svg';
 import avengersBackdrop from '../../assets/background/image.png';
+import playIcon from '../../assets/icons/login/Vector.svg';
 import './HeroBanner.css';
 
 function HeroBanner({ movie, visible = true }) {
@@ -72,16 +73,17 @@ function HeroBanner({ movie, visible = true }) {
           )}
 
           <div className="hero__meta">
-            {m.year     && <span className="hero__meta-chip">{m.year}</span>}
-            {m.quality  && <span className="hero__meta-chip">{m.quality}</span>}
+            {m.year && <span className="hero__meta-chip">{m.year}</span>}
+            {m.quality && <span className="hero__meta-chip">{m.quality}</span>}
             {m.genres?.length > 0 && (
               <span className="hero__meta-chip">{m.genres.join('/')}</span>
             )}
             {m.ageRating && <span className="hero__meta-chip">{m.ageRating}</span>}
-            {m.language  && <span className="hero__meta-chip">{m.language}</span>}
-            {m.platform  && (
+            {m.language && <span className="hero__meta-chip">{m.language}</span>}
+            {m.platform && (
               <span className="hero__meta-chip">
-                <span className="hero__meta-play-icon">▶</span>
+
+                <img src={playIcon} alt="" className="login-screen__play-icon" aria-hidden="true" />
                 {m.platform}
               </span>
             )}
@@ -96,21 +98,21 @@ function HeroBanner({ movie, visible = true }) {
         </div>
 
         {/* ── RIGHT column ── */}
-        <div className="hero__visual">
-          {m.heroLogoImage ? (
-            <img
-              src={m.heroLogoImage}
-              className="hero__visual-logo"
-              alt={m.heroTitle || m.title}
-            />
-          ) : (
-            <div className="hero__movie-logo">
-              {m.heroSubtitle && (
-                <div className="hero__movie-logo-subtitle">{m.heroSubtitle}</div>
-              )}
-            </div>
-          )}
-        </div>
+        {/*<div className="hero__visual">*/}
+        {/*  {m.heroLogoImage ? (*/}
+        {/*    <img*/}
+        {/*      src={m.heroLogoImage}*/}
+        {/*      className="hero__visual-logo"*/}
+        {/*      alt={m.heroTitle || m.title}*/}
+        {/*    />*/}
+        {/*  ) : (*/}
+        {/*    <div className="hero__movie-logo">*/}
+        {/*      {m.heroSubtitle && (*/}
+        {/*        <div className="hero__movie-logo-subtitle">{m.heroSubtitle}</div>*/}
+        {/*      )}*/}
+        {/*    </div>*/}
+        {/*  )}*/}
+        {/*</div>*/}
 
       </div>
     </section>

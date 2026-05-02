@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { setFocus, getCurrentFocusKey } from '@noriginmedia/norigin-spatial-navigation';
 import Home from './pages/Home/Home';
+import MovieDetail from './pages/MovieDetail/MovieDetail';
 import './styles/design-system.css';
 
 function App() {
@@ -23,7 +25,14 @@ function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
-  return <Home />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movie/:id" element={<MovieDetail />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

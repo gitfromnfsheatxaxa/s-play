@@ -1,14 +1,26 @@
 // src/components/ContentCard/ContentCard.js
 import React from 'react';
 import { useFocusable, setFocus } from '@noriginmedia/norigin-spatial-navigation';
+import { useNavigate } from 'react-router-dom';
 
 import StartIcon from '../../assets/icons/START.svg';
 import './ContentCard.css';
 
 function ContentCard({ item, index, totalItems, onFocus, onCardFocus, onSelect }) {
+  const navigate = useNavigate();
+
+  const handleCardSelect = () => {
+    if (onSelect) {
+      onSelect(item);
+    } else {
+      // Navigate to movie detail page
+      navigate(`/movie/${item.id}`);
+    }
+  };
+
   const { ref, focused } = useFocusable({
     focusKey: `CARD-${item.id}`,
-    onEnterPress: () => onSelect && onSelect(item),
+    onEnterPress: handleCardSelect,
     onFocus: (layout) => {
       if (onFocus) onFocus(layout);
       // Position card 2rem above the viewport floor.

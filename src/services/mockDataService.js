@@ -12,6 +12,13 @@ import everythingImg from '../assets/movie-img/c0ba1822a4d07f07daaa97b1d4a741540
 import minariImg from '../assets/movie-img/e64c099eb62683764d631aac905ea35506f1bd4b.png';
 import herobannerLogo from '../assets/icons/herobannerlogo.png';
 
+// Actor images for cast
+import actor1 from '../assets/movie-img/Card Image.png';
+import actor2 from '../assets/movie-img/Card Image (1).png';
+import actor3 from '../assets/movie-img/Card Image (2).png';
+import actor4 from '../assets/movie-img/Card Image (3).png';
+import actor5 from '../assets/movie-img/Card Image (4).png';
+
 // Shared values applied to every item
 const SHARED = {
   heroImage: avengersNewBackdrop,

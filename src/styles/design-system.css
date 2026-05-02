@@ -2,13 +2,54 @@
 /* SPlay TV - Design System CSS                  */
 /* ============================================= */
 
-/* 1. Font Family (SF Pro Display) */
+/* 1. Font Family (SF Pro Display) - Proper Font Loading */
 @font-face {
     font-family: 'SF Pro Display';
-    src: local('SF Pro Display'),
-        local('-apple-system'),
-        local('BlinkMacSystemFont');
+    src: local('SF Pro Display Regular'),
+         local('SFProDisplay-Regular'),
+         local('SF Pro Display'),
+         local('-apple-system');
+    font-weight: 400;
+    font-style: normal;
     font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: local('SF Pro Display Medium'),
+         local('SFProDisplay-Medium');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: local('SF Pro Display Semibold'),
+         local('SFProDisplay-Semibold');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: local('SF Pro Display Bold'),
+         local('SFProDisplay-Bold');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Global font enforcement - ALL text uses SF Pro Display */
+html,
+body,
+*,
+*::before,
+*::after {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    letter-spacing: normal !important;
+    font-feature-settings: "ss01", "ss02", "ss03", "ss06" !important;
 }
 
 :root {
@@ -94,67 +135,67 @@
     /* ====================== */
 
     /* Title 1 — 72px / 88px */
-    --title-1-regular: 4.5rem / 5.5rem 'SF Pro Display', system-ui, sans-serif;
-    --title-1-medium:  4.5rem / 5.5rem 'SF Pro Display', system-ui, sans-serif;
-    --title-1-bold:    4.5rem / 5.5rem 'SF Pro Display', system-ui, sans-serif;
+    --title-1-regular: 4.5rem / 5.5rem 'SF Pro Display';
+    --title-1-medium: 4.5rem / 5.5rem 'SF Pro Display';
+    --title-1-bold: 4.5rem / 5.5rem 'SF Pro Display';
 
     /* Title 2 — 64px / 76px */
-    --title-2-regular: 4rem / 4.75rem 'SF Pro Display', system-ui, sans-serif;
-    --title-2-medium:  4rem / 4.75rem 'SF Pro Display', system-ui, sans-serif;
-    --title-2-bold:    4rem / 4.75rem 'SF Pro Display', system-ui, sans-serif;
+    --title-2-regular: 4rem / 4.75rem 'SF Pro Display';
+    --title-2-medium: 4rem / 4.75rem 'SF Pro Display';
+    --title-2-bold: 4rem / 4.75rem 'SF Pro Display';
 
     /* Title 3 — 56px / 68px */
-    --title-3-regular: 3.5rem / 4.25rem 'SF Pro Display', system-ui, sans-serif;
-    --title-3-medium:  3.5rem / 4.25rem 'SF Pro Display', system-ui, sans-serif;
-    --title-3-bold:    3.5rem / 4.25rem 'SF Pro Display', system-ui, sans-serif;
+    --title-3-regular: 3.5rem / 4.25rem 'SF Pro Display';
+    --title-3-medium: 3.5rem / 4.25rem 'SF Pro Display';
+    --title-3-bold: 3.5rem / 4.25rem 'SF Pro Display';
 
     /* Heading 1 — 56px / 68px */
-    --heading-1-medium:   3.5rem / 4.25rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-1-semibold: 3.5rem / 4.25rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-1-bold:     3.5rem / 4.25rem 'SF Pro Display', system-ui, sans-serif;
+    --heading-1-medium: 3.5rem / 4.25rem 'SF Pro Display';
+    --heading-1-semibold: 3.5rem / 4.25rem 'SF Pro Display';
+    --heading-1-bold: 3.5rem / 4.25rem 'SF Pro Display';
 
     /* Heading 2 — 48px / 58px */
-    --heading-2-medium:   3rem / 3.625rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-2-semibold: 3rem / 3.625rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-2-bold:     3rem / 3.625rem 'SF Pro Display', system-ui, sans-serif;
+    --heading-2-medium: 3rem / 3.625rem 'SF Pro Display';
+    --heading-2-semibold: 3rem / 3.625rem 'SF Pro Display';
+    --heading-2-bold: 3rem / 3.625rem 'SF Pro Display';
 
     /* Heading 3 — 40px / 48px */
-    --heading-3-medium:   2.5rem / 3rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-3-semibold: 2.5rem / 3rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-3-bold:     2.5rem / 3rem 'SF Pro Display', system-ui, sans-serif;
+    --heading-3-medium: 2.5rem / 3rem 'SF Pro Display';
+    --heading-3-semibold: 2.5rem / 3rem 'SF Pro Display';
+    --heading-3-bold: 2.5rem / 3rem 'SF Pro Display';
 
     /* Heading 4 — 32px / 38px */
-    --heading-4-medium:   2rem / 2.375rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-4-semibold: 2rem / 2.375rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-4-bold:     2rem / 2.375rem 'SF Pro Display', system-ui, sans-serif;
+    --heading-4-medium: 2rem / 2.375rem 'SF Pro Display';
+    --heading-4-semibold: 2rem / 2.375rem 'SF Pro Display';
+    --heading-4-bold: 2rem / 2.375rem 'SF Pro Display';
 
     /* Heading 5 — 24px / 30px */
-    --heading-5-medium:   1.5rem / 1.875rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-5-semibold: 1.5rem / 1.875rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-5-bold:     1.5rem / 1.875rem 'SF Pro Display', system-ui, sans-serif;
+    --heading-5-medium: 1.5rem / 1.875rem 'SF Pro Display';
+    --heading-5-semibold: 1.5rem / 1.875rem 'SF Pro Display';
+    --heading-5-bold: 1.5rem / 1.875rem 'SF Pro Display';
 
     /* Heading 6 — 20px / 24px */
-    --heading-6-medium:   1.25rem / 1.5rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-6-semibold: 1.25rem / 1.5rem 'SF Pro Display', system-ui, sans-serif;
-    --heading-6-bold:     1.25rem / 1.5rem 'SF Pro Display', system-ui, sans-serif;
+    --heading-6-medium: 1.25rem / 1.5rem 'SF Pro Display';
+    --heading-6-semibold: 1.25rem / 1.5rem 'SF Pro Display';
+    --heading-6-bold: 1.25rem / 1.5rem 'SF Pro Display';
 
     /* Label 1 — 16px / 24px */
-    --label-1-regular:  1rem / 1.5rem 'SF Pro Display', system-ui, sans-serif;
-    --label-1-medium:   1rem / 1.5rem 'SF Pro Display', system-ui, sans-serif;
-    --label-1-semibold: 1rem / 1.5rem 'SF Pro Display', system-ui, sans-serif;
-    --label-1-bold:     1rem / 1.5rem 'SF Pro Display', system-ui, sans-serif;
+    --label-1-regular: 1rem / 1.5rem 'SF Pro Display';
+    --label-1-medium: 1rem / 1.5rem 'SF Pro Display';
+    --label-1-semibold: 1rem / 1.5rem 'SF Pro Display';
+    --label-1-bold: 1rem / 1.5rem 'SF Pro Display';
 
     /* Label 2 — 14px / 20px */
-    --label-2-regular:  0.875rem / 1.25rem 'SF Pro Display', system-ui, sans-serif;
-    --label-2-medium:   0.875rem / 1.25rem 'SF Pro Display', system-ui, sans-serif;
-    --label-2-semibold: 0.875rem / 1.25rem 'SF Pro Display', system-ui, sans-serif;
-    --label-2-bold:     0.875rem / 1.25rem 'SF Pro Display', system-ui, sans-serif;
+    --label-2-regular: 0.875rem / 1.25rem 'SF Pro Display';
+    --label-2-medium: 0.875rem / 1.25rem 'SF Pro Display';
+    --label-2-semibold: 0.875rem / 1.25rem 'SF Pro Display';
+    --label-2-bold: 0.875rem / 1.25rem 'SF Pro Display';
 
     /* Label 3 — 12px / 16px */
-    --label-3-regular:  0.75rem / 1rem 'SF Pro Display', system-ui, sans-serif;
-    --label-3-medium:   0.75rem / 1rem 'SF Pro Display', system-ui, sans-serif;
-    --label-3-semibold: 0.75rem / 1rem 'SF Pro Display', system-ui, sans-serif;
-    --label-3-bold:     0.75rem / 1rem 'SF Pro Display', system-ui, sans-serif;
+    --label-3-regular: 0.75rem / 1rem 'SF Pro Display';
+    --label-3-medium: 0.75rem / 1rem 'SF Pro Display';
+    --label-3-semibold: 0.75rem / 1rem 'SF Pro Display';
+    --label-3-bold: 0.75rem / 1rem 'SF Pro Display';
 }
 
 /* ====================== */
@@ -168,7 +209,7 @@
 
 body {
     margin: 0;
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'SF Pro Display';
     background-color: var(--color-bg-background);
     color: var(--color-fg-primary);
     -webkit-font-smoothing: antialiased;
@@ -179,43 +220,121 @@ body {
 /* TYPOGRAPHY CLASSES     */
 /* ====================== */
 
-.title-1         { font: var(--title-1-bold); }
-.title-1-medium  { font: var(--title-1-medium); }
-.title-1-regular { font: var(--title-1-regular); }
-.title-2         { font: var(--title-2-bold); }
-.title-2-medium  { font: var(--title-2-medium); }
-.title-3         { font: var(--title-3-bold); }
+.title-1 {
+    font: var(--title-1-bold);
+}
 
-.heading-1 { font: var(--heading-1-semibold); }
-.heading-2 { font: var(--heading-2-semibold); }
-.heading-3 { font: var(--heading-3-semibold); }
-.heading-4 { font: var(--heading-4-semibold); }
-.heading-5 { font: var(--heading-5-semibold); }
-.heading-6 { font: var(--heading-6-semibold); }
+.title-1-medium {
+    font: var(--title-1-medium);
+}
 
-.label-1      { font: var(--label-1-medium); }
-.label-1-bold { font: var(--label-1-bold); }
-.label-2      { font: var(--label-2-medium); }
-.label-3      { font: var(--label-3-medium); }
+.title-1-regular {
+    font: var(--title-1-regular);
+}
+
+.title-2 {
+    font: var(--title-2-bold);
+}
+
+.title-2-medium {
+    font: var(--title-2-medium);
+}
+
+.title-3 {
+    font: var(--title-3-bold);
+}
+
+.heading-1 {
+    font: var(--heading-1-semibold);
+}
+
+.heading-2 {
+    font: var(--heading-2-semibold);
+}
+
+.heading-3 {
+    font: var(--heading-3-semibold);
+}
+
+.heading-4 {
+    font: var(--heading-4-semibold);
+}
+
+.heading-5 {
+    font: var(--heading-5-semibold);
+}
+
+.heading-6 {
+    font: var(--heading-6-semibold);
+}
+
+.label-1 {
+    font: var(--label-1-medium);
+}
+
+.label-1-bold {
+    font: var(--label-1-bold);
+}
+
+.label-2 {
+    font: var(--label-2-medium);
+}
+
+.label-3 {
+    font: var(--label-3-medium);
+}
 
 /* ====================== */
 /* COLOR UTILITIES        */
 /* ====================== */
 
-.bg-background  { background-color: var(--color-bg-background); }
-.bg-surface     { background-color: var(--color-bg-surface); }
-.bg-on-surface  { background-color: var(--color-bg-on-surface); }
+.bg-background {
+    background-color: var(--color-bg-background);
+}
 
-.text-fg-primary   { color: var(--color-fg-primary); }
-.text-fg-secondary { color: var(--color-fg-secondary); }
-.text-fg-hint      { color: var(--color-fg-hint); }
-.text-accent       { color: var(--color-accent-primary); }
-.text-success      { color: var(--color-success-primary); }
-.text-error        { color: var(--color-error-primary); }
-.text-warning      { color: var(--color-warning-primary); }
+.bg-surface {
+    background-color: var(--color-bg-surface);
+}
 
-.border-primary { border-color: var(--color-border-primary); }
-.border-accent  { border-color: var(--color-accent-primary); }
+.bg-on-surface {
+    background-color: var(--color-bg-on-surface);
+}
+
+.text-fg-primary {
+    color: var(--color-fg-primary);
+}
+
+.text-fg-secondary {
+    color: var(--color-fg-secondary);
+}
+
+.text-fg-hint {
+    color: var(--color-fg-hint);
+}
+
+.text-accent {
+    color: var(--color-accent-primary);
+}
+
+.text-success {
+    color: var(--color-success-primary);
+}
+
+.text-error {
+    color: var(--color-error-primary);
+}
+
+.text-warning {
+    color: var(--color-warning-primary);
+}
+
+.border-primary {
+    border-color: var(--color-border-primary);
+}
+
+.border-accent {
+    border-color: var(--color-accent-primary);
+}
 
 /* Focus state for TV */
 .focusable:focus,

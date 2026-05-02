@@ -62,8 +62,7 @@ function ResendButton({ onPress }) {
       className={`sms-screen__resend${focused ? ' sms-screen__resend--focused' : ''}`}
       onClick={onPress}
     >
-      <img src={playIcon} alt="" className="sms-screen__resend-icon" aria-hidden="true" />
-      <span>Отправить код повторно</span>
+      <span className="span-resend">Отправить код повторно</span>
     </button>
   );
 }
@@ -228,7 +227,7 @@ function SmsVerificationScreen({
             <header className="sms-screen__header">
               <h1 className="sms-screen__title">Введите код из смс</h1>
               <p className="sms-screen__subtitle">
-                Мы отправили верификационный код на {email} введите этот код в поля ниже
+                Мы отправили верификационный код на <mark>{email}</mark> введите этот код в поля ниже
               </p>
             </header>
 

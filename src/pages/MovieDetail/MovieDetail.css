@@ -1,0 +1,211 @@
+/* src/pages/MovieDetail/MovieDetail.css */
+
+.movie-detail-page {
+  background-color: var(--base-black);
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Content Area - scrollable */
+.movie-detail-page__content {
+  padding: 3.5rem 4rem 4rem 4rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 45vh);
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep functionality */
+.movie-detail-page__content::-webkit-scrollbar {
+  display: none;
+}
+
+.movie-detail-page__content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Section Styles */
+.movie-detail-page__section {
+  margin-bottom: 3rem;
+}
+
+.movie-detail-page__section-title {
+  font: var(--heading-3-semibold);
+  color: var(--base-white);
+  margin-bottom: 1.5rem;
+}
+
+/* Description */
+.movie-detail-page__description {
+  font: var(--label-1-medium);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--color-fg-secondary);
+  max-width: 50rem;
+}
+
+/* Two Column Grid */
+.movie-detail-page__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 3rem;
+}
+
+.movie-detail-page__left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.movie-detail-page__meta-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.movie-detail-page__meta-label {
+  font: var(--label-1-medium);
+  color: var(--color-fg-secondary);
+  min-width: 10rem;
+}
+
+.movie-detail-page__meta-value {
+  font: var(--label-1-bold);
+  color: var(--base-white);
+}
+
+/* Metadata Box */
+.movie-detail-page__metadata {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.movie-detail-page__meta-box {
+  background: var(--base-neutral);
+  border-radius: 1rem;
+  padding: 2rem;
+  min-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.movie-detail-page__meta-box-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.movie-detail-page__meta-box-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.movie-detail-page__meta-box-label {
+  font: var(--label-1-medium);
+  color: var(--color-fg-secondary);
+}
+
+.movie-detail-page__meta-box-value {
+  font: var(--label-1-bold);
+  color: var(--base-white);
+}
+
+/* Reviews Section */
+.movie-detail-page__reviews {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.movie-detail-page__reviews::-webkit-scrollbar {
+  display: none;
+}
+
+.movie-detail-page__reviews {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.movie-detail-page__review {
+  background: var(--base-neutral);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  flex: 0 0 auto;
+  min-width: 22rem;
+  max-width: 28rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.movie-detail-page__review--highlighted {
+  border-color: var(--base-primary);
+}
+
+.movie-detail-page__review:focus-within {
+  border-color: var(--base-primary);
+  box-shadow: 0 0 0 0.4rem var(--base-primary);
+}
+
+.movie-detail-page__review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movie-detail-page__review-author {
+  font: var(--label-1-bold);
+  color: var(--base-white);
+}
+
+.movie-detail-page__review-date {
+  font: var(--label-2-medium);
+  color: var(--color-fg-secondary);
+}
+
+.movie-detail-page__review-rating {
+  font: var(--heading-4-bold);
+  color: var(--base-primary);
+}
+
+.movie-detail-page__review-text {
+  font: var(--label-1-medium);
+  color: var(--color-fg-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.movie-detail-page__review-btn {
+  background: var(--base-primary);
+  color: var(--base-white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font: var(--label-1-bold);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.15s ease;
+}
+
+.movie-detail-page__review-btn:focus {
+  box-shadow: 0 0 0 0.4rem var(--base-primary);
+  outline: none;
+}
+
+.movie-detail-page__review-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+/* Similar Section */
+.movie-detail-page__section--similar {
+  margin-top: 4rem;
+}

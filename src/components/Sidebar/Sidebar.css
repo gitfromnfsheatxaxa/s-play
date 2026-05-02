@@ -16,7 +16,7 @@
   padding-top: 2.5rem;
   padding-bottom: 2rem;
   background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.76987) 46%, rgba(1, 6, 20, 0) 100%);
-  transition: width 0.25s ease;
+  transition: width 0.2s ease-in;
 }
 
 /* ─── Expanded state ────────────────────────────────────────────────────────── */
@@ -85,7 +85,7 @@
 .nav-item {
   position: relative;
   width: 100%;
-  height: 4.375rem;
+  height: 6.5vh;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -125,8 +125,8 @@
 
 /* ─── Icon ──────────────────────────────────────────────────────────────────── */
 .nav-item__icon {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   flex-shrink: 0;
   display: flex;
   align-items: center;

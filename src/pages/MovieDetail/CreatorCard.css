@@ -1,0 +1,81 @@
+/* src/pages/MovieDetail/CreatorCard.css */
+
+.creators-row {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep functionality */
+.creators-row::-webkit-scrollbar {
+  display: none;
+}
+
+.creators-row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.creator-card {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: fit-content;
+  transition: all 0.15s ease;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.creator-card--focused {
+  background: var(--base-neutral);
+  border-color: var(--base-primary);
+  box-shadow: 0 0 0 0.4rem var(--base-primary);
+}
+
+.creator-card__circle {
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--base-neutral);
+  border: 3px solid transparent;
+}
+
+.creator-card--focused .creator-card__circle {
+  border-color: var(--base-primary);
+}
+
+.creator-card__circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.creator-card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.creator-card__name {
+  font: var(--label-1-bold);
+  color: var(--base-white);
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.creator-card__role {
+  font: var(--label-2-medium);
+  color: var(--color-fg-secondary);
+  font-size: 0.75rem;
+}
